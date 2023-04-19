@@ -91,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
         //Генерация полей для заполнения и заголовков в столбцах
         //TODO: прописать логику при введении значений в ячейку (OnTextChangeListener)
         int columnHeadersCounter = 0;
-        for (int i = 1; i <= size; ++i){
+        for (int i = 0; i < size; ++i){
             TableRow tr = (TableRow) inflater.inflate(R.layout.row_matrix_layout, null);
             TextView tv = (TextView)  inflater.inflate(R.layout.text_matrix_layout, null);
-            tv.setText(namesOfColumnsAndRows[columnHeadersCounter++].toUpperCase());
+            tv.setText(namesOfColumnsAndRows[i].toUpperCase());
             tr.addView(tv);
 
-            for (int j = 1; j <= size; ++j){
+            for (int j = 0; j < size; ++j){
                 View cell;
                 //Все элементы главной диагонали равны единице
                 if (j == i){
