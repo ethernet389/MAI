@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         inflater = getLayoutInflater();
     }
 
+    //Класс для взаимодействия параллельного потока и интерфейса
     class GenerateMatrixHandler extends Handler {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             container.addView(tl);
         }
     }
-
+    //Параллельный поток для создания матрицы
     class GenerateMatrixThread extends Thread{
         GenerateMatrixHandler handler;
         String[] names;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(firstRow);
 
         //Генерация полей для заполнения и заголовков в столбцах
+        //TODO: прописать логику при введении значений в ячейку (OnTextChangeListener)
         int columnHeadersCounter = 0;
         for (int i = 1; i <= size; ++i){
             TableRow tr = (TableRow) inflater.inflate(R.layout.row_matrix_layout, null);
