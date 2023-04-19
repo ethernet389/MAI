@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Класс для взаимодействия параллельного потока и интерфейса
+    @SuppressWarnings("deprecation")
+    @SuppressLint("HandlerLeak")
     class GenerateMatrixHandler extends Handler {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("InflateParams")
     private TableLayout generateSquareMatrixLayout(String[] names){
 
         String[] namesOfColumnsAndRows = new String[names.length];
@@ -78,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
         firstRow.addView(firstEmptyText);
 
         //Заполнение первой строки заголовками
-        for (int i = 0; i < size; ++i) {
+        for (String namesOfColumnsAndRow : namesOfColumnsAndRows) {
             TextView ft = (TextView) inflater.inflate(R.layout.text_matrix_layout, null);
-            ft.setText(namesOfColumnsAndRows[i].toUpperCase());
+            ft.setText(namesOfColumnsAndRow.toUpperCase());
             firstRow.addView(ft);
         }
         layout.addView(firstRow);
