@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             container.addView(tl);
         }
     }
-    //Параллельный поток для создания матрицы
+    //Класс параллельного потока для создания матрицы
     class GenerateMatrixThread extends Thread{
         GenerateMatrixHandler handler;
         String[] names;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            TableLayout tl = generateSquareMatrixLayout(names);
+            TableLayout tl = generateSquareMatrixTableLayout(names, 3);
             Message msg = new Message();
             msg.obj = tl;
             handler.sendMessage(msg);
@@ -65,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private TableLayout generateSquareMatrixLayout(String[] inputNames){
+    private TableLayout generateSquareMatrixTableLayout(String[] inputNames, int lengthOfName){
 
         String[] names = new String[inputNames.length];
         for (int i = 0; i < names.length; ++i){
-            names[i] = inputNames[i].substring(0, 3).toUpperCase();
+            names[i] = inputNames[i].substring(0, lengthOfName).toUpperCase();
         }
         final int size = names.length;
 
@@ -98,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
             for (int j = 0; j < size; ++j){
                 View cell;
-                //Все элементы главной диагонали равны единице
-                if (j == i){
+                //Все элементы главной диагонали матрицы равны единице
+                if (i == j){
                     cell = inflater.inflate(R.layout.text_matrix_layout, null);
                     ((TextView) cell).setText("1");
                 }
@@ -111,37 +110,12 @@ public class MainActivity extends AppCompatActivity {
             layout.addView(tr);
         }
 
-        //Создание логики для каждой клетки TextChangedListener
+        //Создание логики для каждого элемента матрицы (исключая главную диагональ и заголовки)
         for (int i = 1; i <= size; ++i){
             TableRow tr = (TableRow) layout.getChildAt(i);
             for (int j = 1; j <= size; ++j){
                 if (i == j) continue;
-                //Логика
-                /*
-                class EditTextWatcher implements TextWatcher{
-                    private final int i, j;
-
-                    public EditTextWatcher(int i, int j){
-                        this.i = i;
-                        this.j = j;
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
-                        EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
-
-                        String str = "1/" + s.toString();
-                        inverseEditText.setText(str);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {}
-                }*/
-
+                //Класс, обрабатывающий нажатие на клавиатуру телефона
                 class CellKeyListener implements View.OnKeyListener {
                     private final int i, j;
 
@@ -156,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
                             TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
                             EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
 
-                            //Действие на Backspace
-                            if (keyCode == KeyEvent.KEYCODE_DEL){
+                            //Действие на Backspace и на 0
+                            if (keyCode == KeyEvent.KEYCODE_DEL
+                            || keyCode == KeyEvent.KEYCODE_0){
                                 ((EditText) v).setText("");
                                 inverseEditText.setText("");
                                 return true;
@@ -170,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                                 s += "/" + ch;
                             }
 
-                            ((EditText) v).setText("" + ch);
+                            ((EditText) v).setText(Character.toString(ch));
                             inverseEditText.setText(s);
                             return true;
                         }
@@ -180,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
 
                 EditText et = (EditText) tr.getChildAt(j);
                 et.setOnKeyListener(new CellKeyListener(j, i));
-                Log.d("ADDED", et.getKeyListener().toString());
-                //et.addTextChangedListener(new EditTextWatcher(j, i));
             }
         }
         return layout;
