@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     LayoutInflater inflater;
 
-    public static final String[] criteria = new String[]{"L", "R"};
+    public static final String[] criteria = new String[]{"Location", "Reputation"};
     public static final String[] candidates = new String[]{"A", "B", "C"};
     public static final String ANSWER_FILENAME = "answer_txt";
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         GenerateMatrixHandler<FrameLayout> handler = new GenerateMatrixHandler<>(container);
         GenerateMatrixThread gmt =
                 new GenerateMatrixThread(
-                        handler, criteria, 1
+                        handler, criteria, 3
                 );
         gmt.start();
 
