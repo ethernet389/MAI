@@ -2,14 +2,17 @@ package com.example.mai2.main_programme;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Layout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     LayoutInflater inflater;
 
+    //Метод инициализации полей, связанных с разметкой
     private void initialize(){
         commandText = findViewById(R.id.command_text);
         container = findViewById(R.id.answer_matrix);
@@ -37,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
     //Класс для взаимодействия параллельного потока и интерфейса
     @SuppressWarnings("deprecation")
     @SuppressLint("HandlerLeak")
-    class GenerateMatrixHandler extends Handler {
+    static class GenerateMatrixHandler<T extends ViewGroup> extends Handler {
+        private final T container;
+
+        public GenerateMatrixHandler(T container){
+            this.container = container;
+        }
+
         @Override
         public void handleMessage(@NonNull Message msg) {
             TableLayout tl = (TableLayout) msg.obj;
@@ -45,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     //Класс параллельного потока для создания матрицы
+    @SuppressWarnings("rawtypes")
     class GenerateMatrixThread extends Thread{
         GenerateMatrixHandler handler;
         String[] names;
@@ -63,35 +74,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Метод генерации матрицы в TableLayout, учитывая имена и их порядок
     @SuppressLint("InflateParams")
     private TableLayout generateSquareMatrixTableLayout(String[] inputNames, int lengthOfName){
 
         String[] names = new String[inputNames.length];
+        //Укорачивание всех названий (имён) до lengthOfName
         for (int i = 0; i < names.length; ++i){
             names[i] = inputNames[i].substring(0, lengthOfName).toUpperCase();
         }
+        //Сокращения для частоиспользуемых переменных
         final int size = names.length;
+        final int rowLayoutId = R.layout.row_matrix_layout;
+        final int editLayoutId = R.layout.edit_text_matrix_layout;
+        final int textLayoutId = R.layout.text_matrix_layout;
+
 
         TableLayout layout = new TableLayout(this);
 
-        //Генерация первой строки матрицы
-        TableRow firstRow = (TableRow) inflater.inflate(R.layout.row_matrix_layout, null);
-        TextView firstEmptyText = (TextView) inflater.inflate(R.layout.text_matrix_layout, null);
+        //Генерация первой строки матрицы (заголовков)
+        TableRow firstRow = (TableRow) inflater.inflate(rowLayoutId, null);
+        TextView firstEmptyText = (TextView) inflater.inflate(textLayoutId, null);
         firstEmptyText.setText("   ");
         firstRow.addView(firstEmptyText);
 
         //Заполнение первой строки заголовками
         for (String name : names) {
-            TextView ft = (TextView) inflater.inflate(R.layout.text_matrix_layout, null);
+            TextView ft = (TextView) inflater.inflate(textLayoutId, null);
             ft.setText(name);
             firstRow.addView(ft);
         }
         layout.addView(firstRow);
 
-        //Генерация полей для заполнения и заголовков в столбцах
+        //Генерация полей для заполнения и заголовков в первом столбце
         for (int i = 0; i < size; ++i){
-            TableRow tr = (TableRow) inflater.inflate(R.layout.row_matrix_layout, null);
-            TextView tv = (TextView)  inflater.inflate(R.layout.text_matrix_layout, null);
+            TableRow tr = (TableRow) inflater.inflate(rowLayoutId, null);
+            TextView tv = (TextView)  inflater.inflate(textLayoutId, null);
             tv.setText(names[i]);
             tr.addView(tv);
 
@@ -99,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 View cell;
                 //Все элементы главной диагонали матрицы равны единице
                 if (i == j){
-                    cell = inflater.inflate(R.layout.text_matrix_layout, null);
+                    cell = inflater.inflate(textLayoutId, null);
                     ((TextView) cell).setText("1");
                 }
                 else {
-                    cell = inflater.inflate(R.layout.edit_text_matrix_layout, null);
+                    cell = inflater.inflate(editLayoutId, null);
                 }
                 tr.addView(cell);
             }
@@ -115,46 +133,8 @@ public class MainActivity extends AppCompatActivity {
             TableRow tr = (TableRow) layout.getChildAt(i);
             for (int j = 1; j <= size; ++j){
                 if (i == j) continue;
-                //Класс, обрабатывающий нажатие на клавиатуру телефона
-                class CellKeyListener implements View.OnKeyListener {
-                    private final int i, j;
-
-                    public CellKeyListener(int i, int j){
-                        this.i = i;
-                        this.j = j;
-                    }
-
-                    @Override
-                    public boolean onKey(View v, int keyCode, KeyEvent event) {
-                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                            TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
-                            EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
-
-                            //Действие на Backspace и на 0
-                            if (keyCode == KeyEvent.KEYCODE_DEL
-                            || keyCode == KeyEvent.KEYCODE_0){
-                                ((EditText) v).setText("");
-                                inverseEditText.setText("");
-                                return true;
-                            }
-
-                            //Действие для других клавиш
-                            String s = "1";
-                            char ch = ((char)event.getUnicodeChar());
-                            if (ch != '1'){
-                                s += "/" + ch;
-                            }
-
-                            ((EditText) v).setText(Character.toString(ch));
-                            inverseEditText.setText(s);
-                            return true;
-                        }
-                        return false;
-                    }
-                }
-
                 EditText et = (EditText) tr.getChildAt(j);
-                et.setOnKeyListener(new CellKeyListener(j, i));
+                et.setOnKeyListener(new CellKeyListener(layout, j, i));
             }
         }
         return layout;
@@ -166,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initialize();
 
-        GenerateMatrixHandler handler = new GenerateMatrixHandler();
-
+        GenerateMatrixHandler<FrameLayout> handler = new GenerateMatrixHandler<>(container);
         GenerateMatrixThread gmt =
                 new GenerateMatrixThread(
                         handler, new String[]{"Игу", "Мгу", "Политех"}
                 );
         gmt.start();
+
     }
 }
