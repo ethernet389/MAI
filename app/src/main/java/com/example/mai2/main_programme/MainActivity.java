@@ -2,14 +2,11 @@ package com.example.mai2.main_programme;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Layout;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +18,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.processing.OnNextClickListener;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
     TextView commandText;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     Button nextButton;
 
     LayoutInflater inflater;
+
+    public static final String[] criteria = new String[]{"L", "R"};
+    public static final String[] candidates = new String[]{"A", "B", "C"};
+    public static final String ANSWER_FILENAME = "answer_txt";
 
     //Метод инициализации полей, связанных с разметкой
     private void initialize(){
@@ -57,17 +64,21 @@ public class MainActivity extends AppCompatActivity {
     //Класс параллельного потока для создания матрицы
     @SuppressWarnings("rawtypes")
     class GenerateMatrixThread extends Thread{
-        GenerateMatrixHandler handler;
-        String[] names;
+        private GenerateMatrixHandler handler;
+        private String[] names;
+        private int lengthOfName;
 
-        public GenerateMatrixThread(GenerateMatrixHandler handler, String[] names){
+        public GenerateMatrixThread(GenerateMatrixHandler handler,
+                                    String[] names,
+                                    int lengthOfName){
             this.handler = handler;
             this.names = names.clone();
+            this.lengthOfName = lengthOfName;
         }
 
         @Override
         public void run() {
-            TableLayout tl = generateSquareMatrixTableLayout(names, 3);
+            TableLayout tl = generateSquareMatrixTableLayout(names, lengthOfName);
             Message msg = new Message();
             msg.obj = tl;
             handler.sendMessage(msg);
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Метод генерации матрицы в TableLayout, учитывая имена и их порядок
     @SuppressLint("InflateParams")
-    private TableLayout generateSquareMatrixTableLayout(String[] inputNames, int lengthOfName){
+    public TableLayout generateSquareMatrixTableLayout(String[] inputNames, int lengthOfName){
 
         String[] names = new String[inputNames.length];
         //Укорачивание всех названий (имён) до lengthOfName
@@ -149,9 +160,22 @@ public class MainActivity extends AppCompatActivity {
         GenerateMatrixHandler<FrameLayout> handler = new GenerateMatrixHandler<>(container);
         GenerateMatrixThread gmt =
                 new GenerateMatrixThread(
-                        handler, new String[]{"Игу", "Мгу", "Политех"}
+                        handler, criteria, 1
                 );
         gmt.start();
 
+        try {
+            BufferedWriter bw = new BufferedWriter(
+                 new OutputStreamWriter(
+                         openFileOutput(ANSWER_FILENAME, MODE_APPEND)
+                 )
+            );
+
+            nextButton.setOnClickListener(new OnNextClickListener(
+                    (TableLayout) container.getChildAt(0), bw, candidates
+            ));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
