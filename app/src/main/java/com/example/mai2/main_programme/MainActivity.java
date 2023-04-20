@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -65,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private TableLayout generateSquareMatrixLayout(String[] names){
+    private TableLayout generateSquareMatrixLayout(String[] inputNames){
 
-        String[] namesOfColumnsAndRows = new String[names.length];
-        for (int i = 0; i < namesOfColumnsAndRows.length; ++i){
-            namesOfColumnsAndRows[i] = names[i].substring(0, 3).toUpperCase();
+        String[] names = new String[inputNames.length];
+        for (int i = 0; i < names.length; ++i){
+            names[i] = inputNames[i].substring(0, 3).toUpperCase();
         }
-        final int size = namesOfColumnsAndRows.length;
+        final int size = names.length;
+
         TableLayout layout = new TableLayout(this);
 
         //Генерация первой строки матрицы
@@ -81,20 +82,18 @@ public class MainActivity extends AppCompatActivity {
         firstRow.addView(firstEmptyText);
 
         //Заполнение первой строки заголовками
-        for (String namesOfColumnsAndRow : namesOfColumnsAndRows) {
+        for (String name : names) {
             TextView ft = (TextView) inflater.inflate(R.layout.text_matrix_layout, null);
-            ft.setText(namesOfColumnsAndRow.toUpperCase());
+            ft.setText(name);
             firstRow.addView(ft);
         }
         layout.addView(firstRow);
 
         //Генерация полей для заполнения и заголовков в столбцах
-        //TODO: прописать логику при введении значений в ячейку (OnTextChangeListener)
-        int columnHeadersCounter = 0;
         for (int i = 0; i < size; ++i){
             TableRow tr = (TableRow) inflater.inflate(R.layout.row_matrix_layout, null);
             TextView tv = (TextView)  inflater.inflate(R.layout.text_matrix_layout, null);
-            tv.setText(namesOfColumnsAndRows[i].toUpperCase());
+            tv.setText(names[i]);
             tr.addView(tv);
 
             for (int j = 0; j < size; ++j){
@@ -111,6 +110,80 @@ public class MainActivity extends AppCompatActivity {
             }
             layout.addView(tr);
         }
+
+        //Создание логики для каждой клетки TextChangedListener
+        for (int i = 1; i <= size; ++i){
+            TableRow tr = (TableRow) layout.getChildAt(i);
+            for (int j = 1; j <= size; ++j){
+                if (i == j) continue;
+                //Логика
+                /*
+                class EditTextWatcher implements TextWatcher{
+                    private final int i, j;
+
+                    public EditTextWatcher(int i, int j){
+                        this.i = i;
+                        this.j = j;
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
+                        EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
+
+                        String str = "1/" + s.toString();
+                        inverseEditText.setText(str);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {}
+                }*/
+
+                class CellKeyListener implements View.OnKeyListener {
+                    private final int i, j;
+
+                    public CellKeyListener(int i, int j){
+                        this.i = i;
+                        this.j = j;
+                    }
+
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
+                            EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
+
+                            //Действие на Backspace
+                            if (keyCode == KeyEvent.KEYCODE_DEL){
+                                ((EditText) v).setText("");
+                                inverseEditText.setText("");
+                                return true;
+                            }
+
+                            //Действие для других клавиш
+                            String s = "1";
+                            char ch = ((char)event.getUnicodeChar());
+                            if (ch != '1'){
+                                s += "/" + ch;
+                            }
+
+                            ((EditText) v).setText("" + ch);
+                            inverseEditText.setText(s);
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+
+                EditText et = (EditText) tr.getChildAt(j);
+                et.setOnKeyListener(new CellKeyListener(j, i));
+                Log.d("ADDED", et.getKeyListener().toString());
+                //et.addTextChangedListener(new EditTextWatcher(j, i));
+            }
+        }
         return layout;
     }
 
@@ -124,8 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
         GenerateMatrixThread gmt =
                 new GenerateMatrixThread(
-                        handler, new String[]{"Игу", "Мгу", "Политех", "Игу", "Мгу", "Политех","Игу", "Мгу", "Политех",
-                        "Игу", "Мгу", "Политех", "Игу", "Мгу", "Политех","Игу", "Мгу", "Политех"}
+                        handler, new String[]{"Игу", "Мгу", "Политех"}
                 );
         gmt.start();
     }
