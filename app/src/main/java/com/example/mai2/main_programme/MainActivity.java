@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     LayoutInflater inflater;
 
-    public static final String[] criteria = new String[]{"Location", "Reputation"};
+    public static final String[] criteria = new String[]{"Location", "Reputation", "Ambition", "Interes", "Art", "Header"};
     public static final String[] candidates = new String[]{"A", "B", "C"};
     public static final String ANSWER_FILENAME = "answer_txt";
 

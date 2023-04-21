@@ -10,7 +10,7 @@
         android:id="@+id/command_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Указание"
+        android:text=""
         android:textSize="30sp"
         android:layout_margin="10dp"
         android:padding="20dp"
@@ -20,12 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/next_button"
-        android:layout_marginBottom="100dp">
+        app:layout_constraintBottom_toTopOf="@id/next_button">
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
