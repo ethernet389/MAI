@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.processing.OnNextClickListener;
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     (TableLayout) container.getChildAt(0), bw, candidates
             ));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

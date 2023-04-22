@@ -18,7 +18,9 @@ public class OnNextClickListener implements View.OnClickListener {
 
     private  final String[] candidates;
 
-    public OnNextClickListener(TableLayout layout, BufferedWriter bw, String[] candidates){
+    public OnNextClickListener(TableLayout layout,
+                               BufferedWriter bw,
+                               String[] candidates){
         this.layout = layout;
         this.bw = bw;
         this.matrixOfCriteriaWas = false;
