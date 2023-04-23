@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme;
+package com.example.mai2.main_programme.main_activity;
 
 import android.util.Log;
 import android.view.KeyEvent;

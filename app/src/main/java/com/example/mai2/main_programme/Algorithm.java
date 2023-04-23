@@ -10,6 +10,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.main_activity.CellKeyListener;
 
 import java.text.ParseException;
 
@@ -82,6 +83,18 @@ public class Algorithm {
             }
         }
         return layout;
+    }
+
+    //Очистка матрицы от введённых значений
+    static public void clearMatrix(TableLayout layout){
+        for (int i = 1; i < layout.getChildCount(); ++i){
+            TableRow tr = (TableRow) layout.getChildAt(i);
+            for (int j = 1; j < tr.getChildCount(); ++j){
+                if (i == j) continue;
+                EditText et = (EditText) tr.getChildAt(j);
+                et.setText("");
+            }
+        }
     }
 
     //Парсер для матрицы
