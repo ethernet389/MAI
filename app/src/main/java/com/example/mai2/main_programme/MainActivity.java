@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         BufferedWriter bw = new BufferedWriter(
                                 new OutputStreamWriter(
-                                        getApplicationContext().openFileOutput(ANSWER_FILENAME, MODE_APPEND)
+                                        MainActivity.this.openFileOutput(ANSWER_FILENAME, MODE_APPEND)
                                 )
                         );
                         bw.write(Algorithm.matrixToString(tl));
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         public GenerateMatrixThread(String[] names, int lengthOfName){
             this.handler = new GenerateMatrixHandler();
 
-            this.context = getApplicationContext();
+            this.context = MainActivity.this;
             this.localInflater = inflater;
             this.names = names.clone();
             this.lengthOfName = lengthOfName;
