@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme;
+package com.example.mai2.main_programme.result_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

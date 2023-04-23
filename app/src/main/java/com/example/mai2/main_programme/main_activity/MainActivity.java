@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Algorithm;
-import com.example.mai2.main_programme.ResultActivity;
+import com.example.mai2.main_programme.result_activity.ResultActivity;
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                             MainActivity.this.startActivity(intent);
                             MainActivity.this.finishActivity(200);
-                            return;
                         }
                     }
                 }
