@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.Arrays;
 
@@ -40,6 +41,12 @@ public class CellKeyListener implements View.OnKeyListener {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
             EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
+
+            //Обработка Backspace
+            if (keyCode == KeyEvent.KEYCODE_DEL){
+                ((EditText) v).setText("");
+                inverseEditText.setText("");
+            }
 
             //Обработка запрещённых клавиш (не устраняет случаи вставки текста через буфер обмена)
             if (!keyCodeInWhiteList(keyCode)) return true;
