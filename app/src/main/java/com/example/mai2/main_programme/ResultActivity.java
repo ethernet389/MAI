@@ -11,7 +11,6 @@ import com.example.mai2.main_programme.main_activity.MainActivity;
 import com.example.mai2.main_programme.math.Buffer;
 import com.example.mai2.main_programme.math.CalculatingClass;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -43,7 +42,7 @@ public class ResultActivity extends AppCompatActivity {
             //Так как double записан через точку, а не через запятую
             data.useLocale(Locale.CANADA);
 
-            Buffer buffer = CalculatingClass.completeTask(data);
+            Buffer buffer = CalculatingClass.calculate(data);
             relativeWeightsOfEachCandidateForEachOfCriteria
                     .setText("Relative Weights Of Each Candidate For Each Of Criteria: \n");
             for (double[] list : buffer.relativeWeightsOfEachCandidateForEachOfCriteria){

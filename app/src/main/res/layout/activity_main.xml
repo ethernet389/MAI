@@ -21,10 +21,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/next_button">
+        app:layout_constraintBottom_toTopOf="@id/next_button"
+        app:layout_constraintTop_toBottomOf="@id/command_text">
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

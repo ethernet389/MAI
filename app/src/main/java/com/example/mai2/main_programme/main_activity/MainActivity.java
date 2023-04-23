@@ -31,8 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
     LayoutInflater inflater;
 
-    public static final String[] CRITERIA = new String[]{"Местонахождение", "Репутация"};
-    public static final String[] CANDIDATES = new String[]{"ИГУ", "ИрНИТУ", "ИрГУПС"};
+    public static final String[] CRITERIA = new String[]
+            {
+                    "Наличие интересующего направления",
+                    "Качество обучения",
+                    "Перспектива трудоустройства",
+                    "Количество бюджетных мест",
+                    "Приблизительный проходной балл",
+                    "Организация практики"
+            };
+    public static final String[] CANDIDATES = new String[]{
+            "ИГУ", "ИрНИТУ", "ИрГУПС"
+    };
     public static final String ANSWER_FILENAME = "answer_txt";
 
     //Метод инициализации полей, связанных с разметкой

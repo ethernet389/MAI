@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public final class CalculatingClass {
     //Решение задачи для одного человека (один уровень критериев)
-    static public Buffer completeTask(Scanner data){
+    static public Buffer calculate(Scanner data){
         //Буфер для хранения данных
         Buffer buffer = new Buffer();
 
