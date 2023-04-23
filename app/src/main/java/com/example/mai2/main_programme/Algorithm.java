@@ -116,16 +116,15 @@ public class Algorithm {
                 double num;
                 if (cellText.length() > 1) {
                     //Обработка случая вставки через буфер
-                    if (cellText.charAt(1) != '/'){
+                    if (cellText.charAt(1) != '/' || cellText.charAt(0) != '1'){
                         throw new NumberFormatException(
                                 "Неправильный формат числа: (" + i + ", " + j + ")"
                         );
                     }
 
-                    double firstNum, secondNum;
-                    firstNum = Double.parseDouble("" + cellText.charAt(0));
-                    secondNum = Double.parseDouble("" + cellText.charAt(2));
-                    num = firstNum / secondNum;
+                    double denominator;
+                    denominator = Double.parseDouble("" + cellText.charAt(2));
+                    num = 1 / denominator;
                 }
                 else {
                     num = Double.parseDouble("" + cellText.charAt(0));
