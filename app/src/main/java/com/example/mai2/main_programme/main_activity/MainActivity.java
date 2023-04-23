@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 return;
                             }
+                            //Смена вопроса (указания)
+                            String text = getString(R.string.command_text_template) + CRITERIA[candidatesCount];
+                            commandText.setText(text);
 
                             //Генерация матрицы кандидатов
                             GenerateMatrixThread gmt = new GenerateMatrixThread(CANDIDATES, 3);
@@ -113,8 +116,16 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 return;
                             }
+
+                            //Очистка матрицы
                             Algorithm.clearMatrix(tl);
+
+                            //Обновление вопроса (указания)
                             ++candidatesCount;
+                            if (candidatesCount < CRITERIA.length) {
+                                String text = getString(R.string.command_text_template) + CRITERIA[candidatesCount];
+                                commandText.setText(text);
+                            }
                         }
 
                         //Запись ответа в файл
@@ -134,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         if (candidatesCount == CRITERIA.length)  {
                             Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                             MainActivity.this.startActivity(intent);
-                            MainActivity.this.finishActivity(200);
+                            MainActivity.this.finish();
                         }
                     }
                 }

@@ -18,13 +18,13 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ResultActivity extends AppCompatActivity {
-    TextView relativeWeightsOfEachCandidateForEachOfCriteria;
-    TextView CI_RI_CR;
+    TextView result;
+    TextView koeff;
 
     private void initialize(){
-        relativeWeightsOfEachCandidateForEachOfCriteria =
-                findViewById(R.id.relative_weights_of_each_candidate_for_each_of_criteria);
-        CI_RI_CR = findViewById(R.id.ci_ri_cr);
+        result =
+                findViewById(R.id.result_of_matrix);
+        koeff = findViewById(R.id.ci_ri_cr);
     }
 
     @Override
@@ -43,11 +43,15 @@ public class ResultActivity extends AppCompatActivity {
             data.useLocale(Locale.CANADA);
 
             Buffer buffer = CalculatingClass.calculate(data);
-            relativeWeightsOfEachCandidateForEachOfCriteria
-                    .setText("Relative Weights Of Each Candidate For Each Of Criteria: \n");
-            for (double[] list : buffer.relativeWeightsOfEachCandidateForEachOfCriteria){
-                relativeWeightsOfEachCandidateForEachOfCriteria.append(Arrays.toString(list));
-                relativeWeightsOfEachCandidateForEachOfCriteria.append("\n\n");
+            for (String university : MainActivity.CANDIDATES) result.append(university + " ");
+            result.append("\n");
+
+            for (int i = 0; i < buffer.relativeWeightsOfEachCandidateForEachOfCriteria.size(); ++i){
+                result.append(MainActivity.CRITERIA[i] + "\n");
+                result.append(Arrays.toString(
+                        buffer.relativeWeightsOfEachCandidateForEachOfCriteria.get(i)
+                ));
+                result.append("\n\n");
             }
 
         } catch (FileNotFoundException e) {

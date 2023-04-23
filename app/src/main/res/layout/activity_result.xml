@@ -7,7 +7,7 @@
     tools:context=".main_programme.result_activity.ResultActivity">
 
     <TextView
-        android:id="@+id/relative_weights_of_each_candidate_for_each_of_criteria"
+        android:id="@+id/result_of_matrix"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -15,7 +15,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/relative_weights_of_each_candidate_for_each_of_criteria">
+        app:layout_constraintTop_toBottomOf="@id/result_of_matrix">
         <TextView
             android:id="@+id/ci_ri_cr"
             android:layout_width="wrap_content"

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MAI2</string>
+    <string name="criteria_relative">Отношение критериев</string>
+    <string name="command_text_template">Отношение учебных заведений по критерию: \n</string>
 </resources>
