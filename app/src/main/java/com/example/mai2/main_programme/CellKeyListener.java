@@ -3,6 +3,7 @@ package com.example.mai2.main_programme;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,16 +14,15 @@ import java.util.Arrays;
 public class CellKeyListener implements View.OnKeyListener {
     private final TableLayout layout;
     private final int i, j;
-    private static final int[] KEYCODE_BLACK_LIST
-            = new int[]{KeyEvent.KEYCODE_DEL,
-            KeyEvent.KEYCODE_0,
-            KeyEvent.KEYCODE_ENTER,
-            KeyEvent.KEYCODE_NUMPAD_DOT,
-            KeyEvent.KEYCODE_NUMPAD_COMMA};
+    private static final int[] KEYCODE_WHITELIST;
 
     static {
-        //Сортировка для бинарного поиска
-        Arrays.sort(KEYCODE_BLACK_LIST);
+        //Генерация разрешённого массива (1, 2, 3, 4, 5, 6, 7, 8, 9)
+        KEYCODE_WHITELIST = new int[9];
+        int startKeyCode = KeyEvent.KEYCODE_1;
+        for (int i = 0; i < KEYCODE_WHITELIST.length; ++i){
+            KEYCODE_WHITELIST[i] = startKeyCode + i;
+        }
     }
 
     public CellKeyListener(TableLayout layout, int i, int j){
@@ -31,9 +31,8 @@ public class CellKeyListener implements View.OnKeyListener {
         this.j = j;
     }
 
-    private boolean keyCodeInBlackList(int keyCode){
-        boolean status = Arrays.binarySearch(KEYCODE_BLACK_LIST, keyCode) >= 0;
-        return status;
+    private boolean keyCodeInWhiteList(int keyCode){
+        return Arrays.binarySearch(KEYCODE_WHITELIST, keyCode) >= 0;
     }
 
     @Override
@@ -42,14 +41,10 @@ public class CellKeyListener implements View.OnKeyListener {
             TableRow inverseTableRow = (TableRow) layout.getChildAt(i);
             EditText inverseEditText = (EditText) inverseTableRow.getChildAt(j);
 
-            //Действие на запрещённые клавиши
-            if (keyCodeInBlackList(keyCode)){
-                ((EditText) v).setText("");
-                inverseEditText.setText("");
-                return true;
-            }
+            //Обработка запрещённых клавиш (не устраняет случаи вставки текста через буфер обмена)
+            if (!keyCodeInWhiteList(keyCode)) return true;
 
-            //Действие для других клавиш
+            //Действие для разрешённых клавиш
             String s = "1";
             char ch = ((char)event.getUnicodeChar());
             if (ch != '1'){

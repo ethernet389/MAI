@@ -4,8 +4,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.ParseException;
+
 public class MatrixStringParser {
-    static public String parseString(TableLayout layout){
+    static public String parseStringFromMatrix(TableLayout layout) throws ParseException {
         StringBuilder ret = new StringBuilder();
 
         for (int i = 1; i < layout.getChildCount(); ++i){
@@ -13,6 +15,11 @@ public class MatrixStringParser {
             for (int j = 1; j < tr.getChildCount(); ++j){
                 TextView cell = (TextView) tr.getChildAt(j);
                 String cellText = cell.getText().toString();
+
+                //Обработка случая, когда не все клетки заполнены
+                if (cellText.isEmpty()){
+                    throw new ParseException("Matrix have empty cell in line", i);
+                }
 
                 //Вычисление числа (Преобразование из строки в число)
                 double num;
