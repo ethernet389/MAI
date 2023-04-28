@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Algorithm;
+import com.example.mai2.main_programme.Constants;
+import com.example.mai2.main_programme.ParseMatrixException;
 import com.example.mai2.main_programme.result_activity.ResultActivity;
 
 import java.io.BufferedWriter;
@@ -30,20 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button nextButton;
 
     LayoutInflater inflater;
-
-    public static final String[] CRITERIA = new String[]
-            {
-                    "Наличие интересующего направления",
-                    "Качество обучения",
-                    "Перспектива трудоустройства",
-                    "Количество бюджетных мест",
-                    "Приблизительный проходной балл",
-                    "Организация практики"
-            };
-    public static final String[] CANDIDATES = new String[]{
-            "ИГУ", "ИрНИТУ", "ИрГУПС"
-    };
-    public static final String ANSWER_FILENAME = "answer_txt";
 
     //Метод инициализации полей, связанных с разметкой
     private void initialize(){
@@ -69,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     BufferedWriter bw = new BufferedWriter(
                             new OutputStreamWriter(
-                                    openFileOutput(ANSWER_FILENAME, MODE_PRIVATE)
+                                    openFileOutput(Constants.ANSWER_FILENAME, MODE_PRIVATE)
                             )
                     );
                     bw.write("");
@@ -88,31 +76,31 @@ public class MainActivity extends AppCompatActivity {
                         StringBuilder res = new StringBuilder();
                         //Сценарий для матрицы критериев
                         if (!criteriaMatrixWas){
-                            res.append(CRITERIA.length).append(" ");
+                            res.append(Constants.CRITERIA.length).append(" ");
                             try {
                                 res.append(Algorithm.matrixToString(tl));
-                            } catch (Exception e) {
+                            } catch (ParseMatrixException e) {
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             //Смена вопроса (указания)
-                            String text = getString(R.string.command_text_template) + CRITERIA[candidatesCount];
+                            String text = getString(R.string.command_text_template) + Constants.CRITERIA[candidatesCount];
                             commandText.setText(text);
 
                             //Генерация матрицы кандидатов
-                            GenerateMatrixThread gmt = new GenerateMatrixThread(CANDIDATES, 3);
+                            GenerateMatrixThread gmt = new GenerateMatrixThread(Constants.CANDIDATES, 3);
                             gmt.start();
 
                             criteriaMatrixWas = true;
                         }
 
                         //Сценарий для матриц кандидатов
-                        else if (candidatesCount < CRITERIA.length){
+                        else if (candidatesCount < Constants.CRITERIA.length){
                             TableLayout tl = (TableLayout) container.getChildAt(0);
-                            if (candidatesCount == 0) res.append(CANDIDATES.length).append(" ");
+                            if (candidatesCount == 0) res.append(Constants.CANDIDATES.length).append(" ");
                             try {
                                 res.append(Algorithm.matrixToString(tl)).append(" ");
-                            } catch (Exception e) {
+                            } catch (ParseMatrixException e) {
                                 Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -122,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
                             //Обновление вопроса (указания)
                             ++candidatesCount;
-                            if (candidatesCount < CRITERIA.length) {
-                                String text = getString(R.string.command_text_template) + CRITERIA[candidatesCount];
+                            if (candidatesCount < Constants.CRITERIA.length) {
+                                String text = getString(R.string.command_text_template) + Constants.CRITERIA[candidatesCount];
                                 commandText.setText(text);
                             }
                         }
@@ -132,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             BufferedWriter bw = new BufferedWriter(
                                     new OutputStreamWriter(
-                                            openFileOutput(ANSWER_FILENAME, MODE_APPEND)
+                                            openFileOutput(Constants.ANSWER_FILENAME, MODE_APPEND)
                                     )
                             );
                             bw.write(res.toString());
@@ -142,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         //Переход к просмотру результатов
-                        if (candidatesCount == CRITERIA.length)  {
+                        if (candidatesCount == Constants.CRITERIA.length)  {
                             Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                             MainActivity.this.startActivity(intent);
                             MainActivity.this.finish();
@@ -195,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         initialize();
 
         GenerateMatrixThread gmt =
-                new GenerateMatrixThread(CRITERIA, 3);
+                new GenerateMatrixThread(Constants.CRITERIA, 3);
         gmt.start();
     }
 }

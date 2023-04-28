@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.main_activity.CellKeyListener;
+import com.example.mai2.main_programme.main_activity.HeaderClickListener;
 
 import java.text.ParseException;
 
@@ -33,7 +34,6 @@ public class Algorithm {
         final int rowLayoutId = R.layout.row_matrix_layout;
         final int editLayoutId = R.layout.edit_text_matrix_layout;
         final int textLayoutId = R.layout.text_matrix_layout;
-
 
         TableLayout layout = new TableLayout(context);
 
@@ -73,7 +73,21 @@ public class Algorithm {
             layout.addView(tr);
         }
 
-        //Создание логики для каждого элемента матрицы (исключая главную диагональ и заголовки)
+        //Строка с заголовками (нулевая строка матрицы)
+        TableRow firstHeaderRow = (TableRow) layout.getChildAt(0);
+        for (int j = 1; j <= size; ++j){
+            TextView tv = (TextView) firstHeaderRow.getChildAt(j);
+            tv.setOnClickListener(new HeaderClickListener(context, inputNames[j - 1]));
+        }
+
+        //Строка с заголовками (нулевой столбец матрицы)
+        for (int i = 1; i <= size; ++i){
+            TableRow headerRow = (TableRow) layout.getChildAt(i);
+            TextView tv = (TextView) headerRow.getChildAt(0);
+            tv.setOnClickListener(new HeaderClickListener(context, inputNames[i - 1]));
+        }
+
+        //Форма для заполнения
         for (int i = 1; i <= size; ++i){
             TableRow tr = (TableRow) layout.getChildAt(i);
             for (int j = 1; j <= size; ++j){
@@ -98,7 +112,8 @@ public class Algorithm {
     }
 
     //Парсер для матрицы
-    static public String matrixToString(TableLayout layout) throws ParseException {
+    static public String matrixToString(TableLayout layout)
+            throws ParseMatrixException {
         StringBuilder ret = new StringBuilder();
 
         for (int i = 1; i < layout.getChildCount(); ++i){
@@ -109,7 +124,7 @@ public class Algorithm {
 
                 //Обработка случая, когда не все клетки заполнены
                 if (cellText.isEmpty()){
-                    throw new ParseException("Есть пустая ячейка: (" + i + ", " + j + ")", -1);
+                    throw new ParseMatrixException("Есть пустая ячейка", i, j);
                 }
 
                 //Вычисление числа (Преобразование строки в число)
@@ -117,9 +132,7 @@ public class Algorithm {
                 if (cellText.length() > 1) {
                     //Обработка случая вставки через буфер
                     if (cellText.charAt(1) != '/' || cellText.charAt(0) != '1'){
-                        throw new NumberFormatException(
-                                "Неправильный формат числа: (" + i + ", " + j + ")"
-                        );
+                        throw new ParseMatrixException("Неправильный формат числа", i, j);
                     }
 
                     double denominator;

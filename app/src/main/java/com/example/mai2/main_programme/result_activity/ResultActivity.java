@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.main_activity.MainActivity;
+import com.example.mai2.main_programme.Constants;
 import com.example.mai2.main_programme.math.Buffer;
 import com.example.mai2.main_programme.math.CalculatingClass;
 
@@ -36,18 +36,18 @@ public class ResultActivity extends AppCompatActivity {
         try {
             Scanner data = new Scanner(
                     new InputStreamReader(
-                            openFileInput(MainActivity.ANSWER_FILENAME)
+                            openFileInput(Constants.ANSWER_FILENAME)
                     )
             );
             //Так как double записан через точку, а не через запятую
             data.useLocale(Locale.CANADA);
 
             Buffer buffer = CalculatingClass.calculate(data);
-            for (String university : MainActivity.CANDIDATES) result.append(university + " ");
+            for (String university : Constants.CANDIDATES) result.append(university + " ");
             result.append("\n");
 
             for (int i = 0; i < buffer.relativeWeightsOfEachCandidateForEachOfCriteria.size(); ++i){
-                result.append(MainActivity.CRITERIA[i] + "\n");
+                result.append(Constants.CRITERIA[i] + "\n");
                 result.append(Arrays.toString(
                         buffer.relativeWeightsOfEachCandidateForEachOfCriteria.get(i)
                 ));
