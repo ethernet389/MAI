@@ -2,6 +2,7 @@ package com.example.mai2.main_programme.algorithm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ public class Algorithm {
             LayoutInflater inflater,
             String[] inputNames,
             int lengthOfName,
-            int emptyCellColor){
+            Drawable cellBackground){
 
         String[] names = new String[inputNames.length];
         //Укорачивание всех названий (имён) до lengthOfName
@@ -67,7 +68,7 @@ public class Algorithm {
                 }
                 else {
                     cell = inflater.inflate(editLayoutId, null);
-                    cell.setBackgroundColor(emptyCellColor);
+                    cell.setBackground(cellBackground);
                 }
                 tr.addView(cell);
             }

@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         inflater = getLayoutInflater();
     }
 
+    //Метод для смены цвета ячейки при неправильном заполнении (подсказка пользователю)
     private void changeCellColorOnParseException(TableLayout tl, ParseMatrixException e){
         TableRow tr, inverseTr;
         EditText et, inverseEt;
@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                int exceptionColor = getColor(R.color.parse_exception_red);
-                et.setBackgroundColor(exceptionColor);
-                inverseEt.setBackgroundColor(exceptionColor);
+                Drawable exceptionBackground = getDrawable(R.drawable.exception_red_cell_shape);
+                et.setBackground(exceptionBackground);
+                inverseEt.setBackground(exceptionBackground);
             }
 
             @Override
             public void onFinish() {
-                int normalColor = getColor(R.color.empty_cell_gray);
-                et.setBackgroundColor(normalColor);
-                inverseEt.setBackgroundColor(normalColor);
+                Drawable emptyBackground = getDrawable(R.drawable.empty_cell_shape);
+                et.setBackground(emptyBackground);
+                inverseEt.setBackground(emptyBackground);
             }
         }.start();
 
@@ -198,11 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            int emptyCellColor = getColor(R.color.empty_cell_gray);
+            Drawable cellBackground = getDrawable(R.drawable.empty_cell_shape);
 
             TableLayout tl =
                     Algorithm.generateSquareMatrixTableLayout(
-                        context, localInflater, names, lengthOfName, emptyCellColor
+                        context, localInflater, names, lengthOfName, cellBackground
                     );
             Message msg = new Message();
             msg.obj = tl;
