@@ -6,21 +6,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.Algorithm;
+import com.example.mai2.main_programme.algorithm.Algorithm;
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.ParseMatrixException;
+import com.example.mai2.main_programme.algorithm.ParseMatrixException;
 import com.example.mai2.main_programme.result_activity.ResultActivity;
 
 import java.io.BufferedWriter;
@@ -41,6 +46,35 @@ public class MainActivity extends AppCompatActivity {
         inflater = getLayoutInflater();
     }
 
+    private void changeCellColorOnParseException(TableLayout tl, ParseMatrixException e){
+        TableRow tr, inverseTr;
+        EditText et, inverseEt;
+        tr = (TableRow) tl.getChildAt(e.getRow());
+        inverseTr = (TableRow) tl.getChildAt(e.getColumn());
+        et = (EditText) tr.getChildAt(e.getColumn());
+        inverseEt = (EditText) inverseTr.getChildAt(e.getRow());
+
+        new CountDownTimer(Constants.millisOfChangeColorCell,
+                Constants.millisOfChangeColorCell){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int exceptionColor = getColor(R.color.parse_exception_red);
+                et.setBackgroundColor(exceptionColor);
+                inverseEt.setBackgroundColor(exceptionColor);
+            }
+
+            @Override
+            public void onFinish() {
+                int normalColor = getColor(R.color.empty_cell_gray);
+                et.setBackgroundColor(normalColor);
+                inverseEt.setBackgroundColor(normalColor);
+            }
+        }.start();
+
+        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
     //Класс для взаимодействия параллельного потока и интерфейса
     private boolean buttonIsClickable = false;
     @SuppressWarnings("deprecation")
@@ -51,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             TableLayout tl = (TableLayout) msg.obj;
             container.removeAllViews();
             container.addView(tl);
-            //Логика для кнопки (именно в хэндлере, иначе надо синхронизировать потоки)
+            //Логика для кнопки продолжения (именно в хэндлере, иначе надо синхронизировать потоки)
             if (!buttonIsClickable) {
                 //Обнуление файла
                 try {
@@ -80,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 res.append(Algorithm.matrixToString(tl));
                             } catch (ParseMatrixException e) {
-                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                changeCellColorOnParseException(tl, e);
                                 return;
                             }
                             //Смена вопроса (указания)
@@ -101,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 res.append(Algorithm.matrixToString(tl)).append(" ");
                             } catch (ParseMatrixException e) {
-                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                changeCellColorOnParseException(tl, e);
                                 return;
                             }
 
@@ -164,9 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
+            int emptyCellColor = getColor(R.color.empty_cell_gray);
+
             TableLayout tl =
                     Algorithm.generateSquareMatrixTableLayout(
-                        context, localInflater, names, lengthOfName
+                        context, localInflater, names, lengthOfName, emptyCellColor
                     );
             Message msg = new Message();
             msg.obj = tl;

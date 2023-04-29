@@ -16,5 +16,6 @@ public class Constants {
 
     public static final String ANSWER_FILENAME = "answer_txt";
 
-    public static final int millisOfHeaderToastDuration = 1000;
+    public static final int millisOfHeaderToastDuration = 700;
+    public static final int millisOfChangeColorCell = 3000;
 }

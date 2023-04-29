@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme;
+package com.example.mai2.main_programme.algorithm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,10 +10,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.main_activity.CellKeyListener;
-import com.example.mai2.main_programme.main_activity.HeaderClickListener;
-
-import java.text.ParseException;
+import com.example.mai2.main_programme.algorithm.click_listeners.CellKeyListener;
+import com.example.mai2.main_programme.algorithm.click_listeners.HeaderClickListener;
+import com.example.mai2.main_programme.main_activity.MainActivity;
 
 public class Algorithm {
     //Метод генерации матрицы в TableLayout, учитывая имена и их порядок
@@ -22,7 +21,8 @@ public class Algorithm {
             Context context,
             LayoutInflater inflater,
             String[] inputNames,
-            int lengthOfName){
+            int lengthOfName,
+            int emptyCellColor){
 
         String[] names = new String[inputNames.length];
         //Укорачивание всех названий (имён) до lengthOfName
@@ -67,27 +67,28 @@ public class Algorithm {
                 }
                 else {
                     cell = inflater.inflate(editLayoutId, null);
+                    cell.setBackgroundColor(emptyCellColor);
                 }
                 tr.addView(cell);
             }
             layout.addView(tr);
         }
 
-        //Строка с заголовками (нулевая строка матрицы)
+        //Логика для строки с заголовками (нулевая строка матрицы)
         TableRow firstHeaderRow = (TableRow) layout.getChildAt(0);
         for (int j = 1; j <= size; ++j){
             TextView tv = (TextView) firstHeaderRow.getChildAt(j);
             tv.setOnClickListener(new HeaderClickListener(context, inputNames[j - 1]));
         }
 
-        //Строка с заголовками (нулевой столбец матрицы)
+        //Логика для столбца с заголовками (нулевой столбец матрицы)
         for (int i = 1; i <= size; ++i){
             TableRow headerRow = (TableRow) layout.getChildAt(i);
             TextView tv = (TextView) headerRow.getChildAt(0);
             tv.setOnClickListener(new HeaderClickListener(context, inputNames[i - 1]));
         }
 
-        //Форма для заполнения
+        //Логика для формы для заполнения
         for (int i = 1; i <= size; ++i){
             TableRow tr = (TableRow) layout.getChildAt(i);
             for (int j = 1; j <= size; ++j){

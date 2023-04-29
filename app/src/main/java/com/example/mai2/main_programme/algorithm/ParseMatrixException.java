@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme;
+package com.example.mai2.main_programme.algorithm;
 
 //Exception-класс для парсинга матрицы (сохраняет место ошибки)
 public class ParseMatrixException extends Exception {
