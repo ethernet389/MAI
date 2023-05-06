@@ -48,16 +48,15 @@ public class CellKeyListener implements View.OnKeyListener {
         inverseBackground = (GradientDrawable) inverseBackground.mutate();
 
         //Цвета рейтинга
-        int maxNegativeRatingColor = resources.getColor(R.color.max_negative_rating);
+        int maxNegativeRatingColor = resources.getColor(R.color.min_positive_rating);
         int maxPositiveRatingColor = resources.getColor(R.color.max_positive_rating);
-        int minNegativeRatingColor = resources.getColor(R.color.min_negative_rating);
-        int minPositiveRatingColor = resources.getColor(R.color.min_positive_rating);
+        int minNegativeRatingColor = resources.getColor(R.color.max_negative_rating);
 
         negativeGenerator = new ColorGenerator(9,
                 maxNegativeRatingColor,
                 minNegativeRatingColor);
         positiveGenerator = new ColorGenerator(9,
-                minPositiveRatingColor,
+                maxNegativeRatingColor,
                 maxPositiveRatingColor);
     }
 
