@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.algorithm;
+package com.example.mai2.main_programme.algorithm.matrix;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.algorithm.click_listeners.CellKeyListener;
 import com.example.mai2.main_programme.algorithm.click_listeners.HeaderClickListener;
-import com.example.mai2.main_programme.main_activity.MainActivity;
 
 public class Algorithm {
     //Метод генерации матрицы в TableLayout, учитывая имена и их порядок
@@ -22,8 +21,7 @@ public class Algorithm {
             Context context,
             LayoutInflater inflater,
             String[] inputNames,
-            int lengthOfName,
-            Drawable cellBackground){
+            int lengthOfName){
 
         String[] names = new String[inputNames.length];
         //Укорачивание всех названий (имён) до lengthOfName
@@ -68,6 +66,7 @@ public class Algorithm {
                 }
                 else {
                     cell = inflater.inflate(editLayoutId, null);
+                    Drawable cellBackground = context.getResources().getDrawable(R.drawable.empty_cell_shape);
                     cell.setBackground(cellBackground);
                 }
                 tr.addView(cell);
@@ -95,19 +94,20 @@ public class Algorithm {
             for (int j = 1; j <= size; ++j){
                 if (i == j) continue;
                 EditText et = (EditText) tr.getChildAt(j);
-                et.setOnKeyListener(new CellKeyListener(layout, j, i));
+                et.setOnKeyListener(new CellKeyListener(context, layout, j, i));
             }
         }
         return layout;
     }
 
-    //Очистка матрицы от введённых значений
-    static public void clearMatrix(TableLayout layout){
+    //Очистка матрицы от введённых значений, смена фона на стандартный
+    static public void clearMatrix(TableLayout layout, Drawable background){
         for (int i = 1; i < layout.getChildCount(); ++i){
             TableRow tr = (TableRow) layout.getChildAt(i);
             for (int j = 1; j < tr.getChildCount(); ++j){
                 if (i == j) continue;
                 EditText et = (EditText) tr.getChildAt(j);
+                et.setBackground(background);
                 et.setText("");
             }
         }

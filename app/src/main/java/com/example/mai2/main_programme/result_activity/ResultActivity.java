@@ -54,6 +54,10 @@ public class ResultActivity extends AppCompatActivity {
                 result.append("\n\n");
             }
 
+            result.append("Общий рейтинг\n");
+            result.append(Arrays.toString(buffer.finalRatingEachOfCandidate));
+            result.append("\n\n");
+
         } catch (FileNotFoundException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }

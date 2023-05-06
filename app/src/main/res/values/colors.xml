@@ -11,6 +11,12 @@
     <!--Цвета состояния ячейки матрицы-->
     <color name="parse_exception_red">#B3D13636</color>
     <color name="empty_cell_gray">#B3887E91</color>
-    <color name="constant_cell_green">#B330B846</color>
+    <color name="constant_cell_green">#B33066B8</color>
     <color name="cell_frame_color">#4fa5d5</color>
+
+    <color name="max_positive_rating">#E644FF00</color>
+    <color name="min_positive_rating">#E6376027</color>
+
+    <color name="max_negative_rating">#E6FF4800</color>
+    <color name="min_negative_rating">#E6653A29</color>
 </resources>

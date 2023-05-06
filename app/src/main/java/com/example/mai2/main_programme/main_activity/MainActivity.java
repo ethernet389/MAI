@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,9 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.algorithm.Algorithm;
+import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.algorithm.ParseMatrixException;
+import com.example.mai2.main_programme.algorithm.matrix.ParseMatrixException;
 import com.example.mai2.main_programme.result_activity.ResultActivity;
 
 import java.io.BufferedWriter;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button nextButton;
 
     LayoutInflater inflater;
+    Resources resources;
 
     //Метод инициализации полей, связанных с разметкой
     private void initialize(){
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         container = findViewById(R.id.answer_matrix);
         nextButton = findViewById(R.id.next_button);
         inflater = getLayoutInflater();
+        resources = getResources();
     }
 
     //Метод для смены цвета ячейки при неправильном заполнении (подсказка пользователю)
@@ -140,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             //Очистка матрицы
-                            Algorithm.clearMatrix(tl);
+                            Drawable standardBackground = resources.getDrawable(R.drawable.empty_cell_shape);
+                            Algorithm.clearMatrix(tl, standardBackground);
 
                             //Обновление вопроса (указания)
                             ++candidatesCount;
@@ -198,11 +202,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            Drawable cellBackground = getDrawable(R.drawable.empty_cell_shape);
-
             TableLayout tl =
                     Algorithm.generateSquareMatrixTableLayout(
-                        context, localInflater, names, lengthOfName, cellBackground
+                        context, localInflater, names, lengthOfName
                     );
             Message msg = new Message();
             msg.obj = tl;
