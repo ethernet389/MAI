@@ -7,20 +7,40 @@
     tools:context=".main_programme.result_activity.ResultActivity">
 
     <TextView
-        android:id="@+id/result_of_matrix"
+        android:id="@+id/result_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/result_text"
+        android:textSize="45sp"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <HorizontalScrollView
+    <ScrollView
+        android:id="@+id/result_container_scroll_view"
         android:layout_width="match_parent"
+        android:layout_height="600dp"
+        app:layout_constraintTop_toBottomOf="@id/result_title">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/result_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/end_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/result_of_matrix">
-        <TextView
-            android:id="@+id/ci_ri_cr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </HorizontalScrollView>
-/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/end_button_text"
+        android:padding="15dp"
+        android:textSize="20sp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Drawable emptyBackground = getDrawable(R.drawable.empty_cell_shape);
+                Drawable emptyBackground = getDrawable(R.drawable.cell_shape);
                 et.setBackground(emptyBackground);
                 inverseEt.setBackground(emptyBackground);
             }
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             //Очистка матрицы
-                            Drawable standardBackground = resources.getDrawable(R.drawable.empty_cell_shape);
+                            Drawable standardBackground = resources.getDrawable(R.drawable.cell_shape);
                             Algorithm.clearMatrix(tl, standardBackground);
 
                             //Обновление вопроса (указания)
@@ -211,8 +211,6 @@ public class MainActivity extends AppCompatActivity {
             handler.sendMessage(msg);
         }
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

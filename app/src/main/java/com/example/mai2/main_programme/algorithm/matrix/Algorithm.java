@@ -66,7 +66,7 @@ public class Algorithm {
                 }
                 else {
                     cell = inflater.inflate(editLayoutId, null);
-                    Drawable cellBackground = context.getResources().getDrawable(R.drawable.empty_cell_shape);
+                    Drawable cellBackground = context.getResources().getDrawable(R.drawable.cell_shape);
                     cell.setBackground(cellBackground);
                 }
                 tr.addView(cell);

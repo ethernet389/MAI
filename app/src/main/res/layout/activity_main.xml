@@ -43,7 +43,7 @@
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Дальше"
+        android:text="@string/next_button_text"
         android:padding="20dp"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

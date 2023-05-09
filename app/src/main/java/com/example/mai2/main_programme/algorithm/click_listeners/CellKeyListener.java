@@ -42,21 +42,21 @@ public class CellKeyListener implements View.OnKeyListener {
         this.resources = context.getResources();
 
         //Mutable backgrounds
-        background = (GradientDrawable) resources.getDrawable(R.drawable.empty_cell_shape);
-        inverseBackground = (GradientDrawable) resources.getDrawable(R.drawable.empty_cell_shape);
+        background = (GradientDrawable) resources.getDrawable(R.drawable.cell_shape);
+        inverseBackground = (GradientDrawable) resources.getDrawable(R.drawable.cell_shape);
         background = (GradientDrawable) background.mutate();
         inverseBackground = (GradientDrawable) inverseBackground.mutate();
 
         //Цвета рейтинга
-        int maxNegativeRatingColor = resources.getColor(R.color.min_positive_rating);
         int maxPositiveRatingColor = resources.getColor(R.color.max_positive_rating);
+        int equalRatingColor = resources.getColor(R.color.min_positive_rating);
         int minNegativeRatingColor = resources.getColor(R.color.max_negative_rating);
 
         negativeGenerator = new ColorGenerator(9,
-                maxNegativeRatingColor,
+                equalRatingColor,
                 minNegativeRatingColor);
         positiveGenerator = new ColorGenerator(9,
-                maxNegativeRatingColor,
+                equalRatingColor,
                 maxPositiveRatingColor);
     }
 
@@ -73,7 +73,7 @@ public class CellKeyListener implements View.OnKeyListener {
                 ((EditText) v).setText("");
                 inverseEditText.setText("");
 
-                Drawable standardBackground = resources.getDrawable(R.drawable.empty_cell_shape);
+                Drawable standardBackground = resources.getDrawable(R.drawable.cell_shape);
                 inverseEditText.setBackground(standardBackground);
                 v.setBackground(standardBackground);
 
