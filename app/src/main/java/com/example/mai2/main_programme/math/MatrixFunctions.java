@@ -109,7 +109,6 @@ public final class MatrixFunctions {
         for (int i = 0; i != rows; ++i){
             for (int j = 0; j != columns; ++j){
                 double inp = in.nextDouble();
-                Log.d("INPUT_DOUBLE", String.valueOf(inp));
                 m[i][j] = inp;
             }
         }

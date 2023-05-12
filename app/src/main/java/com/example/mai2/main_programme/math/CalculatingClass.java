@@ -45,7 +45,7 @@ public final class CalculatingClass {
                 listOfWeights.get(i)[j] *= perWeights[i];
             }
         }
-        buffer.relativeWeightsOfEachCandidateForEachOfCriteria = listOfWeights;
+        buffer.eachRelativeWeights = listOfWeights;
 
         //Суммирование каждого веса критериев для рейтинга кандидатов
         double[] result = new double[numAlt];
@@ -54,7 +54,7 @@ public final class CalculatingClass {
                 result[j] += listOfWeights.get(i)[j];
             }
         }
-        buffer.finalRatingEachOfCandidate = result;
+        buffer.finalRelativeWeights = result;
 
         return buffer;
     }

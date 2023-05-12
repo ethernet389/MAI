@@ -11,8 +11,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.algorithm.click_listeners.CellKeyListener;
-import com.example.mai2.main_programme.algorithm.click_listeners.HeaderClickListener;
+import com.example.mai2.main_programme.algorithm.matrix.click_listeners.CellKeyListener;
+import com.example.mai2.main_programme.algorithm.matrix.click_listeners.HeaderClickListener;
 
 public class Algorithm {
     //Метод генерации матрицы в TableLayout, учитывая имена и их порядок
