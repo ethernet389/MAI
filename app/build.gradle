@@ -32,8 +32,16 @@ dependencies {
     //Библиотека, реализующая матрицы и операции с ними
     implementation 'gov.nist.math:jama:1.0.3'
 
+    //Room
+    implementation "androidx.room:room-runtime:2.5.1"
+    annotationProcessor "androidx.room:room-compiler:2.5.1"
+    androidTestImplementation "androidx.room:room-testing:2.5.1"
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

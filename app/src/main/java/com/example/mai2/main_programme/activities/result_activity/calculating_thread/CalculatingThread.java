@@ -1,14 +1,12 @@
-package com.example.mai2.main_programme.result_activity.calculating_thread;
+package com.example.mai2.main_programme.activities.result_activity.calculating_thread;
 
 import android.content.Context;
 import android.os.Message;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mai2.main_programme.Constants;
 import com.example.mai2.main_programme.math.Buffer;
 import com.example.mai2.main_programme.math.CalculatingClass;
-import com.example.mai2.main_programme.result_activity.generate_layout_thread.LayoutGeneratorThread;
 
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Exchanger;
 
 public class CalculatingThread extends Thread{
     private final CalculatingHandler handler;
@@ -24,10 +21,9 @@ public class CalculatingThread extends Thread{
     private final CountDownLatch count;
 
     public CalculatingThread(Context context,
-                             LinearLayout layout,
                              ArrayList<TextView> valueTextArray,
                              CountDownLatch count){
-        this.handler = new CalculatingHandler(layout, valueTextArray);
+        this.handler = new CalculatingHandler(valueTextArray);
         this.context = context;
         this.count = count;
     }

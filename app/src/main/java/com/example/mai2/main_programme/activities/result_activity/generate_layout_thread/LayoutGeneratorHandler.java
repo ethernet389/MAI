@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.result_activity.generate_layout_thread;
+package com.example.mai2.main_programme.activities.result_activity.generate_layout_thread;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;

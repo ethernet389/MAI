@@ -18,4 +18,6 @@ public class Constants {
 
     public static final int millisOfHeaderToastDuration = 700;
     public static final int millisOfChangeColorCell = 3000;
+
+    public static final String DB_NAME = "mai-database";
 }

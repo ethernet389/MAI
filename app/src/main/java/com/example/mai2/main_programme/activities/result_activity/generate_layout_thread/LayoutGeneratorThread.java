@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.result_activity.generate_layout_thread;
+package com.example.mai2.main_programme.activities.result_activity.generate_layout_thread;
 
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import com.example.mai2.main_programme.Constants;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Exchanger;
 
 public class LayoutGeneratorThread extends Thread{
     private final LayoutInflater layoutInflater;

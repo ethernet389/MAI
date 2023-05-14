@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.result_activity;
+package com.example.mai2.main_programme.activities.result_activity;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +15,18 @@ import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.result_activity.calculating_thread.CalculatingThread;
-import com.example.mai2.main_programme.result_activity.generate_layout_thread.LayoutGeneratorThread;
+import com.example.mai2.main_programme.activities.result_activity.calculating_thread.CalculatingThread;
+import com.example.mai2.main_programme.activities.result_activity.generate_layout_thread.LayoutGeneratorThread;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Exchanger;
 
 public class ResultActivity extends AppCompatActivity {
     LinearLayout resultContainer;
     Button endViewButton;
     LayoutInflater layoutInflater;
 
-    //Синхронизатор потока LGT и CT, (1 операция для подстраховки)
+    //Синхронизатор потока LGT и CT, (1 операция для общего рейтинга)
     private final int operationsCount
             = (Constants.CRITERIA.length + 1) * Constants.CANDIDATES.length;
     private final CountDownLatch LAYOUT_GENERATED_FLAG
@@ -38,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         endViewButton = findViewById(R.id.end_button);
         layoutInflater = getLayoutInflater();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class ResultActivity extends AppCompatActivity {
         lgt.start();
 
         CalculatingThread ct = new CalculatingThread(this,
-                resultContainer,
                 valueArray,
                 LAYOUT_GENERATED_FLAG);
         ct.start();

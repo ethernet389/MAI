@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.main_activity;
+package com.example.mai2.main_programme.activities.main_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
 import com.example.mai2.main_programme.Constants;
 import com.example.mai2.main_programme.algorithm.matrix.ParseMatrixException;
-import com.example.mai2.main_programme.result_activity.ResultActivity;
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
