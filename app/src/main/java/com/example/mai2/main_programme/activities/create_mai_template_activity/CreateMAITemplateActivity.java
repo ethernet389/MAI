@@ -1,10 +1,16 @@
 package com.example.mai2.main_programme.activities.create_mai_template_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +21,9 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.create_mai_template_activity.workers.QueryAddMAIConfigWorker;
+import com.example.mai2.main_programme.activities.start_activity.StartActivity;
+import com.example.mai2.main_programme.db.converters.StringsConverter;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.example.mai2.main_programme.db.tables.mai_config.MAIConfig;
 import com.example.mai2.main_programme.db.wrappers.Strings;
@@ -28,7 +37,6 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
     Button addCriteriaButton;
 
     private String nameOfConfig;
-    AppDatabase db;
 
     LayoutInflater layoutInflater;
 
@@ -40,15 +48,11 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
 
         nameOfConfig = getIntent().getStringExtra(SetNameForMAITemplateActivity.NAME_OF_TEMPLATE);
-
-        db = AppDatabase.getAppDatabase(getApplicationContext());
     }
 
-
-
     class SaveTemplateOnClickListener implements View.OnClickListener{
-        private ArrayList<String> readCriteria(){
-            ArrayList<String> rawData = new ArrayList<>();
+        private String[] readCriteria(){
+            String[] rawData = new String[criteriaContainer.getChildCount()];
             for (int i = 0; i < criteriaContainer.getChildCount(); ++i){
                 TableRow criteriaRow = (TableRow) criteriaContainer.getChildAt(i);
                 EditText criteriaText = criteriaRow.findViewById(R.id.criteria_text);
@@ -59,23 +63,49 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
                             "Есть пустой критерий!",
                             Toast.LENGTH_SHORT
                     ).show();
-                    return new ArrayList<>();
+                    return null;
                 }
-                rawData.add(criteria);
+                rawData[i] = criteria;
             }
             return rawData;
         }
 
         @Override
         public void onClick(View v) {
-            Strings wrappedCriteria = new Strings(readCriteria());
-            if (wrappedCriteria.getStringList().isEmpty()){
+            String[] criteria = readCriteria();
+            if (criteria == null){
                 return;
             }
 
-            MAIConfig config = new MAIConfig();
-            config.name = nameOfConfig;
-            config.criteria = wrappedCriteria;
+            Data inputData = new Data.Builder()
+                    .putString("nameOfConfig", nameOfConfig)
+                    .putStringArray("criteria", criteria)
+                    .build();
+
+            OneTimeWorkRequest request =
+                    new OneTimeWorkRequest.Builder(QueryAddMAIConfigWorker.class)
+                            .setInputData(inputData)
+                            .build();
+            WorkManager.getInstance(getApplicationContext()).enqueue(request);
+            WorkManager.getInstance(getApplicationContext())
+                    .getWorkInfoByIdLiveData(request.getId()).observe(
+                            CreateMAITemplateActivity.this,
+                            new Observer<WorkInfo>() {
+                                @Override
+                                public void onChanged(WorkInfo workInfo) {
+                                    switch (workInfo.getState()){
+                                        case SUCCEEDED:
+                                            Intent intent = new Intent(
+                                                    getApplicationContext(),
+                                                    StartActivity.class
+                                            );
+                                            startActivity(intent);
+                                            finish();
+                                            break;
+                                    }
+                                }
+                            }
+                    );
         }
     }
 

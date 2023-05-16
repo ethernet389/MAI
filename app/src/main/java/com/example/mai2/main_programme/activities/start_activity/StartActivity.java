@@ -3,6 +3,7 @@ package com.example.mai2.main_programme.activities.start_activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,8 +67,6 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         initialize();
 
-        //Создание базы данных
-        AppDatabase.getAppDatabase(getApplicationContext());
         setOnClickListeners();
     }
 }

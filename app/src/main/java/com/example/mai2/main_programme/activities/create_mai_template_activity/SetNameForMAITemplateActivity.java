@@ -11,6 +11,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,9 +22,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.create_mai_template_activity.workers.QueryNameWorker;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 
-import java.util.Collection;
 import java.util.List;
 
 public class SetNameForMAITemplateActivity extends AppCompatActivity {
@@ -31,30 +32,7 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
     EditText inputMAIName;
     Button nextButton;
 
-    AppDatabase db;
-
     public static final String NAME_OF_TEMPLATE = "nameOfTemplate";
-
-    public class QueryWorker extends Worker{
-
-        public QueryWorker(@NonNull Context context,
-                           @NonNull WorkerParameters workerParams) {
-            super(context, workerParams);
-        }
-
-        @NonNull
-        @Override
-        public Result doWork() {
-            List<String> namesOfConfigs = db.getMAIConfigDao().getAllNamesOfMAIConfigs();
-            String inputNameOfConfig = getInputData().getString("nameOfConfig");
-            boolean nameInDB = namesOfConfigs.contains(inputNameOfConfig);
-
-            if (nameInDB){
-                return Result.failure();
-            }
-            return Result.success();
-        }
-    }
 
     class NextOnClickListener implements View.OnClickListener{
 
@@ -74,9 +52,11 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
                 return;
             };
 
-            Data inputData = new Data.Builder().putString("nameOfConfig", nameOfConfig).build();
+            Data inputData = new Data.Builder()
+                    .putString("nameOfConfig", nameOfConfig)
+                    .build();
             OneTimeWorkRequest request
-                    = new OneTimeWorkRequest.Builder(QueryWorker.class)
+                    = new OneTimeWorkRequest.Builder(QueryNameWorker.class)
                     .setInputData(inputData)
                     .build();
             WorkManager.getInstance(getApplicationContext()).enqueue(request);
@@ -98,6 +78,7 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
                                             );
                                             intent.putExtra(NAME_OF_TEMPLATE, nameOfConfig);
                                             startActivity(intent);
+                                            finish();
                                             break;
                                     }
                                 }
@@ -109,8 +90,6 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
     private void initialize(){
         inputMAIName = findViewById(R.id.input_mai_template_name);
         nextButton = findViewById(R.id.go_next_with_name_button);
-
-        db = AppDatabase.getAppDatabase(getApplicationContext());
     }
 
     @Override
