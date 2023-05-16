@@ -20,4 +20,8 @@
     <string name="delete_criteria_button_text">Удалить критерий</string>
     <string name="save_template_button_text">Сохранить шаблон</string>
     <string name="list_of_criteria_item_hint">Критерий</string>
+
+    <string name="title_of_set_name_mai_template_text">Введите название шаблона</string>
+    <string name="input_mai_template_name_hint">Название шаблона</string>
+    <string name="mai_template_name_button_text">Продолжить</string>
 </resources>

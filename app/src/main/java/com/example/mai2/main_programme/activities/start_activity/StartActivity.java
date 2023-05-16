@@ -13,6 +13,7 @@ import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_mai_activity.CheckMAIActivity;
 import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
 import com.example.mai2.main_programme.activities.create_mai_template_activity.CreateMAITemplateActivity;
+import com.example.mai2.main_programme.activities.create_mai_template_activity.SetNameForMAITemplateActivity;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 
 public class StartActivity extends AppCompatActivity {
@@ -50,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
 
         createMAITemplateButton
                 .setOnClickListener(
-                        new CreateIntentOnClick(CreateMAITemplateActivity.class)
+                        new CreateIntentOnClick(SetNameForMAITemplateActivity.class)
                 );
 
         checkMAIButton

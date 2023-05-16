@@ -1,6 +1,7 @@
 package com.example.mai2.main_programme.activities.create_mai_template_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Data;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
     LinearLayout criteriaContainer;
     Button addCriteriaButton;
 
-    private String nameOfConfig = "getFromIntent";
+    private String nameOfConfig;
     AppDatabase db;
 
     LayoutInflater layoutInflater;
@@ -38,8 +39,12 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
 
         layoutInflater = getLayoutInflater();
 
+        nameOfConfig = getIntent().getStringExtra(SetNameForMAITemplateActivity.NAME_OF_TEMPLATE);
+
         db = AppDatabase.getAppDatabase(getApplicationContext());
     }
+
+
 
     class SaveTemplateOnClickListener implements View.OnClickListener{
         private ArrayList<String> readCriteria(){
@@ -71,21 +76,13 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
             MAIConfig config = new MAIConfig();
             config.name = nameOfConfig;
             config.criteria = wrappedCriteria;
-
-            Runnable addToDatabaseNewConfigRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    db.getMAIConfigDao().insertNewMAIConfig(config);
-                }
-            };
-            new Thread(addToDatabaseNewConfigRunnable).start();
         }
     }
 
-    class deleteOnClickListener implements View.OnClickListener {
+    class DeleteOnClickListener implements View.OnClickListener {
         private final TableRow parentView;
 
-        public deleteOnClickListener(TableRow parentView){
+        public DeleteOnClickListener(TableRow parentView){
             this.parentView = parentView;
         }
 
@@ -96,10 +93,22 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
         }
     }
 
+    class AddOnClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            @SuppressLint("InflateParams")
+            TableRow newTableRow
+                    = (TableRow) layoutInflater.inflate(R.layout.criteria_table_row, null);
+            ImageView button = newTableRow.findViewById(R.id.delete_x);
+            button.setOnClickListener(new DeleteOnClickListener(newTableRow));
+            criteriaContainer.addView(newTableRow);
+        }
+    }
+
     private void setClickListenerOnFirstImageButton(){
         TableRow firstRow = (TableRow) criteriaContainer.getChildAt(0);
         ImageView firstDeleteButton = firstRow.findViewById(R.id.delete_x);
-        firstDeleteButton.setOnClickListener(new deleteOnClickListener(firstRow));
+        firstDeleteButton.setOnClickListener(new DeleteOnClickListener(firstRow));
     }
 
     @Override
@@ -109,19 +118,7 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
         initialize();
 
         setClickListenerOnFirstImageButton();
-
-        addCriteriaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                @SuppressLint("InflateParams")
-                TableRow newTableRow
-                        = (TableRow) layoutInflater.inflate(R.layout.criteria_table_row, null);
-                ImageView button = newTableRow.findViewById(R.id.delete_x);
-                button.setOnClickListener(new deleteOnClickListener(newTableRow));
-                criteriaContainer.addView(newTableRow);
-            }
-        });
-
+        addCriteriaButton.setOnClickListener(new AddOnClickListener());
         saveTemplateButton.setOnClickListener(new SaveTemplateOnClickListener());
     }
 }
