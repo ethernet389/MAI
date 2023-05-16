@@ -7,10 +7,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.db.mai_config.MAIConfig;
-import com.example.mai2.main_programme.db.mai_config.MAIConfigDAO;
+import com.example.mai2.main_programme.db.tables.mai_config.MAIConfig;
+import com.example.mai2.main_programme.db.tables.mai_config.MAIConfigDAO;
 
-@Database(entities = {MAIConfig.class}, version = 1)
+@Database(entities = {MAIConfig.class}, exportSchema = false, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MAIConfigDAO getMAIConfigDao();
 

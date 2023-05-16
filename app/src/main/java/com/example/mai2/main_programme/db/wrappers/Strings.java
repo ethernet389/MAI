@@ -2,6 +2,7 @@ package com.example.mai2.main_programme.db.wrappers;
 
 import java.util.List;
 
+//Класс-обёртка для List<String>
 public class Strings {
     private List<String> stringList;
 

@@ -17,8 +17,8 @@ public class LayoutGeneratorThread extends Thread{
     private final LayoutInflater layoutInflater;
     private final LayoutGeneratorHandler handler;
 
-    private CountDownLatch count;
-    private ArrayList<TextView> valueTextArray;
+    private final CountDownLatch count;
+    private final ArrayList<TextView> valueTextArray;
 
     public LayoutGeneratorThread(LayoutInflater layoutInflater,
                                  LinearLayout tl,
@@ -45,7 +45,7 @@ public class LayoutGeneratorThread extends Thread{
         sendObject(titleRow);
 
         //Таблица для результатов
-        TableLayout table = (TableLayout) layoutInflater.inflate(R.layout.talbe_layout, null);
+        TableLayout table = (TableLayout) layoutInflater.inflate(R.layout.matrix_layout, null);
         for (int i = 0; i < Constants.CANDIDATES.length; ++i){
             TableRow valueRow = (TableRow) layoutInflater.inflate(R.layout.row_result_layout, null);
 
