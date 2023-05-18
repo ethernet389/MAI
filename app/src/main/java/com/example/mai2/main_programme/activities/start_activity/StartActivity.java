@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_mai_activity.CheckMAIActivity;
+import com.example.mai2.main_programme.activities.create_mai_activity.ChooseMAIConfigActivity;
 import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
 import com.example.mai2.main_programme.activities.create_mai_template_activity.CreateMAITemplateActivity;
 import com.example.mai2.main_programme.activities.create_mai_template_activity.SetNameForMAITemplateActivity;
@@ -47,7 +48,7 @@ public class StartActivity extends AppCompatActivity {
     private void setOnClickListeners(){
         createMAIButton
                 .setOnClickListener(
-                        new CreateIntentOnClick(CreateMAIActivity.class)
+                        new CreateIntentOnClick(ChooseMAIConfigActivity.class)
                 );
 
         createMAITemplateButton

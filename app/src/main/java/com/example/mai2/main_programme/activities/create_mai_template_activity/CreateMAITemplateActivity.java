@@ -87,24 +87,23 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
                             .setInputData(inputData)
                             .build();
             WorkManager.getInstance(getApplicationContext()).enqueue(request);
+
+            Observer<WorkInfo> observer = new Observer<WorkInfo>() {
+                @Override
+                public void onChanged(WorkInfo workInfo) {
+                    if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                        Intent intent = new Intent(
+                                getApplicationContext(),
+                                StartActivity.class
+                        );
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            };
             WorkManager.getInstance(getApplicationContext())
                     .getWorkInfoByIdLiveData(request.getId()).observe(
-                            CreateMAITemplateActivity.this,
-                            new Observer<WorkInfo>() {
-                                @Override
-                                public void onChanged(WorkInfo workInfo) {
-                                    switch (workInfo.getState()){
-                                        case SUCCEEDED:
-                                            Intent intent = new Intent(
-                                                    getApplicationContext(),
-                                                    StartActivity.class
-                                            );
-                                            startActivity(intent);
-                                            finish();
-                                            break;
-                                    }
-                                }
-                            }
+                            CreateMAITemplateActivity.this, observer
                     );
         }
     }

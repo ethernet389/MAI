@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/one_candidate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/candidate_text"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/list_of_candidate_item_hint"
+        android:textSize="20sp"
+        android:gravity="start"/>
+
+    <ImageView
+        android:id="@+id/delete_x"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/delete_item_x" />
+
+</TableRow>

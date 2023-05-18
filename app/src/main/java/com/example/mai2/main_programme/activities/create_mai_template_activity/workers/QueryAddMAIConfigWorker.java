@@ -27,11 +27,13 @@ public class QueryAddMAIConfigWorker extends Worker {
         String nameOfConfig = getInputData().getString("nameOfConfig");
         String[] criteria = getInputData().getStringArray("criteria");
 
+        assert criteria != null;
         ArrayList<String> arrayCriteria = new ArrayList<>(Arrays.asList(criteria));
         Strings completeCriteria = new Strings(arrayCriteria);
 
         MAIConfig config = new MAIConfig();
         config.criteria = completeCriteria;
+        assert nameOfConfig != null;
         config.name = nameOfConfig;
         db.getMAIConfigDao().insertNewMAIConfig(config);
 

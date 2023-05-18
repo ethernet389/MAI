@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                     bw.write("");
                     bw.close();
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,
+                            e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 //Класс для переключения сценария

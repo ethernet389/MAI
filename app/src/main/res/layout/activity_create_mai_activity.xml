@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".main_programme.activities.create_mai_activity.CreateMAIActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/mai_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/input_candidates_title_text"
+        android:textSize="35sp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/start_answering"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="18sp"
+        android:text="@string/start_answering_button_text"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/add_candidate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/add_candidate_button_text" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:id="@+id/candidate_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+            <include layout="@layout/candidate_table_row"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

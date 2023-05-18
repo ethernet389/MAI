@@ -24,4 +24,13 @@
     <string name="title_of_set_name_mai_template_text">Введите название шаблона</string>
     <string name="input_mai_template_name_hint">Название шаблона</string>
     <string name="mai_template_name_button_text">Продолжить</string>
+
+    <!-- Create MAI Activity-->
+    <string name="title_choose_text">Шаблоны</string>
+
+    <string name="input_candidates_title_text">Введите кандидатов</string>
+    <string name="add_candidate_button_text">Добавить кандидата</string>
+    <string name="start_answering_button_text">Создать ответ</string>
+    <string name="list_of_candidate_item_hint">Кандидат</string>
+
 </resources>

@@ -60,29 +60,29 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
                     .setInputData(inputData)
                     .build();
             WorkManager.getInstance(getApplicationContext()).enqueue(request);
+
+            Observer<WorkInfo> observer = new Observer<WorkInfo>() {
+                @Override
+                public void onChanged(WorkInfo workInfo) {
+                    switch (workInfo.getState()){
+                        case FAILED:
+                            showShortToastWithText("Шаблон с таким названием уже есть!");
+                            break;
+                        case SUCCEEDED:
+                            Intent intent = new Intent(
+                                    getApplicationContext(),
+                                    CreateMAITemplateActivity.class
+                            );
+                            intent.putExtra(NAME_OF_TEMPLATE, nameOfConfig);
+                            startActivity(intent);
+                            finish();
+                            break;
+                    }
+                }
+            };
             WorkManager.getInstance(getApplicationContext())
                     .getWorkInfoByIdLiveData(request.getId()).observe(
-                            SetNameForMAITemplateActivity.this,
-                            new Observer<WorkInfo>() {
-                                @Override
-                                public void onChanged(WorkInfo workInfo) {
-                                    Log.d("WORK_INFO_STATE", workInfo.getState().toString());
-                                    switch (workInfo.getState()){
-                                        case FAILED:
-                                            showShortToastWithText("Шаблон с таким названием уже есть!");
-                                            break;
-                                        case SUCCEEDED:
-                                            Intent intent = new Intent(
-                                                    getApplicationContext(),
-                                                    CreateMAITemplateActivity.class
-                                            );
-                                            intent.putExtra(NAME_OF_TEMPLATE, nameOfConfig);
-                                            startActivity(intent);
-                                            finish();
-                                            break;
-                                    }
-                                }
-                            }
+                            SetNameForMAITemplateActivity.this, observer
                     );
         }
     }

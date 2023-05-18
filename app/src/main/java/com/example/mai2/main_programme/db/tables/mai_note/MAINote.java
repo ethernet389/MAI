@@ -17,12 +17,9 @@ public class MAINote {
     public String name;
 
     //many-to-one MAIConfig.name
-    @NonNull
     public String configName;
 
-    @NonNull
     public Strings candidates;
 
-    @NonNull
     public String formattedAnswer;
 }
