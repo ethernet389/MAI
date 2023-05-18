@@ -8,10 +8,6 @@ import androidx.work.WorkerParameters;
 
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.example.mai2.main_programme.db.tables.mai_config.MAIConfig;
-import com.example.mai2.main_programme.db.wrappers.Strings;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class QueryAddMAIConfigWorker extends Worker {
     public QueryAddMAIConfigWorker(@NonNull Context context,
@@ -28,11 +24,8 @@ public class QueryAddMAIConfigWorker extends Worker {
         String[] criteria = getInputData().getStringArray("criteria");
 
         assert criteria != null;
-        ArrayList<String> arrayCriteria = new ArrayList<>(Arrays.asList(criteria));
-        Strings completeCriteria = new Strings(arrayCriteria);
-
         MAIConfig config = new MAIConfig();
-        config.criteria = completeCriteria;
+        config.criteria = criteria;
         assert nameOfConfig != null;
         config.name = nameOfConfig;
         db.getMAIConfigDao().insertNewMAIConfig(config);

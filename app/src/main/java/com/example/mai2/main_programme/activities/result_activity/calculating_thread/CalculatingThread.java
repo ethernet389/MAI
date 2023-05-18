@@ -22,8 +22,10 @@ public class CalculatingThread extends Thread{
 
     public CalculatingThread(Context context,
                              ArrayList<TextView> valueTextArray,
+                             String[] criteria,
+                             String[] candidates,
                              CountDownLatch count){
-        this.handler = new CalculatingHandler(valueTextArray);
+        this.handler = new CalculatingHandler(valueTextArray, criteria, candidates);
         this.context = context;
         this.count = count;
     }

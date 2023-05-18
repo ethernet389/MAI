@@ -1,15 +1,17 @@
 package com.example.mai2.main_programme.db.tables.mai_config;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverters;
 
-import com.example.mai2.main_programme.db.wrappers.Strings;
+import com.example.mai2.main_programme.db.converters.StringArrayConverter;
+
 
 import java.util.List;
 
 @Dao
+@TypeConverters(StringArrayConverter.class)
 public interface MAIConfigDAO {
     //Получение всех имён каждой МАИ-конфигурации
     @Query("SELECT name FROM MAIConfig")
@@ -17,7 +19,7 @@ public interface MAIConfigDAO {
 
     //Получение МАИ-конфигурации по name
     @Query("SELECT criteria FROM MAIConfig WHERE name = :name")
-    Strings getCriteriaByName(String name);
+    String[] getCriteriaByName(String name);
 
     //Добавление новой МАИ-конфигурации
     @Insert

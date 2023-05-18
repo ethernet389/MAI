@@ -4,6 +4,7 @@ package com.example.mai2.main_programme.activities.result_activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -26,11 +27,8 @@ public class ResultActivity extends AppCompatActivity {
     Button endViewButton;
     LayoutInflater layoutInflater;
 
-    //Синхронизатор потока LGT и CT, (1 операция для общего рейтинга)
-    private final int operationsCount
-            = (Constants.CRITERIA.length + 1) * Constants.CANDIDATES.length;
-    private final CountDownLatch LAYOUT_GENERATED_FLAG
-            = new CountDownLatch(operationsCount);
+    String[] criteria;
+    String[] candidates;
 
     private void initialize(){
         resultContainer = findViewById(R.id.result_container);
@@ -45,16 +43,30 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         initialize();
 
+        Intent pastIntent = getIntent();
+        criteria = pastIntent.getStringArrayExtra("criteria");
+        candidates = pastIntent.getStringArrayExtra("candidates");
+
+        final int operationsCount
+                = (criteria.length + 1) * candidates.length;
+
+        final CountDownLatch LAYOUT_GENERATED_FLAG
+                = new CountDownLatch(operationsCount);
+
         ArrayList<TextView> valueArray = new ArrayList<>();
         LayoutGeneratorThread lgt =
                 new LayoutGeneratorThread(layoutInflater,
                         resultContainer,
                         valueArray,
+                        criteria,
+                        candidates,
                         LAYOUT_GENERATED_FLAG);
         lgt.start();
 
         CalculatingThread ct = new CalculatingThread(this,
                 valueArray,
+                criteria,
+                candidates,
                 LAYOUT_GENERATED_FLAG);
         ct.start();
     }

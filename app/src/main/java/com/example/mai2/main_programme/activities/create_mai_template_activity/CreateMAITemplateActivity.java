@@ -10,7 +10,6 @@ import androidx.work.WorkManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +22,6 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template_activity.workers.QueryAddMAIConfigWorker;
 import com.example.mai2.main_programme.activities.start_activity.StartActivity;
-import com.example.mai2.main_programme.db.converters.StringsConverter;
-import com.example.mai2.main_programme.db.database.AppDatabase;
-import com.example.mai2.main_programme.db.tables.mai_config.MAIConfig;
-import com.example.mai2.main_programme.db.wrappers.Strings;
-
-import java.util.ArrayList;
 
 public class CreateMAITemplateActivity extends AppCompatActivity {
 

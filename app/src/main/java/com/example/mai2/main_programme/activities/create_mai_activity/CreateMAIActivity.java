@@ -89,13 +89,11 @@ public class CreateMAIActivity extends AppCompatActivity {
             String[] candidates = readCandidates();
             if (candidates == null) return;
 
-            ArrayList<String> candidatesList = new ArrayList<>(Arrays.asList(candidates));
-
             Intent intent = new Intent(getApplicationContext(),
                     MainActivity.class);
             String name = getIntent().getStringExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY);
             intent.putExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY, name);
-            intent.putStringArrayListExtra(CANDIDATES_KEY, candidatesList);
+            intent.putExtra(CANDIDATES_KEY, candidates);
             startActivity(intent);
         }
     }

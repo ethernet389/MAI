@@ -4,10 +4,14 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverters;
+
+import com.example.mai2.main_programme.db.converters.StringArrayConverter;
 
 import java.util.List;
 
 @Dao
+@TypeConverters(StringArrayConverter.class)
 public interface MAINoteDao {
 
     @Insert

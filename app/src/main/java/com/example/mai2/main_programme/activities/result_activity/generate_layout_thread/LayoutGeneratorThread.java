@@ -20,10 +20,16 @@ public class LayoutGeneratorThread extends Thread{
     private final CountDownLatch count;
     private final ArrayList<TextView> valueTextArray;
 
+    private final String[] criteria, candidates;
+
     public LayoutGeneratorThread(LayoutInflater layoutInflater,
                                  LinearLayout tl,
                                  ArrayList<TextView> valueTextArray,
+                                 String[] criteria,
+                                 String[] candidates,
                                  CountDownLatch count){
+        this.criteria = criteria;
+        this.candidates = candidates;
         this.layoutInflater = layoutInflater;
         this.handler = new LayoutGeneratorHandler(tl);
         this.valueTextArray = valueTextArray;
@@ -46,12 +52,12 @@ public class LayoutGeneratorThread extends Thread{
 
         //Таблица для результатов
         TableLayout table = (TableLayout) layoutInflater.inflate(R.layout.matrix_layout, null);
-        for (int i = 0; i < Constants.CANDIDATES.length; ++i){
+        for (int i = 0; i < candidates.length; ++i){
             TableRow valueRow = (TableRow) layoutInflater.inflate(R.layout.row_result_layout, null);
 
             //Заголовок строки
             TextView headerText = (TextView) layoutInflater.inflate(R.layout.result_row_text_view_layout, null);
-            headerText.setText(Constants.CANDIDATES[i]);
+            headerText.setText(candidates[i]);
             //Значение для строки
             TextView valueText = (TextView) layoutInflater.inflate(R.layout.result_row_text_view_layout, null);
             valueText.setText("-");
@@ -69,8 +75,8 @@ public class LayoutGeneratorThread extends Thread{
 
     @Override
     public void run() {
-        for (int i = 0; i < Constants.CRITERIA.length; ++i){
-            generateTableLayoutWithName(Constants.CRITERIA[i]);
+        for (int i = 0; i < criteria.length; ++i){
+            generateTableLayoutWithName(criteria[i]);
         }
         generateTableLayoutWithName("Общий рейтинг");
     }

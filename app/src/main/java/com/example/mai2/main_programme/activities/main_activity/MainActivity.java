@@ -2,6 +2,11 @@ package com.example.mai2.main_programme.activities.main_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -23,6 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.create_mai_activity.ChooseMAIConfigActivity;
+import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
+import com.example.mai2.main_programme.activities.main_activity.workers.GetCriteriaWorker;
 import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
 import com.example.mai2.main_programme.Constants;
@@ -38,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     LayoutInflater inflater;
     Resources resources;
+
+    String[] criteria;
+    String[] candidates;
 
     //Метод инициализации полей, связанных с разметкой
     private void initialize(){
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
 
-        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     //Класс для взаимодействия параллельного потока и интерфейса
@@ -83,6 +94,15 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     @SuppressLint("HandlerLeak")
     class GenerateMatrixHandler extends Handler {
+
+        private final String[] candidates;
+        private final String[] criteria;
+
+        public GenerateMatrixHandler(String[] criteria, String[] candidates){
+            this.criteria = criteria;
+            this.candidates = candidates;
+        }
+
         @Override
         public void handleMessage(@NonNull Message msg) {
             TableLayout tl = (TableLayout) msg.obj;
@@ -115,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         StringBuilder res = new StringBuilder();
                         //Сценарий для матрицы критериев
                         if (!criteriaMatrixWas){
-                            res.append(Constants.CRITERIA.length).append(" ");
+                            res.append(criteria.length).append(" ");
                             try {
                                 res.append(Algorithm.matrixToString(tl));
                             } catch (ParseMatrixException e) {
@@ -123,20 +143,22 @@ public class MainActivity extends AppCompatActivity {
                                 return;
                             }
                             //Смена вопроса (указания)
-                            String text = getString(R.string.command_text_template) + Constants.CRITERIA[candidatesCount];
+                            String text = getString(R.string.command_text_template)
+                                    + criteria[candidatesCount];
                             commandText.setText(text);
 
                             //Генерация матрицы кандидатов
-                            GenerateMatrixThread gmt = new GenerateMatrixThread(Constants.CANDIDATES, 3);
+                            GenerateMatrixThread gmt = new GenerateMatrixThread(candidates,
+                                    null, 3);
                             gmt.start();
 
                             criteriaMatrixWas = true;
                         }
 
                         //Сценарий для матриц кандидатов
-                        else if (candidatesCount < Constants.CRITERIA.length){
+                        else if (candidatesCount < criteria.length){
                             TableLayout tl = (TableLayout) container.getChildAt(0);
-                            if (candidatesCount == 0) res.append(Constants.CANDIDATES.length).append(" ");
+                            if (candidatesCount == 0) res.append(candidates.length).append(" ");
                             try {
                                 res.append(Algorithm.matrixToString(tl)).append(" ");
                             } catch (ParseMatrixException e) {
@@ -150,8 +172,9 @@ public class MainActivity extends AppCompatActivity {
 
                             //Обновление вопроса (указания)
                             ++candidatesCount;
-                            if (candidatesCount < Constants.CRITERIA.length) {
-                                String text = getString(R.string.command_text_template) + Constants.CRITERIA[candidatesCount];
+                            if (candidatesCount < criteria.length) {
+                                String text = getString(R.string.command_text_template)
+                                        + criteria[candidatesCount];
                                 commandText.setText(text);
                             }
                         }
@@ -166,14 +189,17 @@ public class MainActivity extends AppCompatActivity {
                             bw.write(res.toString());
                             bw.close();
                         } catch (Exception e) {
-                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                         //Переход к просмотру результатов
-                        if (candidatesCount == Constants.CRITERIA.length)  {
-                            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                            MainActivity.this.startActivity(intent);
-                            MainActivity.this.finish();
+                        if (candidatesCount == criteria.length)  {
+                            Intent intent = new Intent(getApplicationContext(),
+                                    ResultActivity.class);
+                            intent.putExtra("criteria", criteria);
+                            intent.putExtra("candidates", candidates);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 }
@@ -190,15 +216,16 @@ public class MainActivity extends AppCompatActivity {
 
         private final Context context;
         private final LayoutInflater localInflater;
-        private final String[] names;
+        private final String[] criteria, candidates;
         private final int lengthOfName;
 
-        public GenerateMatrixThread(String[] names, int lengthOfName){
-            this.handler = new GenerateMatrixHandler();
+        public GenerateMatrixThread(String[] criteria, String[] candidates, int lengthOfName){
+            this.handler = new GenerateMatrixHandler(criteria, candidates);
 
             this.context = MainActivity.this;
             this.localInflater = inflater;
-            this.names = names.clone();
+            this.criteria = criteria;
+            this.candidates = candidates;
             this.lengthOfName = lengthOfName;
         }
 
@@ -206,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             TableLayout tl =
                     Algorithm.generateSquareMatrixTableLayout(
-                        context, localInflater, names, lengthOfName
+                        context, localInflater, criteria, lengthOfName
                     );
             Message msg = new Message();
             msg.obj = tl;
@@ -220,8 +247,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initialize();
 
-        GenerateMatrixThread gmt =
-                new GenerateMatrixThread(Constants.CRITERIA, 3);
-        gmt.start();
+        Intent pastIntent = getIntent();
+        candidates = pastIntent.getStringArrayExtra(CreateMAIActivity.CANDIDATES_KEY);
+        String nameOfConfig = pastIntent.getStringExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY);
+
+        Data data = new Data.Builder().putString("nameOfConfig", nameOfConfig).build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest
+                .Builder(GetCriteriaWorker.class)
+                .setInputData(data)
+                .build();
+
+        Observer<WorkInfo> observer = new Observer<WorkInfo>() {
+            @Override
+            public void onChanged(WorkInfo workInfo) {
+                if (workInfo.getState().equals(WorkInfo.State.SUCCEEDED)){
+                    criteria = workInfo.getOutputData().getStringArray("criteria");
+                    GenerateMatrixThread gmt =
+                            new GenerateMatrixThread(criteria, candidates, 3);
+                    gmt.start();
+                }
+            }
+        };
+
+        WorkManager.getInstance(getApplicationContext()).enqueue(request);
+        WorkManager.getInstance(getApplicationContext())
+                .getWorkInfoByIdLiveData(request.getId())
+                .observe(this, observer);
     }
 }

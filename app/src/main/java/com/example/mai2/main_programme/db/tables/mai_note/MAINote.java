@@ -3,14 +3,13 @@ package com.example.mai2.main_programme.db.tables.mai_note;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
 import androidx.room.TypeConverters;
 
-import com.example.mai2.main_programme.db.converters.StringsConverter;
-import com.example.mai2.main_programme.db.wrappers.Strings;
+import com.example.mai2.main_programme.db.converters.StringArrayConverter;
+
 
 @Entity
-@TypeConverters(StringsConverter.class)
+@TypeConverters(StringArrayConverter.class)
 public class MAINote {
     @PrimaryKey
     @NonNull
@@ -19,7 +18,7 @@ public class MAINote {
     //many-to-one MAIConfig.name
     public String configName;
 
-    public Strings candidates;
+    public String[] candidates;
 
     public String formattedAnswer;
 }

@@ -19,9 +19,14 @@ import java.util.ArrayList;
 @SuppressLint("HandlerLeak")
 public class CalculatingHandler extends Handler {
     private final ArrayList<TextView> valueTextArray;
+    private final String[] criteria, candidates;
 
-    public CalculatingHandler(ArrayList<TextView> valueTextArray){
+    public CalculatingHandler(ArrayList<TextView> valueTextArray,
+                              String[] criteria,
+                              String[] candidates){
         this.valueTextArray = valueTextArray;
+        this.criteria = criteria;
+        this.candidates = candidates;
     }
 
     @Override
@@ -29,10 +34,10 @@ public class CalculatingHandler extends Handler {
         Buffer buffer = (Buffer) msg.obj;
 
         int i = 0;
-        for (; i < Constants.CRITERIA.length; ++i) {
-            for (int j = 0; j < Constants.CANDIDATES.length; ++j){
+        for (; i < criteria.length; ++i) {
+            for (int j = 0; j < candidates.length; ++j){
                 TextView valueText
-                        = valueTextArray.get(i * Constants.CANDIDATES.length + j);
+                        = valueTextArray.get(i * candidates.length + j);
 
                 double value = buffer.eachRelativeWeights.get(i)[j];
                 String text = Double.toString(value);
@@ -41,9 +46,9 @@ public class CalculatingHandler extends Handler {
             }
         }
 
-        for (int j = 0; j < Constants.CANDIDATES.length; ++j){
+        for (int j = 0; j < candidates.length; ++j){
             TextView valueText
-                    = valueTextArray.get(i * Constants.CANDIDATES.length + j);
+                    = valueTextArray.get(i * candidates.length + j);
 
             double value = buffer.finalRelativeWeights[j];
             String text = Double.toString(value);
