@@ -26,7 +26,14 @@ public class Algorithm {
         String[] names = new String[inputNames.length];
         //Укорачивание всех названий (имён) до lengthOfName
         for (int i = 0; i < names.length; ++i){
-            names[i] = inputNames[i].substring(0, lengthOfName).toUpperCase();
+            String str;
+            if (inputNames[i].length() >= lengthOfName) {
+                str = inputNames[i].substring(0, lengthOfName).toUpperCase();
+            }
+            else {
+                str = inputNames[i].toUpperCase();
+            }
+            names[i] = str;
         }
         //Сокращения для частоиспользуемых переменных
         final int size = names.length;

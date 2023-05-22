@@ -8,25 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ChooseMAIConfigActivity extends AppCompatActivity {
@@ -50,7 +40,7 @@ public class ChooseMAIConfigActivity extends AppCompatActivity {
             for (String name : names){
                 LinearLayout view =
                         (LinearLayout) inflater.inflate(R.layout.one_choose_element, null);
-                Button button = view.findViewById(R.id.config_button);
+                Button button = view.findViewById(R.id.logic_button);
                 button.setText(name);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -62,7 +52,7 @@ public class ChooseMAIConfigActivity extends AppCompatActivity {
                     }
                 });
 
-                ImageView deleteConfig = view.findViewById(R.id.delete_config);
+                ImageView deleteConfig = view.findViewById(R.id.delete_one_element);
                 deleteConfig.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

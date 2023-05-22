@@ -17,27 +17,23 @@ import java.util.concurrent.CountDownLatch;
 
 public class CalculatingThread extends Thread{
     private final CalculatingHandler handler;
-    private final Context context;
+    private final String formattedAnswer;
     private final CountDownLatch count;
 
-    public CalculatingThread(Context context,
+    public CalculatingThread(String formattedAnswer,
                              ArrayList<TextView> valueTextArray,
                              String[] criteria,
                              String[] candidates,
                              CountDownLatch count){
         this.handler = new CalculatingHandler(valueTextArray, criteria, candidates);
-        this.context = context;
+        this.formattedAnswer = formattedAnswer;
         this.count = count;
     }
 
     @Override
     public void run() {
         try {
-            Scanner data = new Scanner(
-                    new InputStreamReader(
-                            context.openFileInput(Constants.ANSWER_FILENAME)
-                    )
-            );
+            Scanner data = new Scanner(formattedAnswer);
             data.useLocale(Locale.CANADA);
 
             Buffer buffer = CalculatingClass.calculate(data);
@@ -49,8 +45,6 @@ public class CalculatingThread extends Thread{
             count.await();
 
             handler.sendMessage(msg);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

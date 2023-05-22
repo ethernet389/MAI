@@ -35,6 +35,8 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="20sp"
       android:text="@string/mai_template_name_button_text"
+      android:padding="15dp"
+      android:textSize="20sp"
       app:layout_constraintTop_toBottomOf="@id/input_mai_template_name"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />

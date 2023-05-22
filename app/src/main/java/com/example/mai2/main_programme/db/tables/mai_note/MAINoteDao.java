@@ -17,8 +17,14 @@ public interface MAINoteDao {
     @Insert
     void insertNewMAINote(MAINote note);
 
-    @Query("SELECT * FROM MAINote")
-    List<MAINote> getAllNotes();
+    @Query("SELECT name FROM MAINote")
+    List<String> getAllNameOfNotes();
+
+    @Query("SELECT * FROM MAINote WHERE name = :name")
+    MAINote getNoteByName(String name);
+
+    @Query("DELETE FROM MAINote WHERE name = :name")
+    void deleteMAINoteByName(String name);
 
     @Delete
     void deleteMAINote(MAINote note);

@@ -30,7 +30,9 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_activity.ChooseMAIConfigActivity;
 import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
+import com.example.mai2.main_programme.activities.create_mai_activity.GetNameMAINoteActivity;
 import com.example.mai2.main_programme.activities.main_activity.workers.GetCriteriaWorker;
+import com.example.mai2.main_programme.activities.main_activity.workers.InsertNewMAINoteWorker;
 import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
 import com.example.mai2.main_programme.Constants;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     String[] criteria;
     String[] candidates;
+    String name;
 
     //Метод инициализации полей, связанных с разметкой
     private void initialize(){
@@ -110,25 +113,11 @@ public class MainActivity extends AppCompatActivity {
             container.addView(tl);
             //Логика для кнопки продолжения (именно в хэндлере, иначе надо синхронизировать потоки)
             if (!buttonIsClickable) {
-                //Обнуление файла
-                try {
-                    BufferedWriter bw = new BufferedWriter(
-                            new OutputStreamWriter(
-                                    openFileOutput(Constants.ANSWER_FILENAME, MODE_PRIVATE)
-                            )
-                    );
-                    bw.write("");
-                    bw.close();
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this,
-                            e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }
-
                 //Класс для переключения сценария
                 class ScenarioClickListener implements View.OnClickListener{
                     private boolean criteriaMatrixWas = false;
                     private int candidatesCount = 0;
+                    private final StringBuilder globRes = new StringBuilder();
 
                     @Override
                     public void onClick(View v) {
@@ -167,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             //Очистка матрицы
-                            Drawable standardBackground = resources.getDrawable(R.drawable.cell_shape);
+                            Drawable standardBackground = resources
+                                    .getDrawable(R.drawable.cell_shape);
                             Algorithm.clearMatrix(tl, standardBackground);
 
                             //Обновление вопроса (указания)
@@ -179,27 +169,42 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        //Запись ответа в файл
-                        try {
-                            BufferedWriter bw = new BufferedWriter(
-                                    new OutputStreamWriter(
-                                            openFileOutput(Constants.ANSWER_FILENAME, MODE_APPEND)
-                                    )
-                            );
-                            bw.write(res.toString());
-                            bw.close();
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                        globRes.append(res);
 
                         //Переход к просмотру результатов
                         if (candidatesCount == criteria.length)  {
                             Intent intent = new Intent(getApplicationContext(),
                                     ResultActivity.class);
-                            intent.putExtra("criteria", criteria);
-                            intent.putExtra("candidates", candidates);
-                            startActivity(intent);
-                            finish();
+
+                            String nameOfConfig =
+                                    getIntent()
+                                            .getStringExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY);
+                            Data data = new Data.Builder()
+                                    .putStringArray("candidates", candidates)
+                                    .putString("nameOfConfig", nameOfConfig)
+                                    .putString("name", name)
+                                    .putString("formattedAnswer", globRes.toString())
+                                    .build();
+
+                            OneTimeWorkRequest request =
+                                    new OneTimeWorkRequest.Builder(InsertNewMAINoteWorker.class)
+                                            .setInputData(data)
+                                            .build();
+                            WorkManager.getInstance(getApplicationContext()).enqueue(request);
+
+                            Observer<WorkInfo> observer = new Observer<WorkInfo>() {
+                                @Override
+                                public void onChanged(WorkInfo workInfo) {
+                                    if (workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) {
+                                        intent.putExtra(Constants.NOTE_KEY, name);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            };
+                            WorkManager.getInstance(getApplicationContext())
+                                    .getWorkInfoByIdLiveData(request.getId())
+                                    .observe(MainActivity.this, observer);
                         }
                     }
                 }
@@ -216,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
         private final Context context;
         private final LayoutInflater localInflater;
-        private final String[] criteria, candidates;
+        private final String[] criteria;
         private final int lengthOfName;
 
         public GenerateMatrixThread(String[] criteria, String[] candidates, int lengthOfName){
@@ -225,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
             this.context = MainActivity.this;
             this.localInflater = inflater;
             this.criteria = criteria;
-            this.candidates = candidates;
             this.lengthOfName = lengthOfName;
         }
 
@@ -249,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent pastIntent = getIntent();
         candidates = pastIntent.getStringArrayExtra(CreateMAIActivity.CANDIDATES_KEY);
+        name = pastIntent.getStringExtra(GetNameMAINoteActivity.NAME_KEY);
         String nameOfConfig = pastIntent.getStringExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY);
 
         Data data = new Data.Builder().putString("nameOfConfig", nameOfConfig).build();

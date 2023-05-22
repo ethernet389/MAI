@@ -2,7 +2,7 @@
     <!--Main Activity-->
     <string name="app_name">MAI2</string>
     <string name="criteria_relative">Отношение критериев</string>
-    <string name="command_text_template">Отношение учебных заведений по критерию: \n</string>
+    <string name="command_text_template">Отношение кандидатов по критерию: \n</string>
     <string name="result_text">Результаты</string>
     <string name="next_button_text">Дальше</string>
 
@@ -33,4 +33,8 @@
     <string name="start_answering_button_text">Создать ответ</string>
     <string name="list_of_candidate_item_hint">Кандидат</string>
 
+    <!-- GetNameMAINoteActivity -->
+    <string name="title_of_get_name_mai_note">Введите название записи</string>
+    <string name="input_mai_note_name">Название записи</string>
+    <string name="title_check_result_text">Записи опросов</string>
 </resources>

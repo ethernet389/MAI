@@ -90,7 +90,7 @@ public class CreateMAIActivity extends AppCompatActivity {
             if (candidates == null) return;
 
             Intent intent = new Intent(getApplicationContext(),
-                    MainActivity.class);
+                    GetNameMAINoteActivity.class);
             String name = getIntent().getStringExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY);
             intent.putExtra(ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY, name);
             intent.putExtra(CANDIDATES_KEY, candidates);
