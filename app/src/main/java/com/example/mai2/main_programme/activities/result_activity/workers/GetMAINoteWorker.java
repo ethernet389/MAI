@@ -24,11 +24,9 @@ public class GetMAINoteWorker extends Worker {
 
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
         MAINote note = db.getMAINoteDao().getNoteByName(name);
-        String[] criteria = db.getMAIConfigDao().getCriteriaByName(note.configName);
-        criteria = new Gson().fromJson(criteria[0], String[].class);
 
         Data data = new Data.Builder()
-                .putStringArray("criteria", criteria)
+                .putStringArray("criteria", note.criteria)
                 .putStringArray("candidates", note.candidates)
                 .putString("formattedAnswer", note.formattedAnswer)
                 .build();

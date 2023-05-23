@@ -1,7 +1,5 @@
 package com.example.mai2.main_programme.math;
 
-import android.util.Log;
-
 import Jama.Matrix;
 
 import java.util.Scanner;

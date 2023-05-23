@@ -9,6 +9,7 @@ import androidx.work.WorkerParameters;
 
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.example.mai2.main_programme.db.tables.mai_note.MAINote;
+import com.google.gson.Gson;
 
 public class InsertNewMAINoteWorker extends Worker {
     public InsertNewMAINoteWorker(@NonNull Context context,
@@ -25,10 +26,16 @@ public class InsertNewMAINoteWorker extends Worker {
         String[] candidates = getInputData().getStringArray("candidates");
 
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        String[] criteria = db.getMAIConfigDao().getCriteriaByName(nameOfConfig);
+        criteria = new Gson().fromJson(criteria[0], String[].class);
+
         MAINote note = new MAINote();
         note.candidates = candidates;
         note.configName = nameOfConfig;
+        assert name != null;
         note.name = name;
+        note.criteria = criteria;
         note.formattedAnswer = formattedAnswer;
         db.getMAINoteDao().insertNewMAINote(note);
 

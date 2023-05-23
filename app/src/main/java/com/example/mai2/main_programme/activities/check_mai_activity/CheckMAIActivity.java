@@ -26,7 +26,8 @@ public class CheckMAIActivity extends AppCompatActivity {
     LinearLayout container;
 
     class CreateElementsThread extends Thread{
-        CreateElementsHandler handler = new CreateElementsHandler();
+        private final AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
+        private final CreateElementsHandler handler = new CreateElementsHandler();
 
         private LinearLayout createOneElement(String name){
             LinearLayout layout
@@ -51,7 +52,9 @@ public class CheckMAIActivity extends AppCompatActivity {
                 intent.putExtra(Constants.NOTE_KEY, name);
                 startActivity(intent);
             });
-            button.setText(name);
+            String configName = db.getMAINoteDao().getNoteByName(name).configName;
+            String buttonTitle = String.format("%s (%s)", name, configName);
+            button.setText(buttonTitle);
 
             return layout;
         };

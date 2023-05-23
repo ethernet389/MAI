@@ -18,6 +18,8 @@ public class MAINote {
     //many-to-one MAIConfig.name
     public String configName;
 
+    public String[] criteria;
+
     public String[] candidates;
 
     public String formattedAnswer;
