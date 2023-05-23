@@ -29,8 +29,9 @@
       android:textSize="20sp"
       android:gravity="center"/>
 
-  <Button
+  <com.manojbhadane.QButton
       android:id="@+id/go_next_with_name_button"
+      style="@style/QButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="20sp"

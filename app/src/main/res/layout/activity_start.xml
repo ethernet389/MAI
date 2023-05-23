@@ -8,6 +8,7 @@
 
     <com.manojbhadane.QButton
         android:id="@+id/create_template_button"
+        style="@style/QButtonStyle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/create_template_button_text"
@@ -20,6 +21,7 @@
 
     <com.manojbhadane.QButton
         android:id="@+id/start_mai_button"
+        style="@style/QButtonStyle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/fill_mai_button_text"
@@ -32,6 +34,7 @@
 
     <com.manojbhadane.QButton
         android:id="@+id/check_mai_button"
+        style="@style/QButtonStyle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/find_out_mai_button_text"

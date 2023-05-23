@@ -39,8 +39,9 @@
         </HorizontalScrollView>
     </ScrollView>
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/next_button"
+        style="@style/QButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_button_text"

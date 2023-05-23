@@ -15,8 +15,9 @@
         android:textSize="35sp"
         android:gravity="center" />
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/save_template_button"
+        style="@style/QButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
@@ -25,11 +26,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"/>
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/add_criteria_button"
+        style="@style/QButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
+        android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
         android:text="@string/add_criteria_button_text" />

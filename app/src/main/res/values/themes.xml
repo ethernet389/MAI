@@ -1,3 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
+    <style name="QButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="qb_radius">70</item>
+        <item name="qb_backgroundColor">#D8E0DBDB</item>
+        <item name="qb_strokeColor">#565050</item>
+        <item name="qb_strokeWidth">5</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
 </resources>
