@@ -29,6 +29,9 @@ android {
 }
 
 dependencies {
+    //Красивые кнопки
+    implementation "com.github.manojbhadane:QButton:v1.3"
+
     //Библиотека, реализующая матрицы и операции с ними
     implementation 'gov.nist.math:jama:1.0.3'
 

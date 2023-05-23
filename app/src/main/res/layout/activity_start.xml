@@ -6,35 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".main_programme.activities.start_activity.StartActivity">
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/create_template_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/create_template_button_text"
         android:textSize="20sp"
         android:padding="15dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/start_mai_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/fill_mai_button_text"
         android:textSize="20sp"
         android:padding="15dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/create_template_button" />
 
-    <Button
+    <com.manojbhadane.QButton
         android:id="@+id/check_mai_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/find_out_mai_button_text"
         android:textSize="20sp"
         android:padding="15dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/start_mai_button" />

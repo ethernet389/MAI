@@ -1,28 +1,23 @@
 package com.example.mai2.main_programme.activities.start_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_mai_activity.CheckMAIActivity;
 import com.example.mai2.main_programme.activities.create_mai_activity.ChooseMAIConfigActivity;
-import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
-import com.example.mai2.main_programme.activities.create_mai_template_activity.CreateMAITemplateActivity;
 import com.example.mai2.main_programme.activities.create_mai_template_activity.SetNameForMAITemplateActivity;
-import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.manojbhadane.QButton;
 
 public class StartActivity extends AppCompatActivity {
 
-    Button createMAITemplateButton;
-    Button createMAIButton;
-    Button checkMAIButton;
+    QButton createMAITemplateButton;
+    QButton createMAIButton;
+    QButton checkMAIButton;
 
     private void initialize(){
         createMAITemplateButton = findViewById(R.id.create_template_button);
