@@ -2,9 +2,16 @@ package com.example.mai2.main_programme.activities.check_mai_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,70 +23,18 @@ import android.widget.LinearLayout;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
+import com.example.mai2.main_programme.activities.check_mai_activity.recyclers.MAINoteRecyclerAdapter;
+import com.example.mai2.main_programme.activities.check_mai_activity.workers.GetAllNotesNameWorker;
 import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.google.gson.Gson;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CheckMAIActivity extends AppCompatActivity {
 
-    LinearLayout container;
-
-    class CreateElementsThread extends Thread{
-        private final AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        private final CreateElementsHandler handler = new CreateElementsHandler();
-
-        private LinearLayout createOneElement(String name){
-            LinearLayout layout
-                    = (LinearLayout) getLayoutInflater().inflate(R.layout.one_choose_element, null);
-            Button button = layout.findViewById(R.id.logic_button);
-            ImageView deleteButton = layout.findViewById(R.id.delete_one_element);
-
-            deleteButton.setOnClickListener(delete -> {
-                container.removeView(layout);
-                new Thread(){
-                    @Override
-                    public void run() {
-                        AppDatabase.getAppDatabase(getApplicationContext())
-                                .getMAINoteDao()
-                                .deleteMAINoteByName(name);
-                    }
-                }.start();
-            });
-
-            button.setOnClickListener(createIntent -> {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                intent.putExtra(Constants.NOTE_KEY, name);
-                startActivity(intent);
-            });
-            String configName = db.getMAINoteDao().getNoteByName(name).configName;
-            String buttonTitle = String.format("%s (%s)", name, configName);
-            button.setText(buttonTitle);
-
-            return layout;
-        };
-
-        @Override
-        public void run() {
-            AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-            List<String> names = db.getMAINoteDao().getAllNameOfNotes();
-            for (String name : names) {
-                LinearLayout layout = createOneElement(name);
-                Message msg = new Message();
-                msg.obj = layout;
-                handler.sendMessage(msg);
-            }
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @SuppressLint("HandlerLeak")
-    class CreateElementsHandler extends Handler{
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            container.addView((View) msg.obj);
-        }
-    }
+    RecyclerView container;
 
     private void initialize(){
         container = findViewById(R.id.mai_records_container);
@@ -91,7 +46,22 @@ public class CheckMAIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check_mai_activity);
         initialize();
 
-        CreateElementsThread thread = new CreateElementsThread();
-        thread.start();
+        OneTimeWorkRequest request = new OneTimeWorkRequest
+                .Builder(GetAllNotesNameWorker.class)
+                .build();
+        WorkManager.getInstance(this).enqueue(request);
+        Observer<WorkInfo> observer = workInfo -> {
+            if (!workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) return;
+            String packedNames = workInfo.getOutputData().getString("names");
+            String packedConfigNames = workInfo.getOutputData().getString("configNames");
+            List<String> names = new Gson().fromJson(packedNames, List.class);
+            List<String> configNames = new Gson().fromJson(packedConfigNames, List.class);
+            MAINoteRecyclerAdapter adapter =
+                    new MAINoteRecyclerAdapter(this, names, configNames);
+            container.setLayoutManager(new LinearLayoutManager(this));
+            container.setAdapter(adapter);
+        };
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, observer);
     }
 }

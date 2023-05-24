@@ -1,6 +1,5 @@
-package com.example.mai2.main_programme.activities.result_activity.recycler;
+package com.example.mai2.main_programme.activities.result_activity.recyclers;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

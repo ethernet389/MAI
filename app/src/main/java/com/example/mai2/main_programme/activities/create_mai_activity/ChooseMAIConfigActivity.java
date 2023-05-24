@@ -2,6 +2,12 @@ package com.example.mai2.main_programme.activities.create_mai_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,68 +21,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.create_mai_activity.recyclers.ChooseTemplateRecyclerAdapter;
+import com.example.mai2.main_programme.activities.create_mai_activity.workers.GetAllMAIConfigNamesWorker;
 import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.google.gson.Gson;
 
 import java.util.List;
 
 public class ChooseMAIConfigActivity extends AppCompatActivity {
 
-    LinearLayout container;
+    RecyclerView container;
 
     public final static String NAME_OF_CONFIG_KEY = "nameOfConfigKey";
 
     private void initialize(){
-        container = findViewById(R.id.mai_config_container);
-    }
-
-    class ListGeneratorThread extends Thread{
-        ListHandler handler = new ListHandler();
-
-        @Override
-        public void run() {
-            AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-            List<String> names = db.getMAIConfigDao().getAllNamesOfMAIConfigs();
-            LayoutInflater inflater = getLayoutInflater();
-            for (String name : names){
-                LinearLayout view =
-                        (LinearLayout) inflater.inflate(R.layout.one_choose_element, null);
-                Button button = view.findViewById(R.id.logic_button);
-                button.setText(name);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),
-                                CreateMAIActivity.class);
-                        intent.putExtra(NAME_OF_CONFIG_KEY, name);
-                        startActivity(intent);
-                    }
-                });
-
-                ImageView deleteConfig = view.findViewById(R.id.delete_one_element);
-                deleteConfig.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        container.removeView(view);
-                        Runnable deleteConfigQuery = () ->
-                                db.getMAIConfigDao().deleteMAIConfigByName(name);
-                        new Thread(deleteConfigQuery).start();
-                    }
-                });
-
-                Message msg = new Message();
-                msg.obj = view;
-                handler.sendMessage(msg);
-            }
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @SuppressLint("HandlerLeak")
-    class ListHandler extends Handler{
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            container.addView((View) msg.obj);
-        }
+        container = findViewById(R.id.choose_template_recycler);
     }
 
     @Override
@@ -84,7 +43,22 @@ public class ChooseMAIConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_mai_config);
         initialize();
-        ListGeneratorThread thread = new ListGeneratorThread();
-        thread.start();
+        OneTimeWorkRequest request = new OneTimeWorkRequest
+                .Builder(GetAllMAIConfigNamesWorker.class)
+                .build();
+        WorkManager.getInstance(this).enqueue(request);
+        Observer<WorkInfo> observer = workInfo -> {
+            if (!workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) return;
+            String packedNames = workInfo.getOutputData().getString("names");
+            List<String> names = new Gson().fromJson(packedNames, List.class);
+
+            ChooseTemplateRecyclerAdapter adapter =
+                    new ChooseTemplateRecyclerAdapter(this, names);
+            container.setLayoutManager(new LinearLayoutManager(this));
+            container.setAdapter(adapter);
+        };
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
+                .observe(this, observer);
     }
 }

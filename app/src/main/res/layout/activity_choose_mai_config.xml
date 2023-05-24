@@ -14,14 +14,11 @@
         android:gravity="center"
         android:padding="10dp"/>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/choose_template_recycler"
+        android:orientation="horizontal"
+        tools:listitem="@layout/one_choose_element"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/mai_config_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

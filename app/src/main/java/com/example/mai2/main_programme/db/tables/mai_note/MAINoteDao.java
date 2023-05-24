@@ -8,6 +8,7 @@ import androidx.room.TypeConverters;
 
 import com.example.mai2.main_programme.db.converters.StringArrayConverter;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Dao
@@ -19,6 +20,9 @@ public interface MAINoteDao {
 
     @Query("SELECT name FROM MAINote")
     List<String> getAllNameOfNotes();
+
+    @Query("SELECT configName FROM MAINote")
+    List<String> getAllConfigNameOfNotes();
 
     @Query("SELECT * FROM MAINote WHERE name = :name")
     MAINote getNoteByName(String name);

@@ -22,7 +22,7 @@ import android.widget.Button;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.activities.result_activity.recycler.RecyclerResultAdapter;
+import com.example.mai2.main_programme.activities.result_activity.recyclers.RecyclerResultAdapter;
 import com.example.mai2.main_programme.activities.result_activity.workers.CalculatingWorker;
 import com.example.mai2.main_programme.activities.result_activity.workers.GetMAINoteWorker;
 import com.example.mai2.main_programme.activities.start_activity.StartActivity;
