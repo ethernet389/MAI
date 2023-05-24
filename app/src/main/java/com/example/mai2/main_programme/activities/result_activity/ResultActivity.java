@@ -3,6 +3,9 @@ package com.example.mai2.main_programme.activities.result_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -15,23 +18,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
-import com.example.mai2.main_programme.activities.main_activity.MainActivity;
-import com.example.mai2.main_programme.activities.result_activity.calculating_thread.CalculatingThread;
-import com.example.mai2.main_programme.activities.result_activity.generate_layout_thread.LayoutGeneratorThread;
+import com.example.mai2.main_programme.activities.result_activity.recycler.RecyclerResultAdapter;
+import com.example.mai2.main_programme.activities.result_activity.workers.CalculatingWorker;
 import com.example.mai2.main_programme.activities.result_activity.workers.GetMAINoteWorker;
 import com.example.mai2.main_programme.activities.start_activity.StartActivity;
-
-import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
+import com.example.mai2.main_programme.math.Buffer;
 
 public class ResultActivity extends AppCompatActivity {
-    LinearLayout resultContainer;
+    RecyclerView resultRecycler;
     Button endViewButton;
     LayoutInflater layoutInflater;
 
@@ -41,7 +39,7 @@ public class ResultActivity extends AppCompatActivity {
     String[] candidates;
 
     private void initialize(){
-        resultContainer = findViewById(R.id.result_container);
+        resultRecycler = findViewById(R.id.result_pager);
         endViewButton = findViewById(R.id.end_button);
         layoutInflater = getLayoutInflater();
     }
@@ -60,50 +58,59 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         name = getIntent().getStringExtra(Constants.NOTE_KEY);
-        Data data = new Data.Builder()
+        Data dataNote = new Data.Builder()
                 .putString("name", name)
                 .build();
-        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(GetMAINoteWorker.class)
-                .setInputData(data)
+        OneTimeWorkRequest getNoteRequest = new OneTimeWorkRequest.Builder(GetMAINoteWorker.class)
+                .setInputData(dataNote)
                 .build();
-        WorkManager.getInstance(getApplicationContext()).enqueue(request);
 
-        Observer<WorkInfo> observer = new Observer<WorkInfo>() {
-            @Override
-            public void onChanged(WorkInfo workInfo) {
-                if (workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) {
-                    criteria = workInfo.getOutputData().getStringArray("criteria");
-                    candidates = workInfo.getOutputData().getStringArray("candidates");
-                    formattedAnswer = workInfo.getOutputData().getString("formattedAnswer");
+        Data dataToCalculate = new Data.Builder()
+                .putString("formattedAnswer", formattedAnswer)
+                .build();
+        OneTimeWorkRequest calculateRequest = new OneTimeWorkRequest.Builder(CalculatingWorker.class)
+                .setInputData(dataToCalculate)
+                        .build();
 
-                    final int operationsCount
-                            = (criteria.length + 1) * candidates.length;
+        WorkManager.getInstance(getApplicationContext())
+                .beginWith(getNoteRequest)
+                .then(calculateRequest)
+                .enqueue();
 
-                    final CountDownLatch LAYOUT_GENERATED_FLAG
-                            = new CountDownLatch(operationsCount);
+        Observer<WorkInfo> getNoteObserver = workInfo -> {
+            if (!workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) return;
+            criteria = workInfo.getOutputData().getStringArray("criteria");
+            candidates = workInfo.getOutputData().getStringArray("candidates");
+            formattedAnswer = workInfo.getOutputData().getString("formattedAnswer");
+        };
 
-                    ArrayList<TextView> valueArray = new ArrayList<>();
-                    LayoutGeneratorThread lgt =
-                            new LayoutGeneratorThread(layoutInflater,
-                                    resultContainer,
-                                    valueArray,
-                                    criteria,
-                                    candidates,
-                                    LAYOUT_GENERATED_FLAG);
-                    lgt.start();
+        Observer<WorkInfo> calculateObserver = workInfo -> {
+            if (!workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) return;
+            String json = workInfo.getOutputData().getString("data");
+            Buffer buffer = Buffer.fromJson(json);
 
-                    CalculatingThread ct = new CalculatingThread(formattedAnswer,
-                            valueArray,
-                            criteria,
-                            candidates,
-                            LAYOUT_GENERATED_FLAG);
-                    ct.start();
-                }
-            }
+            RecyclerResultAdapter adapter = new RecyclerResultAdapter(
+                    getApplicationContext(), buffer, criteria, candidates
+            );
+
+            PagerSnapHelper psh = new PagerSnapHelper();
+            psh.attachToRecyclerView(resultRecycler);
+
+            resultRecycler.setLayoutManager(
+                    new LinearLayoutManager(
+                            getApplicationContext(), LinearLayoutManager.HORIZONTAL, false
+                    )
+            );
+
+            resultRecycler.setAdapter(adapter);
         };
 
         WorkManager.getInstance(getApplicationContext())
-                .getWorkInfoByIdLiveData(request.getId())
-                .observe(this, observer);
+                .getWorkInfoByIdLiveData(getNoteRequest.getId())
+                .observe(this, getNoteObserver);
+
+        WorkManager.getInstance(getApplicationContext())
+                .getWorkInfoByIdLiveData(calculateRequest.getId())
+                .observe(this, calculateObserver);
     }
 }
