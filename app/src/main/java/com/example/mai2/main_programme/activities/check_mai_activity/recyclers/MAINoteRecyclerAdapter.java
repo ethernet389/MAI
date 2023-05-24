@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
 import com.example.mai2.main_programme.activities.create_mai_activity.CreateMAIActivity;
+import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.example.mai2.main_programme.db.tables.mai_note.MAINote;
 
@@ -51,7 +52,7 @@ public class MAINoteRecyclerAdapter
         holder.intentButton.setText(String.format("%s (%s)", name, configName));
         holder.intentButton.setOnClickListener(listener -> {
             Intent intent = new Intent(context,
-                    CreateMAIActivity.class);
+                    ResultActivity.class);
             intent.putExtra(Constants.NOTE_KEY, name);
             context.startActivity(intent);
         });

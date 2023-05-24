@@ -15,9 +15,10 @@
 
     <ImageView
         android:id="@+id/delete_x"
-        android:layout_width="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:layout_height="match_parent"
         android:src="@drawable/delete_item_x" />
 
 </TableRow>
