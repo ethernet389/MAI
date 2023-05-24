@@ -3,11 +3,14 @@
     android:id="@+id/one_candidate"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <EditText
+
+    <com.libizo.CustomEditText
         android:id="@+id/candidate_text"
+        style="@style/CustomEditTextStyle"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:hint="@string/list_of_candidate_item_hint"
+        android:layout_margin="5dp"
         android:textSize="20sp"
         android:gravity="start"/>
 
@@ -15,6 +18,7 @@
         android:id="@+id/delete_x"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:src="@drawable/delete_item_x" />
 
 </TableRow>

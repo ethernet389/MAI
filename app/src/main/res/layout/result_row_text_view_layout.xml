@@ -5,4 +5,4 @@
     android:textSize="20sp"
     android:padding="20dp"
     android:gravity="center"
-    android:layout_gravity="center"/>
+    android:layout_gravity="center" />

@@ -6,4 +6,13 @@
         <item name="qb_strokeWidth">5</item>
         <item name="android:layout_margin">5dp</item>
     </style>
+
+    <style name="CustomEditTextStyle" parent="@style/Theme.AppCompat.Dialog">
+        <item name="libIZO_setBorderColor">#565050</item>
+        <item name="libIZO_setClearIconVisible">false</item>
+        <item name="libIZO_setCornerRadius">50dp</item>
+        <item name="libIZO_setBorderView">true</item>
+        <item name="libIZO_setStrokeWidth">2dp</item>
+        <item name="libIZO_setBackgroundColor">#4CAB11</item>
+    </style>
 </resources>

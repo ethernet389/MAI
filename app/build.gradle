@@ -32,6 +32,9 @@ dependencies {
     //Красивые кнопки
     implementation "com.github.manojbhadane:QButton:v1.3"
 
+    //Красивые EditText
+    implementation "com.github.Rajagopalr3:CustomEditText:master"
+
     //Библиотека, реализующая матрицы и операции с ними
     implementation 'gov.nist.math:jama:1.0.3'
 
