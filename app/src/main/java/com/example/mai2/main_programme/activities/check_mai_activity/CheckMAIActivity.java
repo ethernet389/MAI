@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import org.javatuples.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,10 +26,12 @@ import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
 import com.example.mai2.main_programme.activities.check_mai_activity.recyclers.MAINoteRecyclerAdapter;
 import com.example.mai2.main_programme.activities.check_mai_activity.workers.GetAllNotesNameWorker;
+import com.example.mai2.main_programme.activities.check_mai_activity.wrappers.ArrayPairList;
 import com.example.mai2.main_programme.activities.result_activity.ResultActivity;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,12 +55,10 @@ public class CheckMAIActivity extends AppCompatActivity {
         WorkManager.getInstance(this).enqueue(request);
         Observer<WorkInfo> observer = workInfo -> {
             if (!workInfo.getState().equals(WorkInfo.State.SUCCEEDED)) return;
-            String packedNames = workInfo.getOutputData().getString("names");
-            String packedConfigNames = workInfo.getOutputData().getString("configNames");
-            List<String> names = new Gson().fromJson(packedNames, List.class);
-            List<String> configNames = new Gson().fromJson(packedConfigNames, List.class);
+            String packedCursor = workInfo.getOutputData().getString("packedCursor");
+            ArrayPairList cursorList = new Gson().fromJson(packedCursor, ArrayPairList.class);
             MAINoteRecyclerAdapter adapter =
-                    new MAINoteRecyclerAdapter(this, names, configNames);
+                    new MAINoteRecyclerAdapter(this, cursorList.list);
             container.setLayoutManager(new LinearLayoutManager(this));
             container.setAdapter(adapter);
         };

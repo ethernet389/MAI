@@ -16,11 +16,15 @@ public class MAINote {
     public String name;
 
     //many-to-one MAIConfig.name
+    @NonNull
     public String configName;
 
+    @NonNull
     public String[] criteria;
 
+    @NonNull
     public String[] candidates;
 
+    @NonNull
     public String formattedAnswer;
 }

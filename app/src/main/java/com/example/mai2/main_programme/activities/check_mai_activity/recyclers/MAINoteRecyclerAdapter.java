@@ -19,19 +19,19 @@ import com.example.mai2.main_programme.activities.result_activity.ResultActivity
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.example.mai2.main_programme.db.tables.mai_note.MAINote;
 
+import org.javatuples.Pair;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MAINoteRecyclerAdapter
         extends RecyclerView.Adapter<MAINoteRecyclerAdapter.ViewHolder>{
-    private final List<String> names, configNames;
+    private final ArrayList<Pair<String, String>> cursorList;
     private final Context context;
     private final LayoutInflater inflater;
 
-    public MAINoteRecyclerAdapter(Context context,
-                                  List<String> names,
-                                  List<String> configNames){
-        this.names = names;
-        this.configNames = configNames;
+    public MAINoteRecyclerAdapter(Context context, ArrayList<Pair<String, String>> cursorList){
+        this.cursorList = cursorList;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
@@ -46,8 +46,9 @@ public class MAINoteRecyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String name = names.get(position);
-        String configName = configNames.get(position);
+        Pair<String, String> pair = cursorList.get(position);
+        String name = pair.getValue0();
+        String configName = pair.getValue1();
 
         holder.intentButton.setText(String.format("%s (%s)", name, configName));
         holder.intentButton.setOnClickListener(listener -> {
@@ -65,15 +66,14 @@ public class MAINoteRecyclerAdapter
                     db.getMAINoteDao().deleteMAINoteByName(name);
                 }
             }.start();
-            names.remove(name);
-            configNames.remove(configName);
+            cursorList.remove(position);
             notifyItemRemoved(position);
         });
     }
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return cursorList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

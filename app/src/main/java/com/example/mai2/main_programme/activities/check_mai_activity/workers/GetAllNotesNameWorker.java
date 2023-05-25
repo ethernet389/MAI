@@ -2,6 +2,7 @@ package com.example.mai2.main_programme.activities.check_mai_activity.workers;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQuery;
 
 import androidx.annotation.NonNull;
 import androidx.room.RoomSQLiteQuery;
@@ -11,11 +12,13 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.mai2.main_programme.activities.check_mai_activity.wrappers.ArrayPairList;
 import com.example.mai2.main_programme.db.database.AppDatabase;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-import java.util.List;
+import org.javatuples.Pair;
+
+import java.util.ArrayList;
 
 public class GetAllNotesNameWorker extends Worker {
 
@@ -29,14 +32,20 @@ public class GetAllNotesNameWorker extends Worker {
     @Override
     public Result doWork() {
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        List<String> names = db.getMAINoteDao().getAllNameOfNotes();
-        List<String> configNames = db.getMAINoteDao().getAllConfigNameOfNotes();
-        String packedNames = new Gson().toJson(names);
-        String packedConfigNames= new Gson().toJson(configNames);
-
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT name, configName FROM MAINote");
+        Cursor cursor = db.query(query);
+        ArrayList<Pair<String, String>> mappedCursor = new ArrayList<>();
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            String configName = cursor.getString(cursor.getColumnIndexOrThrow("configName"));
+            Pair<String, String> pair = new Pair<>(name, configName);
+            mappedCursor.add(pair);
+        }
+        ArrayPairList wrappedCursor = new ArrayPairList(mappedCursor);
+        String packedCursor = new Gson().toJson(wrappedCursor);
         Data output = new Data.Builder()
-                .putString("names", packedNames)
-                .putString("configNames", packedConfigNames)
+                .putString("packedCursor", packedCursor)
                 .build();
         return Result.success(output);
     }

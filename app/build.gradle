@@ -46,6 +46,7 @@ dependencies {
 
     //ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'org.javatuples:javatuples:1.2'
 
     annotationProcessor "androidx.room:room-compiler:2.5.1"
     androidTestImplementation "androidx.room:room-testing:2.5.1"
