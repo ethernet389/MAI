@@ -65,6 +65,8 @@ public class MAINoteRecyclerAdapter
                     db.getMAINoteDao().deleteMAINoteByName(name);
                 }
             }.start();
+            names.remove(name);
+            configNames.remove(configName);
             notifyItemRemoved(position);
         });
     }
