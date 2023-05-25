@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_programme.activities.create_mai_template_activity.SetNameForMAITemplateActivity">
+    tools:context=".main_programme.activities.create_mai_template.SetNameForMAITemplateActivity">
 
   <TextView
       android:id="@+id/title_of_set_name_mai_template"

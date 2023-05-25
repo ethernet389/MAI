@@ -13,49 +13,49 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
         <activity
-            android:name=".main_programme.activities.create_mai_activity.GetNameMAINoteActivity"
+            android:name=".main_programme.activities.create_new_mai_note.create_mai_activity.GetNameMAINoteActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.create_mai_activity.ChooseMAIConfigActivity"
+            android:name=".main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.create_mai_template_activity.SetNameForMAITemplateActivity"
+            android:name=".main_programme.activities.create_mai_template.SetNameForMAITemplateActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.create_mai_activity.CreateMAIActivity"
+            android:name=".main_programme.activities.create_new_mai_note.create_mai_activity.CreateMAIActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.check_mai_activity.CheckMAIActivity"
+            android:name=".main_programme.activities.check_notes.CheckMAIActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.create_mai_template_activity.CreateMAITemplateActivity"
+            android:name=".main_programme.activities.create_mai_template.CreateMAITemplateActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.start_activity.StartActivity"
+            android:name=".main_programme.activities.start.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,14 +68,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.result_activity.ResultActivity"
+            android:name=".main_programme.activities.show_note.ResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".main_programme.activities.main_activity.MainActivity"
+            android:name=".main_programme.activities.create_new_mai_note.main_activity.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

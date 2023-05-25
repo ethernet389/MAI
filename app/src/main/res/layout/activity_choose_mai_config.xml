@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".main_programme.activities.create_mai_activity.ChooseMAIConfigActivity">
+    tools:context=".main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity">
 
     <TextView
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".main_programme.activities.create_mai_template_activity.CreateMAITemplateActivity">
+    tools:context=".main_programme.activities.create_mai_template.CreateMAITemplateActivity">
 
     <TextView
         android:id="@+id/mai_template_title"

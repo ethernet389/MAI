@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_programme.activities.start_activity.StartActivity">
+    tools:context=".main_programme.activities.start.StartActivity">
 
     <com.manojbhadane.QButton
         android:id="@+id/create_template_button"

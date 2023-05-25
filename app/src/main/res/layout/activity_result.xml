@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_programme.activities.result_activity.ResultActivity">
+    tools:context=".main_programme.activities.show_note.ResultActivity">
 
     <TextView
         android:id="@+id/result_title"
