@@ -1,9 +1,7 @@
-package com.example.mai2.main_programme.math;
+package com.example.mai2.main_programme.algorithm.math;
 
 import com.google.gson.Gson;
 
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public final class Buffer {

@@ -26,7 +26,7 @@ import com.example.mai2.main_programme.activities.result_activity.recyclers.Recy
 import com.example.mai2.main_programme.activities.result_activity.workers.CalculatingWorker;
 import com.example.mai2.main_programme.activities.result_activity.workers.GetMAINoteWorker;
 import com.example.mai2.main_programme.activities.start_activity.StartActivity;
-import com.example.mai2.main_programme.math.Buffer;
+import com.example.mai2.main_programme.algorithm.math.Buffer;
 
 public class ResultActivity extends AppCompatActivity {
     RecyclerView resultRecycler;

@@ -7,8 +7,8 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.mai2.main_programme.math.Buffer;
-import com.example.mai2.main_programme.math.CalculatingClass;
+import com.example.mai2.main_programme.algorithm.math.Buffer;
+import com.example.mai2.main_programme.algorithm.math.CalculatingClass;
 
 import java.util.Locale;
 import java.util.Scanner;

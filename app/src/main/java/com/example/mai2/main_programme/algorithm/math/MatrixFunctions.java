@@ -1,4 +1,4 @@
-package com.example.mai2.main_programme.math;
+package com.example.mai2.main_programme.algorithm.math;
 
 import Jama.Matrix;
 

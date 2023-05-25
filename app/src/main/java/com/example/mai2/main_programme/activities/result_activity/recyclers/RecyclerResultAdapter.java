@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mai2.R;
-import com.example.mai2.main_programme.math.Buffer;
+import com.example.mai2.main_programme.algorithm.math.Buffer;
 
 import java.util.Locale;
 
