@@ -32,7 +32,6 @@ public class GetAllNotesNameWorker extends Worker {
         SimpleSQLiteQuery query = new SimpleSQLiteQuery("SELECT name, configName FROM MAINote");
         Cursor cursor = db.query(query);
         ArrayList<Pair<String, String>> mappedCursor = new ArrayList<>();
-        cursor.moveToFirst();
         while(cursor.moveToNext()){
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String configName = cursor.getString(cursor.getColumnIndexOrThrow("configName"));

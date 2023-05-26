@@ -4,6 +4,7 @@ import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,9 @@ public class MAINoteRecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pair<String, String> pair = cursorList.get(position);
+        Log.d("position", "" + position);
         String name = pair.getValue0();
+        Log.d("value0", name);
         String configName = pair.getValue1();
 
         holder.intentButton.setText(String.format("%s (%s)", name, configName));
