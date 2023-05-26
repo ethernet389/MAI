@@ -1,5 +1,7 @@
 package com.example.mai2.main_programme.activities.check_notes.recyclers;
 
+import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -47,24 +49,6 @@ public class MAINoteRecyclerAdapter
         String configName = pair.getValue1();
 
         holder.intentButton.setText(String.format("%s (%s)", name, configName));
-        holder.intentButton.setOnClickListener(listener -> {
-            Intent intent = new Intent(context,
-                    ResultActivity.class);
-            intent.putExtra(Constants.NOTE_KEY, name);
-            context.startActivity(intent);
-        });
-
-        holder.deleteButton.setOnClickListener(listener -> {
-            new Thread(){
-                @Override
-                public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(context);
-                    db.getMAINoteDao().deleteMAINoteByName(name);
-                }
-            }.start();
-            cursorList.remove(position);
-            notifyItemRemoved(position);
-        });
     }
 
     @Override
@@ -72,13 +56,38 @@ public class MAINoteRecyclerAdapter
         return cursorList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public final Button intentButton;
         public final ImageView deleteButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             intentButton = itemView.findViewById(R.id.logic_button);
             deleteButton = itemView.findViewById(R.id.delete_one_element);
+
+            intentButton.setOnClickListener(listener -> {
+                int position = getAbsoluteAdapterPosition();
+                if (position == NO_POSITION) return;
+                String name = cursorList.get(position).getValue0();
+                Intent intent = new Intent(context,
+                        ResultActivity.class);
+                intent.putExtra(Constants.NOTE_KEY, name);
+                context.startActivity(intent);
+            });
+
+            deleteButton.setOnClickListener(listener -> {
+                int position = getAbsoluteAdapterPosition();
+                if (position == NO_POSITION) return;
+                String name = cursorList.get(position).getValue0();
+                new Thread(){
+                    @Override
+                    public void run() {
+                        AppDatabase db = AppDatabase.getAppDatabase(context);
+                        db.getMAINoteDao().deleteMAINoteByName(name);
+                    }
+                }.start();
+                cursorList.remove(position);
+                notifyItemRemoved(position);
+            });
         }
     }
 }

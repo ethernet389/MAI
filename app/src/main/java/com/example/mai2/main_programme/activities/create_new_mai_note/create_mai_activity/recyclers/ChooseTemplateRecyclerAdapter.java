@@ -1,5 +1,6 @@
 package com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.recyclers;
 
+import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY;
 
 import android.content.Context;
@@ -20,7 +21,7 @@ import com.example.mai2.main_programme.db.database.AppDatabase;
 import java.util.List;
 
 public class ChooseTemplateRecyclerAdapter
-        extends RecyclerView.Adapter<ChooseTemplateRecyclerAdapter.ViewHolder>{
+        extends RecyclerView.Adapter<ChooseTemplateRecyclerAdapter.ViewHolder> {
     private final List<String> MAIConfigsName;
     private final Context context;
     private final LayoutInflater inflater;
@@ -42,26 +43,7 @@ public class ChooseTemplateRecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String MAIConfigName = MAIConfigsName.get(position);
-
         holder.intentButton.setText(MAIConfigName);
-        holder.intentButton.setOnClickListener(listener -> {
-            Intent intent = new Intent(context,
-                    CreateMAIActivity.class);
-            intent.putExtra(NAME_OF_CONFIG_KEY, MAIConfigName);
-            context.startActivity(intent);
-        });
-
-        holder.deleteButton.setOnClickListener(listener -> {
-            new Thread(){
-                @Override
-                public void run() {
-                    AppDatabase db = AppDatabase.getAppDatabase(context);
-                    db.getMAIConfigDao().deleteMAIConfigByName(MAIConfigName);
-                }
-            }.start();
-            MAIConfigsName.remove(MAIConfigName);
-            notifyItemRemoved(position);
-        });
     }
 
     @Override
@@ -69,15 +51,38 @@ public class ChooseTemplateRecyclerAdapter
         return MAIConfigsName.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public final View parentView;
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public final Button intentButton;
         public final ImageView deleteButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            parentView = itemView;
             intentButton = itemView.findViewById(R.id.logic_button);
             deleteButton = itemView.findViewById(R.id.delete_one_element);
+
+            intentButton.setOnClickListener(listener -> {
+                int position = getAbsoluteAdapterPosition();
+                if (position == NO_POSITION) return;
+                String name = MAIConfigsName.get(position);
+                Intent intent = new Intent(context,
+                        CreateMAIActivity.class);
+                intent.putExtra(NAME_OF_CONFIG_KEY, name);
+                context.startActivity(intent);
+            });
+
+            deleteButton.setOnClickListener(listener -> {
+                int position = getAbsoluteAdapterPosition();
+                if (position == NO_POSITION) return;
+                String name = MAIConfigsName.get(position);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        AppDatabase db = AppDatabase.getAppDatabase(context);
+                        db.getMAIConfigDao().deleteMAIConfigByName(name);
+                    }
+                }.start();
+                MAIConfigsName.remove(position);
+                notifyItemRemoved(position);
+            });
         }
     }
 }
