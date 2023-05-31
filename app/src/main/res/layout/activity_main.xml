@@ -6,38 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".main_programme.activities.create_new_mai_note.main_activity.MainActivity">
 
-    <TextView
-        android:id="@+id/command_text"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/criteria_relative"
-        android:textSize="30sp"
-        android:layout_margin="10dp"
-        android:padding="20dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/next_button"
-        app:layout_constraintTop_toBottomOf="@id/command_text">
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top">
-            <FrameLayout
-                android:id="@+id/answer_matrix"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|top"
-                android:gravity="center_horizontal|top"/>
-        </HorizontalScrollView>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"/>
 
     <com.manojbhadane.QButton
         android:id="@+id/next_button"
