@@ -4,15 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.libizo.CustomEditText
+    <EditText
         android:id="@+id/candidate_text"
-        style="@style/CustomEditTextStyle"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="@string/list_of_candidate_item_hint"
-        android:layout_margin="5dp"
-        android:textSize="20sp"
-        android:gravity="start"/>
+        style="@style/EditTextStyle"
+        android:hint="@string/list_of_candidate_item_hint" />
 
     <ImageView
         android:id="@+id/delete_x"

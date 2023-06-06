@@ -84,8 +84,8 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
     }
 
     private void initialize(){
-        title = findViewById(R.id.title_of_set_name_mai_template);
-        inputName = findViewById(R.id.input_mai_template_name);
+        title = findViewById(R.id.title_of_set_name_activity);
+        inputName = findViewById(R.id.input_name_text);
         next = findViewById(R.id.go_next_with_name_button);
 
         title.setText(getString(R.string.title_of_get_name_mai_note));
@@ -95,7 +95,7 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_name_for_mai_template);
+        setContentView(R.layout.activities_set_name);
         initialize();
 
         next.setOnClickListener(new NextOnClickListener());

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:padding="20dp"
+        android:textColor="@color/design_black"
         android:gravity="center"
         android:layout_gravity="center" />
 

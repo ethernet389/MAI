@@ -1,48 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_programme.activities.start.StartActivity">
-
-    <com.manojbhadane.QButton
-        android:id="@+id/create_template_button"
-        style="@style/QButtonStyle"
-        android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/start_title_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_template_button_text"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="45sp"
+        android:text="@string/start_title_text"
+        android:textStyle="bold"
+        android:textColor="@color/design_black"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:padding="30dp"
+        android:background="@drawable/area_shape" />
 
-    <com.manojbhadane.QButton
-        android:id="@+id/start_mai_button"
-        style="@style/QButtonStyle"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:id="@+id/create_area"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fill_mai_button_text"
-        android:textSize="20sp"
+        android:layout_margin="5dp"
         android:padding="15dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_template_button" />
+        android:background="@drawable/area_shape"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="@string/create_area_title_text"
+            android:textStyle="bold"
+            android:textColor="@color/design_black"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal" />
 
-    <com.manojbhadane.QButton
-        android:id="@+id/check_mai_button"
-        style="@style/QButtonStyle"
-        android:layout_width="300dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/create_template_button"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                style="@style/ButtonStyle"
+                android:background="@drawable/button_area_shape"
+                android:text="@string/create_template_button_text"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@id/start_mai_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/start_mai_button"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                style="@style/ButtonStyle"
+                android:background="@drawable/button_area_shape"
+                android:text="@string/fill_mai_button_text"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/create_template_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_area"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/find_out_mai_button_text"
-        android:textSize="20sp"
+        android:layout_margin="5dp"
         android:padding="15dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/start_mai_button" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@drawable/area_shape"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style=""
+            android:textSize="30sp"
+            android:text="@string/view_area_title_text"
+            android:textStyle="bold"
+            android:textColor="@color/design_black"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/check_mai_button"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center_horizontal"
+            style="@style/ButtonStyle"
+            android:background="@drawable/button_area_shape"
+            android:text="@string/find_out_mai_button_text"
+            android:textSize="20sp"/>
+    </LinearLayout>
+</TableLayout>

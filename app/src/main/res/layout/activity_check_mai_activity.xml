@@ -7,8 +7,10 @@
     tools:context=".main_programme.activities.check_notes.CheckMAIActivity">
 
     <TextView
+        android:id="@+id/check_mai_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TextViewStyle"
         android:text="@string/title_check_result_text"
         android:textSize="35sp"
         android:gravity="center"

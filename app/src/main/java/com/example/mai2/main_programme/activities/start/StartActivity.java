@@ -14,10 +14,6 @@ import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_notes.CheckMAIActivity;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity;
 import com.example.mai2.main_programme.activities.create_mai_template.SetNameForMAITemplateActivity;
-import com.example.mai2.main_programme.db.database.AppDatabase;
-import com.example.mai2.main_programme.db.tables.mai_config.MAIConfig;
-import com.example.mai2.main_programme.db.tables.mai_note.MAINote;
-import com.manojbhadane.QButton;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -84,7 +80,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.design_activity_start);
+        setContentView(R.layout.activity_start);
         initialize();
 
         setOnClickListeners();

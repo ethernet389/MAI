@@ -11,29 +11,27 @@
         android:id="@+id/mai_template_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TextViewStyle"
         android:text="@string/input_template_title_text"
         android:textSize="35sp"
         android:gravity="center" />
 
-    <com.manojbhadane.QButton
+    <Button
         android:id="@+id/save_template_button"
-        style="@style/QButtonStyle"
+        style="@style/ButtonStyle"
+        android:background="@drawable/button_area_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:textSize="18sp"
         android:text="@string/save_template_button_text"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"/>
 
-    <com.manojbhadane.QButton
+    <Button
         android:id="@+id/add_criteria_button"
-        style="@style/QButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
+        style="@style/ButtonStyle"
+        android:background="@drawable/button_area_shape"
         android:layout_gravity="center_horizontal"
         android:text="@string/add_criteria_button_text" />
 

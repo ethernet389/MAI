@@ -16,10 +16,33 @@
         <item name="libIZO_setBackgroundColor">#4CAB11</item>
     </style>
 
-    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button">
+    <style name="ButtonStyle" parent="Theme.AppCompat.Dialog">
         <item name="background">@drawable/button_area_shape</item>
+        <item name="android:textColor">@color/design_black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">20dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:gravity">center</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@drawable/edit_text_area_shape</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/design_black</item>
+        <item name="android:textColorHint">@color/design_dark_gray</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="TextViewStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@drawable/area_shape</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/design_black</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 </resources>

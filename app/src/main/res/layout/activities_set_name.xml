@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_of_set_name_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextViewStyle"
+        android:textSize="35sp"
+        android:text="@string/title_of_set_name_mai_template_text"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:background="@drawable/area_shape" />
+
+    <EditText
+        android:id="@+id/input_name_text"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        style="@style/EditTextStyle"
+        android:hint="@string/input_mai_template_name_hint"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/go_next_with_name_button"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:background="@drawable/button_area_shape"
+        android:layout_gravity="center_horizontal"
+        style="@style/ButtonStyle"
+        android:padding="20dp"
+        android:text="@string/mai_template_name_button_text"
+        android:textSize="20sp" />
+
+</LinearLayout>

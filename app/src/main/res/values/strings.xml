@@ -10,7 +10,7 @@
     <string name="end_button_text">Завершить просмотр</string>
 
     <!--Start Activity-->
-    <string name="start_title_text">Метод Анализа Иерархий</string>
+    <string name="start_title_text">Метод Анализа\n Иерархий</string>
     <string name="create_area_title_text">Создание</string>
     <string name="view_area_title_text">Просмотр</string>
     <string name="create_template_button_text">Шаблона</string>

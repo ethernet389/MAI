@@ -13,11 +13,13 @@ import androidx.work.WorkManager;
 
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.example.mai2.R;
@@ -29,6 +31,8 @@ import com.example.mai2.main_programme.activities.start.StartActivity;
 import com.example.mai2.main_programme.algorithm.math.Buffer;
 
 public class ResultActivity extends AppCompatActivity {
+
+    TextView title;
     RecyclerView resultRecycler;
     Button endViewButton;
     LayoutInflater layoutInflater;
@@ -41,9 +45,15 @@ public class ResultActivity extends AppCompatActivity {
     private void initialize(){
         resultRecycler = findViewById(R.id.result_pager);
         endViewButton = findViewById(R.id.end_button);
+        title = findViewById(R.id.result_title);
+        changeTitleColor(R.color.design_blue);
         layoutInflater = getLayoutInflater();
     }
 
+    private void changeTitleColor(int colorId){
+        GradientDrawable back = (GradientDrawable) title.getBackground().mutate();
+        back.setColor(getColor(colorId));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,7 +8,9 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_notes.recyclers.MAINoteRecyclerAdapter;
@@ -18,10 +20,14 @@ import com.google.gson.Gson;
 
 public class CheckMAIActivity extends AppCompatActivity {
 
+    TextView title;
     RecyclerView container;
 
     private void initialize(){
         container = findViewById(R.id.mai_records_container);
+        title = findViewById(R.id.check_mai_title);
+        GradientDrawable back = (GradientDrawable) title.getBackground().mutate();
+        back.setColor(getColor(R.color.design_blue));
     }
 
     @Override

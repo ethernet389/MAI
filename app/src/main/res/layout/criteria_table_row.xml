@@ -3,15 +3,12 @@
     android:id="@+id/one_criteria"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.libizo.CustomEditText
+    <EditText
         android:id="@+id/criteria_text"
-        style="@style/CustomEditTextStyle"
         android:layout_width="350dp"
+        style="@style/EditTextStyle"
         android:layout_height="wrap_content"
-        android:hint="@string/list_of_criteria_item_hint"
-        android:layout_margin="5dp"
-        android:textSize="20sp"
-        android:gravity="start"/>
+        android:hint="@string/list_of_criteria_item_hint" />
 
     <ImageView
         android:id="@+id/delete_x"

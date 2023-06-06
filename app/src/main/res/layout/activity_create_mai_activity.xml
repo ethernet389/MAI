@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/mai_title"
-        style="@style/CustomEditTextStyle"
+        style="@style/TextViewStyle"
         android:inputType="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,25 +17,22 @@
         android:textSize="35sp"
         android:gravity="center" />
 
-    <com.manojbhadane.QButton
+    <Button
         android:id="@+id/start_answering"
-        style="@style/QButtonStyle"
+        style="@style/ButtonStyle"
+        android:background="@drawable/button_area_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:textSize="18sp"
         android:text="@string/start_answering_button_text"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"/>
 
-    <com.manojbhadane.QButton
+    <Button
         android:id="@+id/add_candidate_button"
-        style="@style/QButtonStyle"
+        style="@style/ButtonStyle"
+        android:background="@drawable/button_area_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
         android:layout_gravity="center_horizontal"
         android:text="@string/add_candidate_button_text" />
 

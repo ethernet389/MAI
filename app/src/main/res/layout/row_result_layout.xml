@@ -13,6 +13,7 @@
         android:textSize="20sp"
         android:padding="20dp"
         android:gravity="center"
+        android:textColor="@color/design_black"
         android:layout_gravity="center" />
 
     <TextView
@@ -22,5 +23,6 @@
         android:textSize="20sp"
         android:padding="20dp"
         android:gravity="center"
+        android:textColor="@color/design_black"
         android:layout_gravity="center" />
 </TableRow>

@@ -78,14 +78,14 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
     }
 
     private void initialize(){
-        inputMAIName = findViewById(R.id.input_mai_template_name);
+        inputMAIName = findViewById(R.id.input_name_text);
         nextButton = findViewById(R.id.go_next_with_name_button);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_name_for_mai_template);
+        setContentView(R.layout.activities_set_name);
         initialize();
 
         nextButton.setOnClickListener(new NextOnClickListener());
