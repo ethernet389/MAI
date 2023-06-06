@@ -8,6 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Figma -->
+    <color name="design_brown">#D8D3AA</color>
+    <color name="design_green">#BBD8AA</color>
+    <color name="design_blue">#8AD8F0</color>
+    <color name="design_gray">#D9D9D9</color>
+    <color name="design_black">#000000</color>
+
+
     <!--Цвета состояния ячейки матрицы-->
     <color name="parse_exception_red">#B3D13636</color>
     <color name="empty_cell_gray">#B3887E91</color>

@@ -4,15 +4,18 @@
     <string name="criteria_relative">Отношение критериев</string>
     <string name="command_text_template">Отношение кандидатов по критерию: \n</string>
     <string name="result_text">Результаты</string>
-    <string name="next_button_text">Дальше</string>
+    <string name="next_button_text">Завершить</string>
 
     <!--Result Activity-->
     <string name="end_button_text">Завершить просмотр</string>
 
     <!--Start Activity-->
-    <string name="create_template_button_text">Создать шаблон</string>
-    <string name="fill_mai_button_text">Создать опрос</string>
-    <string name="find_out_mai_button_text">Узнать результаты</string>
+    <string name="start_title_text">Метод Анализа Иерархий</string>
+    <string name="create_area_title_text">Создание</string>
+    <string name="view_area_title_text">Просмотр</string>
+    <string name="create_template_button_text">Шаблона</string>
+    <string name="fill_mai_button_text">Опроса</string>
+    <string name="find_out_mai_button_text">Записи</string>
 
     <!--Create MAI Template Activity -->
     <string name="input_template_title_text">Введите критерии сравнения</string>

@@ -1,8 +1,12 @@
 package com.example.mai2.main_programme.activities.start;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,14 +21,32 @@ import com.manojbhadane.QButton;
 
 public class StartActivity extends AppCompatActivity {
 
-    QButton createMAITemplateButton;
-    QButton createMAIButton;
-    QButton checkMAIButton;
+    TextView title;
+    LinearLayout createArea;
+    LinearLayout viewArea;
+
+    Button createMAITemplateButton;
+    Button createMAIButton;
+    Button checkMAIButton;
 
     private void initialize(){
         createMAITemplateButton = findViewById(R.id.create_template_button);
         createMAIButton = findViewById(R.id.start_mai_button);
         checkMAIButton = findViewById(R.id.check_mai_button);
+
+        title = findViewById(R.id.start_title_text);
+        createArea = findViewById(R.id.create_area);
+        viewArea = findViewById(R.id.view_area);
+        changeShapeColor(title, R.color.design_brown);
+        changeShapeColor(createArea, R.color.design_green);
+        changeShapeColor(viewArea, R.color.design_blue);
+    }
+
+    private void changeShapeColor(View view, int colorId){
+        GradientDrawable back = (GradientDrawable) view.getBackground();
+        int color = getColor(colorId);
+        back.mutate();
+        back.setColor(color);
     }
 
     @SuppressWarnings("rawtypes")
@@ -62,7 +84,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.design_activity_start);
         initialize();
 
         setOnClickListeners();
