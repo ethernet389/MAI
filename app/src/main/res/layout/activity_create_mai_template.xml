@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/mai_template_title"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         style="@style/TextViewStyle"
+        android:layout_gravity="center_horizontal"
         android:text="@string/input_template_title_text"
         android:textSize="35sp"
         android:gravity="center" />
@@ -33,7 +34,7 @@
         android:text="@string/add_criteria_button_text" />
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <LinearLayout

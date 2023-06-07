@@ -7,8 +7,9 @@
     tools:context=".main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         style="@style/TextViewStyle"
         android:text="@string/title_choose_text"
         android:textSize="35sp" />
@@ -17,7 +18,8 @@
         android:id="@+id/choose_template_recycler"
         android:orientation="horizontal"
         tools:listitem="@layout/one_choose_element"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

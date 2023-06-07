@@ -11,8 +11,9 @@
         android:id="@+id/mai_title"
         style="@style/TextViewStyle"
         android:inputType="none"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/input_candidates_title_text"
         android:textSize="35sp"
         android:gravity="center" />
@@ -34,7 +35,7 @@
         android:text="@string/add_candidate_button_text" />
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <LinearLayout

@@ -8,19 +8,21 @@
 
     <TextView
         android:id="@+id/check_mai_title"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         style="@style/TextViewStyle"
         android:text="@string/title_check_result_text"
         android:textSize="35sp"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:padding="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mai_records_container"
         tools:listitem="@layout/one_choose_element"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical"/>
 
 </LinearLayout>
