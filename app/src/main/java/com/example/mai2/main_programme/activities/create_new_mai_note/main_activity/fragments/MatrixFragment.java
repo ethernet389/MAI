@@ -82,6 +82,12 @@ public class MatrixFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        newInstance(headers, title);
+    }
+
     private class GeneratorThread extends Thread {
         private final LayoutInflater inflater;
         private final GeneratorHandler handler = new GeneratorHandler();

@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         getSupportFragmentManager(), getLifecycle(),
                         getApplicationContext(), criteria, candidates
                 );
+                fragmentPager.setOffscreenPageLimit(1);
                 fragmentPager.setAdapter(adapter);
                 nextButton.setOnClickListener(this);
             }

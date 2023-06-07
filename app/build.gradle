@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.mai2"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -29,12 +29,6 @@ android {
 }
 
 dependencies {
-    //Красивые кнопки
-    implementation "com.github.manojbhadane:QButton:v1.3"
-
-    //Красивые EditText
-    implementation "com.github.Rajagopalr3:CustomEditText:master"
-
     //Библиотека, реализующая матрицы и операции с ними
     implementation 'gov.nist.math:jama:1.0.3'
 
