@@ -28,11 +28,8 @@
         android:id="@+id/go_next_with_name_button"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:background="@drawable/button_area_shape"
         android:layout_gravity="center_horizontal"
         style="@style/ButtonStyle"
-        android:padding="20dp"
-        android:text="@string/mai_template_name_button_text"
-        android:textSize="20sp" />
+        android:text="@string/mai_template_name_button_text" />
 
 </LinearLayout>

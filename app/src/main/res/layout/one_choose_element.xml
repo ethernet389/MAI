@@ -8,7 +8,6 @@
     <Button
         android:id="@+id/logic_button"
         style="@style/ButtonStyle"
-        android:background="@drawable/button_area_shape"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:textSize="20sp" />
