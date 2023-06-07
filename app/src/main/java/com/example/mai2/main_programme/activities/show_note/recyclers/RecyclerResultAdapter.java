@@ -1,6 +1,7 @@
 package com.example.mai2.main_programme.activities.show_note.recyclers;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class RecyclerResultAdapter
         extends RecyclerView.Adapter<RecyclerResultAdapter.ResultHolder> {
 
     private final LayoutInflater inflater;
+    private final Context context;
     private final Buffer buffer;
     private final String[] criteriaNames;
     private final String[] candidatesNames;
@@ -28,6 +30,7 @@ public class RecyclerResultAdapter
                                  Buffer buffer,
                                  String[] criteriaNames,
                                  String[] candidatesNames){
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.buffer = buffer;
         this.criteriaNames = criteriaNames;
@@ -37,6 +40,8 @@ public class RecyclerResultAdapter
     private View createOneViewElement(@NonNull ViewGroup parent){
         LinearLayout element =
                 (LinearLayout) inflater.inflate(R.layout.recycler_container_layout, parent, false);
+        GradientDrawable back = (GradientDrawable) element.getBackground().mutate();
+        back.setColor(context.getColor(R.color.design_gray));
         LinearLayout candidatesContainer = element.findViewById(R.id.candidates_container);
         for (String candidatesName : candidatesNames) {
             TableRow valueRow =
