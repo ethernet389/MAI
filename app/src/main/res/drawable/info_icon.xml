@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <vector android:width="49dp"
+            android:height="49dp"
+            android:viewportWidth="49"
+            android:viewportHeight="49">
+            <path
+                android:fillColor="@color/design_little_dark_gray"
+                android:pathData="M22.05 36.75h4.9v-14.7h-4.9v14.7ZM24.5 0C10.96 0 0 10.96 0 24.5S10.96 49 24.5 49 49 38.04 49 24.5 38.04 0 24.5 0Zm0 44.1c-10.8 0-19.6-8.8-19.6-19.6S13.7 4.9 24.5 4.9s19.6 8.8 19.6 19.6-8.8 19.6-19.6 19.6Zm-2.45-26.95h4.9v-4.9h-4.9v4.9Z"/>
+        </vector>
+    </item>
+
+    <item android:state_selected="true">
+        <vector android:width="49dp"
+            android:height="49dp"
+            android:viewportWidth="49"
+            android:viewportHeight="49">
+            <path
+                android:fillColor="@color/design_little_dark_gray"
+                android:pathData="M22.05 36.75h4.9v-14.7h-4.9v14.7ZM24.5 0C10.96 0 0 10.96 0 24.5S10.96 49 24.5 49 49 38.04 49 24.5 38.04 0 24.5 0Zm0 44.1c-10.8 0-19.6-8.8-19.6-19.6S13.7 4.9 24.5 4.9s19.6 8.8 19.6 19.6-8.8 19.6-19.6 19.6Zm-2.45-26.95h4.9v-4.9h-4.9v4.9Z"/>
+        </vector>
+    </item>
+
+    <item>
+        <vector android:width="49dp"
+            android:height="49dp"
+            android:viewportWidth="49"
+            android:viewportHeight="49">
+            <path
+                android:fillColor="@color/design_black"
+                android:pathData="M22.05 36.75h4.9v-14.7h-4.9v14.7ZM24.5 0C10.96 0 0 10.96 0 24.5S10.96 49 24.5 49 49 38.04 49 24.5 38.04 0 24.5 0Zm0 44.1c-10.8 0-19.6-8.8-19.6-19.6S13.7 4.9 24.5 4.9s19.6 8.8 19.6 19.6-8.8 19.6-19.6 19.6Zm-2.45-26.95h4.9v-4.9h-4.9v4.9Z"/>
+        </vector>
+    </item>
+</selector>

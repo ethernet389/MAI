@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".main_programme.activities.special.InfoActivity">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextViewStyle"
+            android:textSize="30sp"
+            android:text="@string/info_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextViewStyle"
+            android:textStyle="normal"
+            android:gravity="start"
+            android:text="@string/info_text"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextViewStyle"
+            android:textSize="30sp"
+            android:text="@string/info_fill_note_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextViewStyle"
+            android:textStyle="normal"
+            android:gravity="start"
+            android:text="@string/fill_instruction_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/TextViewStyle"
+            android:textSize="30sp"
+            android:text="@string/literature_title"/>
+
+        <LinearLayout
+            android:id="@+id/literature_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/area_shape"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:orientation="vertical"/>
+    </LinearLayout>
+</ScrollView>

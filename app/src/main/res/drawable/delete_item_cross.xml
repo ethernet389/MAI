@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <vector
+            android:width="29dp"
+            android:height="28dp"
+            android:viewportWidth="29"
+            android:viewportHeight="28">
+            <path
+                android:fillColor="@color/design_little_dark_gray"
+                android:pathData="M2.51 0.38c-0.5-0.5-1.31-0.5-1.82 0-0.5 0.5-0.5 1.31 0 1.81l1.82-1.81Zm23.61 27.24c0.5 0.5 1.32 0.5 1.82 0s0.5-1.31 0-1.81l-1.82 1.81ZM0.7 25.81c-0.5 0.5-0.5 1.31 0 1.81s1.32 0.5 1.82 0l-1.82-1.81ZM27.94 2.19c0.5-0.5 0.5-1.31 0-1.81s-1.31-0.5-1.82 0l1.82 1.81ZM0.7 2.2l25.43 25.43 1.82-1.81L2.51 0.38 0.69 2.19Zm1.82 25.43L27.94 2.2l-1.82-1.81L0.7 25.8l1.82 1.81Z"/>
+        </vector>
+    </item>
+
+    <item android:state_selected="true">
+        <vector
+            android:width="29dp"
+            android:height="28dp"
+            android:viewportWidth="29"
+            android:viewportHeight="28">
+            <path
+                android:fillColor="@color/design_little_dark_gray"
+                android:pathData="M2.51 0.38c-0.5-0.5-1.31-0.5-1.82 0-0.5 0.5-0.5 1.31 0 1.81l1.82-1.81Zm23.61 27.24c0.5 0.5 1.32 0.5 1.82 0s0.5-1.31 0-1.81l-1.82 1.81ZM0.7 25.81c-0.5 0.5-0.5 1.31 0 1.81s1.32 0.5 1.82 0l-1.82-1.81ZM27.94 2.19c0.5-0.5 0.5-1.31 0-1.81s-1.31-0.5-1.82 0l1.82 1.81ZM0.7 2.2l25.43 25.43 1.82-1.81L2.51 0.38 0.69 2.19Zm1.82 25.43L27.94 2.2l-1.82-1.81L0.7 25.8l1.82 1.81Z"/>
+        </vector>
+    </item>
+
+    <item>
+        <vector
+            android:width="29dp"
+            android:height="28dp"
+            android:viewportWidth="29"
+            android:viewportHeight="28">
+            <path
+                android:fillColor="@color/design_black"
+                android:pathData="M2.51 0.38c-0.5-0.5-1.31-0.5-1.82 0-0.5 0.5-0.5 1.31 0 1.81l1.82-1.81Zm23.61 27.24c0.5 0.5 1.32 0.5 1.82 0s0.5-1.31 0-1.81l-1.82 1.81ZM0.7 25.81c-0.5 0.5-0.5 1.31 0 1.81s1.32 0.5 1.82 0l-1.82-1.81ZM27.94 2.19c0.5-0.5 0.5-1.31 0-1.81s-1.31-0.5-1.82 0l1.82 1.81ZM0.7 2.2l25.43 25.43 1.82-1.81L2.51 0.38 0.69 2.19Zm1.82 25.43L27.94 2.2l-1.82-1.81L0.7 25.8l1.82 1.81Z"/>
+        </vector>
+    </item>
+</selector>

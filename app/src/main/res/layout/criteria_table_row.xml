@@ -17,6 +17,6 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:src="@drawable/delete_item_x" />
+        android:src="@drawable/delete_item_cross" />
 
 </TableRow>
