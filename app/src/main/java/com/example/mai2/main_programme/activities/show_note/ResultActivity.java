@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.Constants;
+import com.example.mai2.main_programme.activities.check_notes.CheckMAIActivity;
 import com.example.mai2.main_programme.activities.show_note.recyclers.RecyclerResultAdapter;
 import com.example.mai2.main_programme.activities.show_note.workers.CalculatingWorker;
 import com.example.mai2.main_programme.activities.show_note.workers.GetMAINoteWorker;
@@ -122,5 +123,12 @@ public class ResultActivity extends AppCompatActivity {
         WorkManager.getInstance(getApplicationContext())
                 .getWorkInfoByIdLiveData(calculateRequest.getId())
                 .observe(this, calculateObserver);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

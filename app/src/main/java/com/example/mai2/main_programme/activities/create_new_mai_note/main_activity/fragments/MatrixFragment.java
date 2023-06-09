@@ -3,6 +3,7 @@ package com.example.mai2.main_programme.activities.create_new_mai_note.main_acti
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -13,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
+import com.example.mai2.main_programme.algorithm.matrix.ParseMatrixException;
+import com.google.gson.Gson;
 
 
 public class MatrixFragment extends Fragment {
@@ -80,12 +84,6 @@ public class MatrixFragment extends Fragment {
             matrix = (TableLayout) msg.obj;
             container.addView(matrix);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        newInstance(headers, title);
     }
 
     private class GeneratorThread extends Thread {

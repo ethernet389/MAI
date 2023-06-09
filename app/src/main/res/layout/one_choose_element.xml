@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:descendantFocusability = "blocksDescendants"
     android:layout_gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <Button
         android:id="@+id/logic_button"
         style="@style/ButtonStyle"
-        android:layout_width="350dp"
+        android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:textSize="20sp" />
 

@@ -38,9 +38,10 @@ public class RecyclerResultAdapter
     }
 
     private View createOneViewElement(@NonNull ViewGroup parent){
-        LinearLayout element =
-                (LinearLayout) inflater.inflate(R.layout.recycler_container_layout, parent, false);
-        GradientDrawable back = (GradientDrawable) element.getBackground().mutate();
+        ViewGroup element =
+                (ViewGroup) inflater.inflate(R.layout.recycler_container_layout, parent, false);
+        LinearLayout container = element.findViewById(R.id.child_view_container);
+        GradientDrawable back = (GradientDrawable) container.getBackground().mutate();
         back.setColor(context.getColor(R.color.design_gray));
         LinearLayout candidatesContainer = element.findViewById(R.id.candidates_container);
         for (String candidatesName : candidatesNames) {

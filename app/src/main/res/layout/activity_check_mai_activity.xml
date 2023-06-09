@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".main_programme.activities.check_notes.CheckMAIActivity">
 
     <TextView
         android:id="@+id/check_mai_title"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextViewStyle"
         android:text="@string/title_check_result_text"
@@ -20,7 +21,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mai_records_container"
         tools:listitem="@layout/one_choose_element"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"/>

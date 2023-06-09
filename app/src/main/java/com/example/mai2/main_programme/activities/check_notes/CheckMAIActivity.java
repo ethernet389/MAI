@@ -8,6 +8,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_notes.recyclers.MAINoteRecyclerAdapter;
 import com.example.mai2.main_programme.activities.check_notes.workers.GetAllNotesNameWorker;
 import com.example.mai2.main_programme.activities.check_notes.wrappers.ArrayPairList;
+import com.example.mai2.main_programme.activities.start.StartActivity;
 import com.google.gson.Gson;
 
 public class CheckMAIActivity extends AppCompatActivity {
@@ -51,5 +53,12 @@ public class CheckMAIActivity extends AppCompatActivity {
         };
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
                 .observe(this, observer);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

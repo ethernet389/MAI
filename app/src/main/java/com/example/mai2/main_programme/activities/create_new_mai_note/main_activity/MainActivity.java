@@ -135,4 +135,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
                 .observe(this, observer);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ChooseMAIConfigActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

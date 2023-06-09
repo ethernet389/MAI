@@ -1,5 +1,6 @@
 package com.example.mai2.main_programme.activities.create_mai_template;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -138,9 +140,50 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_mai_template);
         initialize();
-
         setClickListenerOnFirstImageButton();
         addCriteriaButton.setOnClickListener(new AddOnClickListener());
         saveTemplateButton.setOnClickListener(new SaveTemplateOnClickListener());
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String[] criteriaArray = new String[criteriaContainer.getChildCount()];
+        for (int i = 0; i < criteriaContainer.getChildCount(); ++i){
+            ViewGroup element = (ViewGroup) criteriaContainer.getChildAt(i);
+            EditText criteria = element.findViewById(R.id.criteria_text);
+            String criteriaText = criteria.getText().toString();
+            criteriaArray[i] = criteriaText;
+        }
+        outState.putStringArray("criteriaArray", criteriaArray);
+    }
+
+    private void setTextAndListeners(TableRow restoredTableRow, String text){
+        EditText criteria = restoredTableRow.findViewById(R.id.criteria_text);
+        criteria.setText(text);
+        ImageView button = restoredTableRow.findViewById(R.id.delete_x);
+        button.setOnClickListener(new DeleteOnClickListener(restoredTableRow));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String[] criteriaArray = savedInstanceState.getStringArray("criteriaArray");
+        TableRow firstRow = (TableRow) criteriaContainer.getChildAt(0);
+        setTextAndListeners(firstRow, criteriaArray[0]);
+        for (int i = 1; i < criteriaArray.length; ++i){
+            @SuppressLint("InflateParams")
+            TableRow restoredTableRow
+                    = (TableRow) layoutInflater.inflate(R.layout.criteria_table_row, null);
+            setTextAndListeners(restoredTableRow, criteriaArray[i]);
+            criteriaContainer.addView(restoredTableRow);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, SetNameForMAITemplateActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

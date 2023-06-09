@@ -2,11 +2,12 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/one_candidate"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center">
 
     <EditText
         android:id="@+id/candidate_text"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         style="@style/EditTextStyle"
         android:hint="@string/list_of_candidate_item_hint" />

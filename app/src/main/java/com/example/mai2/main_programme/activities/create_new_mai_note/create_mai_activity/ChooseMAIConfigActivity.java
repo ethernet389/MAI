@@ -8,11 +8,13 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.recyclers.ChooseTemplateRecyclerAdapter;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.workers.GetAllMAIConfigNamesWorker;
+import com.example.mai2.main_programme.activities.start.StartActivity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -49,5 +51,12 @@ public class ChooseMAIConfigActivity extends AppCompatActivity {
 
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.getId())
                 .observe(this, observer);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -3,6 +3,7 @@ package com.example.mai2.main_programme.activities.create_new_mai_note.create_ma
 import static com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY;
 import static com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.CreateMAIActivity.CANDIDATES_KEY;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
@@ -99,5 +100,26 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
         initialize();
 
         next.setOnClickListener(new NextOnClickListener());
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String templateName = inputName.getText().toString();
+        outState.putString("name", templateName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String templateName = savedInstanceState.getString("name");
+        inputName.setText(templateName);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ChooseMAIConfigActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

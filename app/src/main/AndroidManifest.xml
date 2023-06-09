@@ -76,6 +76,9 @@
         </activity>
         <activity
             android:name=".main_programme.activities.create_new_mai_note.main_activity.MainActivity"
+            android:configChanges="orientation"
+            tools:ignore="LockedOrientationActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

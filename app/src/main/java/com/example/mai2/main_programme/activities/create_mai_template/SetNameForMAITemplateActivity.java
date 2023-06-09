@@ -1,5 +1,6 @@
 package com.example.mai2.main_programme.activities.create_mai_template;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.work.Data;
@@ -9,6 +10,7 @@ import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.workers.QueryNameWorker;
+import com.example.mai2.main_programme.activities.start.StartActivity;
 
 public class SetNameForMAITemplateActivity extends AppCompatActivity {
 
@@ -89,5 +92,26 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
         initialize();
 
         nextButton.setOnClickListener(new NextOnClickListener());
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String templateName = inputMAIName.getText().toString();
+        outState.putString("name", templateName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String templateName = savedInstanceState.getString("name");
+        inputMAIName.setText(templateName);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -57,6 +57,7 @@ public class StartActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(StartActivity.this, activity);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -84,5 +85,10 @@ public class StartActivity extends AppCompatActivity {
         initialize();
 
         setOnClickListeners();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
