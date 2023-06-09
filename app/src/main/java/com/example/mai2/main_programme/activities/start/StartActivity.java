@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.check_notes.CheckMAIActivity;
@@ -24,12 +25,13 @@ public class StartActivity extends AppCompatActivity {
     TextView title;
     LinearLayout createArea;
     LinearLayout viewArea;
-    LinearLayout specialArea;
+    ConstraintLayout specialArea;
 
     Button createMAITemplateButton;
     Button createMAIButton;
     Button checkMAIButton;
 
+    ImageView exitButton;
     ImageView settingsButton;
     ImageView infoButton;
 
@@ -37,6 +39,7 @@ public class StartActivity extends AppCompatActivity {
         createMAITemplateButton = findViewById(R.id.create_template_button);
         createMAIButton = findViewById(R.id.start_mai_button);
         checkMAIButton = findViewById(R.id.check_mai_button);
+        exitButton = findViewById(R.id.exit_button);
         settingsButton = findViewById(R.id.settings_image);
         infoButton = findViewById(R.id.info_image);
 
@@ -97,10 +100,11 @@ public class StartActivity extends AppCompatActivity {
         initialize();
 
         setOnClickListeners();
+        exitButton.setOnClickListener(exit -> {
+            finish();
+        });
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
-    }
+    public void onBackPressed() {}
 }

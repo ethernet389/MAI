@@ -77,7 +77,6 @@
         Порядок следования соблюдается.
     </string>
     <string name="literature_title">Литература</string>
-    
     <string-array name="literature_text">
         <item><u>Таха. Теория игр и принятия решений</u></item>
         <item><u>Лекция 1. Метод анализа иерархий (метод Т.Л. Саати)</u></item>
