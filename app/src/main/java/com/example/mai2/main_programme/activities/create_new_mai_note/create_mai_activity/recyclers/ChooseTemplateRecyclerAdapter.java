@@ -3,13 +3,18 @@ package com.example.mai2.main_programme.activities.create_new_mai_note.create_ma
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.ChooseMAIConfigActivity.NAME_OF_CONFIG_KEY;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.CreateMAIActivity;
 import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.LogRecord;
 
 public class ChooseTemplateRecyclerAdapter
         extends RecyclerView.Adapter<ChooseTemplateRecyclerAdapter.ViewHolder> {
@@ -69,17 +77,50 @@ public class ChooseTemplateRecyclerAdapter
                 context.startActivity(intent);
             });
 
+            intentButton.setOnLongClickListener(v -> {
+                int position = getAbsoluteAdapterPosition();
+                if (position == NO_POSITION) return false;
+                Dialog dialog = new Dialog(context);
+                String name = MAIConfigsName.get(position);
+                dialog.setTitle(name);
+                dialog.setContentView(R.layout.dialog_template_layout);
+                TextView text = dialog.findViewById(R.id.template_feats);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        String[] criteria = AppDatabase.getAppDatabase(context)
+                                .getMAIConfigDao()
+                                .getCriteriaByName(name);
+                        criteria = new Gson().fromJson(criteria[0], String[].class);
+                        Message msg = new Message();
+                        msg.obj = criteria;
+                        handler.sendMessage(msg);
+                    }
+                    @SuppressLint("HandlerLeak")
+                    final Handler handler = new Handler(){
+                        @Override
+                        public void handleMessage(@NonNull Message msg) {
+                            String[] criteria = (String[]) msg.obj;
+                            text.append("Критерии:\n");
+                            for (int i = 0; i < criteria.length; ++i) {
+                                String s = String.format(Locale.CANADA, "%d. %s\n", i + 1, criteria[i]);
+                                text.append(s);
+                            }
+                        }
+                    };
+                }.start();
+                dialog.show();
+                return false;
+            });
+
             deleteButton.setOnClickListener(listener -> {
                 int position = getAbsoluteAdapterPosition();
                 if (position == NO_POSITION) return;
                 String name = MAIConfigsName.get(position);
-                new Thread(){
-                    @Override
-                    public void run() {
-                        AppDatabase db = AppDatabase.getAppDatabase(context);
-                        db.getMAIConfigDao().deleteMAIConfigByName(name);
-                    }
-                }.start();
+                new Thread(() -> {
+                    AppDatabase db = AppDatabase.getAppDatabase(context);
+                    db.getMAIConfigDao().deleteMAIConfigByName(name);
+                }).start();
                 MAIConfigsName.remove(position);
                 notifyItemRemoved(position);
             });
