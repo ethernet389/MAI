@@ -51,7 +51,7 @@
         1. Create a template from numerically measured criteria
         \n2. Fill out the survey, chosen a template
         \n3. View the result and chose candidate with highest rating
-        <b>Note 1:</b> If you forgot criteria of template evaluation, <b>hold</b> template button
+        \n<b>Note 1:</b> If you forgot criteria of template evaluation, <b>hold</b> template button
     </string>
     <string name="info_title">How to use this app</string>
     <string name="info_fill_note_title">How to create survey/template</string>
@@ -73,7 +73,7 @@
         (left or top respectively)
         \n\n
         <b>Note 3:</b>
-        Reduction of criteria and candidates is made by <b>the first three б</b>.
+        Reduction of criteria and candidates is made by <b>the first three</b>.
         The sequence is observed.
     </string>
     <string name="literature_title">Literature</string>
