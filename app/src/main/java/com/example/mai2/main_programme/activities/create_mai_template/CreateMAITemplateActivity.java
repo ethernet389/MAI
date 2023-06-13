@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.workers.QueryAddMAIConfigWorker;
 import com.example.mai2.main_programme.activities.start.StartActivity;
-import com.example.mai2.main_programme.change_language.Language;
 
 public class CreateMAITemplateActivity extends AppCompatActivity {
 
@@ -141,7 +140,6 @@ public class CreateMAITemplateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_mai_template);
         initialize();
-        Language.setLanguage(this);
         setClickListenerOnFirstImageButton();
         addCriteriaButton.setOnClickListener(new AddOnClickListener());
         saveTemplateButton.setOnClickListener(new SaveTemplateOnClickListener());

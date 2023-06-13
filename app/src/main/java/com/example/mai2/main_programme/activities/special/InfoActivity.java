@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.start.StartActivity;
-import com.example.mai2.main_programme.change_language.Language;
+
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -39,7 +39,6 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         initialize();
-        Language.setLanguage(this);
 
         String[] literature = getResources().getStringArray(R.array.literature_text);
         String[] hyperlinks = getResources().getStringArray(R.array.hyperlink_literature);

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.workers.QueryNameWorker;
 import com.example.mai2.main_programme.activities.create_new_mai_note.main_activity.MainActivity;
-import com.example.mai2.main_programme.change_language.Language;
+
 
 public class GetNameMAINoteActivity extends AppCompatActivity {
 
@@ -99,7 +99,6 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_set_name);
         initialize();
-        Language.setLanguage(this);
 
         next.setOnClickListener(new NextOnClickListener());
     }

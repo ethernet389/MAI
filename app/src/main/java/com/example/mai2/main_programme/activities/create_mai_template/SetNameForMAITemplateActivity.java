@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.workers.QueryNameWorker;
 import com.example.mai2.main_programme.activities.start.StartActivity;
-import com.example.mai2.main_programme.change_language.Language;
 
 public class SetNameForMAITemplateActivity extends AppCompatActivity {
 
@@ -91,7 +90,6 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_set_name);
         initialize();
-        Language.setLanguage(this);
 
         nextButton.setOnClickListener(new NextOnClickListener());
     }

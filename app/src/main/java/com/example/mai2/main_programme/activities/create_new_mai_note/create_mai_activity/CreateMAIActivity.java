@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.CreateMAITemplateActivity;
-import com.example.mai2.main_programme.change_language.Language;
+
 
 public class CreateMAIActivity extends AppCompatActivity {
 
@@ -104,8 +104,6 @@ public class CreateMAIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_mai_activity);
         initialize();
-        Language.setLanguage(this);
-
         TableRow firstRow = findViewById(R.id.one_candidate);
         ImageView firstDelete = firstRow.findViewById(R.id.delete_x);
         firstDelete.setOnClickListener(new DeleteOnClickListener(firstRow));

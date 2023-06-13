@@ -14,9 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mai2.R;
+import com.example.mai2.main_programme.activities.create_new_mai_note.main_activity.MainActivity;
 import com.example.mai2.main_programme.activities.start.StartActivity;
-import com.example.mai2.main_programme.change_language.Language;
 import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.yariksoffice.lingver.Lingver;
 
 public class SettingsActivity extends AppCompatActivity {
     LinearLayout dbArea;
@@ -88,10 +89,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            SharedPreferences settings = getSharedPreferences("language", MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("language", language);
-            editor.apply();
+            Lingver.getInstance().setLocale(SettingsActivity.this, language);
+
+            Intent intent = new Intent(SettingsActivity.this, StartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -100,12 +103,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initialize();
-        Language.setLanguage(this);
 
         deleteDdButton.setOnClickListener(new OnClickDeleteListener());
         russianButton.setOnClickListener(new ChangeLanguageOnClickListener("ru"));
         englishButton.setOnClickListener(new ChangeLanguageOnClickListener("en"));
-
     }
 
     @Override

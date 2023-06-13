@@ -18,7 +18,6 @@ import com.example.mai2.main_programme.activities.check_notes.recyclers.MAINoteR
 import com.example.mai2.main_programme.activities.check_notes.workers.GetAllNotesNameWorker;
 import com.example.mai2.main_programme.activities.check_notes.wrappers.ArrayPairList;
 import com.example.mai2.main_programme.activities.start.StartActivity;
-import com.example.mai2.main_programme.change_language.Language;
 import com.google.gson.Gson;
 
 public class CheckMAIActivity extends AppCompatActivity {
@@ -36,7 +35,6 @@ public class CheckMAIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Language.setLanguage(this);
         setContentView(R.layout.activity_check_mai_activity);
         initialize();
 
