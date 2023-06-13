@@ -101,7 +101,7 @@ public class ChooseTemplateRecyclerAdapter
                         @Override
                         public void handleMessage(@NonNull Message msg) {
                             String[] criteria = (String[]) msg.obj;
-                            text.append("Критерии:\n");
+                            text.append(context.getString(R.string.template_content_dialog_header));
                             for (int i = 0; i < criteria.length; ++i) {
                                 String s = String.format(Locale.CANADA, "%d. %s\n", i + 1, criteria[i]);
                                 text.append(s);

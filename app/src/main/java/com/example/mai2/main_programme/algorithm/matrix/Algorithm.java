@@ -125,6 +125,7 @@ public class Algorithm {
     static public String matrixToString(TableLayout layout)
             throws ParseMatrixException {
         StringBuilder ret = new StringBuilder();
+        Context context = layout.getContext();
 
         for (int i = 1; i < layout.getChildCount(); ++i){
             TableRow tr = (TableRow) layout.getChildAt(i);
@@ -134,7 +135,9 @@ public class Algorithm {
 
                 //Обработка случая, когда не все клетки заполнены
                 if (cellText.isEmpty()){
-                    throw new ParseMatrixException("Есть пустая ячейка", i, j);
+                    throw new ParseMatrixException(
+                            context.getString(R.string.matrix_has_empty_cell_message), i, j
+                    );
                 }
 
                 //Вычисление числа (Преобразование строки в число)
@@ -142,7 +145,9 @@ public class Algorithm {
                 if (cellText.length() > 1) {
                     //Обработка случая вставки через буфер
                     if (cellText.charAt(1) != '/' || cellText.charAt(0) != '1'){
-                        throw new ParseMatrixException("Неправильный формат числа", i, j);
+                        throw new ParseMatrixException(
+                                context.getString(R.string.matrix_error_format_message), i, j
+                        );
                     }
 
                     double denominator;

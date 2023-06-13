@@ -33,6 +33,9 @@ import com.example.mai2.main_programme.activities.create_new_mai_note.main_activ
 import com.example.mai2.main_programme.activities.show_note.ResultActivity;
 import com.example.mai2.main_programme.algorithm.matrix.Algorithm;
 import com.example.mai2.main_programme.algorithm.matrix.ParseMatrixException;
+import com.example.mai2.main_programme.change_language.Language;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        Language.setLanguage(this);
 
         Intent pastIntent = getIntent();
         candidates = pastIntent.getStringArrayExtra(CreateMAIActivity.CANDIDATES_KEY);
@@ -72,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         getSupportFragmentManager(), getLifecycle(),
                         getApplicationContext(), criteria, candidates
                 );
-                fragmentPager.setOffscreenPageLimit(criteria.length + 1);
                 fragmentPager.setAdapter(adapter);
+                fragmentPager.setOffscreenPageLimit(criteria.length + 1);
                 nextButton.setOnClickListener(this);
             }
         };

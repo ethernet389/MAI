@@ -33,4 +33,48 @@
             style="@style/ButtonStyle"
             android:text="@string/delete_db_button_text"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/language_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/area_shape"
+        android:layout_margin="5dp"
+        android:padding="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="@string/language_header"
+            android:textStyle="bold"
+            android:textColor="@color/design_black"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/english_button"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                style="@style/ButtonStyle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/russian_button"
+                android:text="@string/english_language"/>
+            <Button
+                android:id="@+id/russian_button"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                style="@style/ButtonStyle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/english_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/russian_language"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </LinearLayout>

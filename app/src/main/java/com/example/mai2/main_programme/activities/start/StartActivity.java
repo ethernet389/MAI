@@ -18,7 +18,7 @@ import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai
 import com.example.mai2.main_programme.activities.create_mai_template.SetNameForMAITemplateActivity;
 import com.example.mai2.main_programme.activities.special.InfoActivity;
 import com.example.mai2.main_programme.activities.special.SettingsActivity;
-import com.example.mai2.main_programme.db.database.AppDatabase;
+import com.example.mai2.main_programme.change_language.Language;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -98,6 +98,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         initialize();
+        Language.setLanguage(this);
 
         setOnClickListeners();
         exitButton.setOnClickListener(exit -> {

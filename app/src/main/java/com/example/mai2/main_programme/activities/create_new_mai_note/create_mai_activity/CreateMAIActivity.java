@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.CreateMAITemplateActivity;
+import com.example.mai2.main_programme.change_language.Language;
 
 public class CreateMAIActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public class CreateMAIActivity extends AppCompatActivity {
                 if (criteria.isEmpty()){
                     Toast.makeText(
                             getApplicationContext(),
-                            "Кандидат не имеет названия!",
+                            R.string.missing_field_name_message,
                             Toast.LENGTH_SHORT
                     ).show();
                     return null;
@@ -103,6 +104,7 @@ public class CreateMAIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_mai_activity);
         initialize();
+        Language.setLanguage(this);
 
         TableRow firstRow = findViewById(R.id.one_candidate);
         ImageView firstDelete = firstRow.findViewById(R.id.delete_x);

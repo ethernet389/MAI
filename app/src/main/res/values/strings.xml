@@ -88,4 +88,17 @@
         <item>https://github.com/ethernet389/Solve-on-Java/blob/main/docs/saaty.pdf</item>
     </string-array>
 
+    <!--Error message and not xml headers -->
+    <string name="missing_name_message">Название не введено!</string>
+    <string name="name_is_busy_message">Название занято!</string>
+    <string name="missing_field_name_message">Поле не заполнено!</string>
+    <string name="final_rating_header">Общий рейтинг</string>
+    <string name="template_content_dialog_header">Критерии:\n</string>
+    <string name="database_is_cleared_message">База данных очищена</string>
+    <string name="database_is_deleting_message">Для удаления нажмите ещё раз</string>
+    <string name="matrix_has_empty_cell_message">Есть пустая ячейка</string>
+    <string name="matrix_error_format_message">Неправильный формат числа</string>
+    <string name="language_header">Языки</string>
+    <string name="russian_language">Русский</string>
+    <string name="english_language">English</string>
 </resources>

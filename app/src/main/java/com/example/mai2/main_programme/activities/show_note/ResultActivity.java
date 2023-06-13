@@ -30,6 +30,7 @@ import com.example.mai2.main_programme.activities.show_note.workers.CalculatingW
 import com.example.mai2.main_programme.activities.show_note.workers.GetMAINoteWorker;
 import com.example.mai2.main_programme.activities.start.StartActivity;
 import com.example.mai2.main_programme.algorithm.math.Buffer;
+import com.example.mai2.main_programme.change_language.Language;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -61,6 +62,7 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         initialize();
+        Language.setLanguage(this);
 
         endViewButton.setOnClickListener(endViewing -> {
             Intent intent = new Intent(getApplicationContext(), StartActivity.class);

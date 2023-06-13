@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Main Activity-->
+    <string name="app_name">MAI</string>
+    <string name="criteria_relative">Criteria ratio</string>
+    <string name="command_text_template">Ratio of candidates by criterion: \n</string>
+    <string name="result_text">Result</string>
+    <string name="next_button_text">Complete</string>
+
+    <!--Result Activity-->
+    <string name="end_button_text">Complete viewing</string>
+
+    <!--Start Activity-->
+    <string name="start_title_text">Hierarchy Analysis\n Method</string>
+    <string name="create_area_title_text">Making</string>
+    <string name="view_area_title_text">Viewing</string>
+    <string name="create_template_button_text">Template</string>
+    <string name="fill_mai_button_text">Survey</string>
+    <string name="find_out_mai_button_text">Note</string>
+
+    <!--Create MAI Template Activity -->
+    <string name="input_template_title_text">Enter comparison criteria</string>
+    <string name="add_criteria_button_text">Add criterion</string>
+    <string name="delete_criteria_button_text">Delete criterion</string>
+    <string name="save_template_button_text">Save template</string>
+    <string name="list_of_criteria_item_hint">Criterion</string>
+
+    <string name="title_of_set_name_mai_template_text">Enter template name</string>
+    <string name="input_mai_template_name_hint">Template name</string>
+    <string name="mai_template_name_button_text">Continue</string>
+
+    <!--Create MAI Activity-->
+    <string name="title_choose_text">Templates</string>
+
+    <string name="input_candidates_title_text">Enter candidates</string>
+    <string name="add_candidate_button_text">Add candidate</string>
+    <string name="start_answering_button_text">Create answer</string>
+    <string name="list_of_candidate_item_hint">Candidate</string>
+
+    <!--GetNameMAINoteActivity -->
+    <string name="title_of_get_name_mai_note">Enter note name</string>
+    <string name="input_mai_note_name">Note name</string>
+    <string name="title_check_result_text">Notes of surveys</string>
+
+    <!--SettingsActivity -->
+    <string name="settings_db_area_title">Database</string>
+    <string name="delete_db_button_text">Clear</string>
+
+    <!--InfoActivity-->
+    <string name="info_text">
+        1. Создать шаблон из численно измеряемых критериев
+        \n2. Заполнить опрос, выбрав шаблон
+        \n3. Просмотреть результат и выбрать кандидата с высшим рейтингом
+        \n\n
+        <b>Примечание 1:</b> Если вы забыли критерии оценивания шаблона, то <b>зажмите</b> кнопку шаблона
+    </string>
+    <string name="info_title">How to use this app</string>
+    <string name="info_fill_note_title">How to create survey/template</string>
+    <string name="fill_instruction_text">
+        Требуется ячейку таблицы (например, строка i и столбец j).
+        Далее выбрать целое численное значение от 1 до 9.
+        \n\n
+        <b>Смысл численных значений:</b>
+        \n1 - строка i <i>одинаково важна</i> столбцу j
+        \n2 - строка i <i>немного важнее</i> столбца j
+        \n5 - строка i <i>значительно важнее</i> столбца j
+        \n9 - строка i <i>максимально важнее</i> столбца j
+        \n\n
+        <b>Примечание 1:</b>
+        Значения по типу 1/2, 1/3, 1/4 и т.д. являются противоположностью к ранее описанным.
+        \n\n
+        <b>Примечание 2:</b>
+        Если вы вдруг забыли, что означает строка или столбец, то <b>нажмите</b> на название
+        (слева или сверху соответственно)
+        \n\n
+        <b>Примечание 3:</b>
+        Cокращение критериев и кандидатов производится по <b>первым трём буквам</b>.
+        Порядок следования соблюдается.
+    </string>
+    <string name="literature_title">Literature</string>
+    <string-array name="literature_text">
+        <item><u>Таха. Теория игр и принятия решений</u></item>
+        <item><u>Лекция 1. Метод анализа иерархий (метод Т.Л. Саати)</u></item>
+        <item><u>Т.Саати. Принятие решений. Метод анализа иерархий</u></item>
+    </string-array>
+    <string-array name="hyperlink_literature">
+        <item>https://github.com/ethernet389/Solve-on-Java/blob/main/docs/%D0%A2%D0%B0%D1%85%D0%B0.pdf</item>
+        <item>https://github.com/ethernet389/Solve-on-Java/blob/main/docs/lec1_is-2_2020%20(1).pdf</item>
+        <item>https://github.com/ethernet389/Solve-on-Java/blob/main/docs/saaty.pdf</item>
+    </string-array>
+
+    <!--Error message and not xml headers -->
+    <string name="missing_name_message">Name not entered!</string>
+    <string name="name_is_busy_message">This name is busy!</string>
+    <string name="missing_field_name_message">Field is empty!</string>
+    <string name="final_rating_header">Final rating</string>
+    <string name="template_content_dialog_header">Criteria:\n</string>
+    <string name="database_is_cleared_message">Database is cleared</string>
+    <string name="database_is_deleting_message">Click again to delete</string>
+    <string name="matrix_has_empty_cell_message">There is an empty cell</string>
+    <string name="matrix_error_format_message">Wrong number format</string>
+    <string name="language_header">Languages</string>
+    <string name="russian_language">Русский</string>
+    <string name="english_language">English</string>
+</resources>

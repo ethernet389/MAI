@@ -72,7 +72,7 @@ public class RecyclerResultAdapter
             holder.criteriaName.setText(criteriaNames[position]);
         } catch (IndexOutOfBoundsException e){
             valueArray = buffer.finalRelativeWeights;
-            holder.criteriaName.setText("Общий рейтинг");
+            holder.criteriaName.setText(R.string.final_rating_header);
         }
 
         for (int i = 0; i < holder.candidateContainer.getChildCount(); ++i){

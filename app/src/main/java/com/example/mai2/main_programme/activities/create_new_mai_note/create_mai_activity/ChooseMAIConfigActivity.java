@@ -15,6 +15,7 @@ import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.recyclers.ChooseTemplateRecyclerAdapter;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.workers.GetAllMAIConfigNamesWorker;
 import com.example.mai2.main_programme.activities.start.StartActivity;
+import com.example.mai2.main_programme.change_language.Language;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class ChooseMAIConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_mai_config);
         initialize();
+        Language.setLanguage(this);
         OneTimeWorkRequest request = new OneTimeWorkRequest
                 .Builder(GetAllMAIConfigNamesWorker.class)
                 .build();

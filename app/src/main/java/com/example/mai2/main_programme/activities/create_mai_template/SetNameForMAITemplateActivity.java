@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_mai_template.workers.QueryNameWorker;
 import com.example.mai2.main_programme.activities.start.StartActivity;
+import com.example.mai2.main_programme.change_language.Language;
 
 public class SetNameForMAITemplateActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
         public void onClick(View v) {
             String nameOfConfig = inputMAIName.getText().toString();
             if (nameOfConfig.isEmpty()) {
-                showShortToastWithText("Название не введено!");
+                showShortToastWithText(getString(R.string.missing_name_message));
                 return;
             };
 
@@ -59,7 +60,7 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
                 public void onChanged(WorkInfo workInfo) {
                     switch (workInfo.getState()){
                         case FAILED:
-                            showShortToastWithText("Шаблон с таким названием уже есть!");
+                            showShortToastWithText(getString(R.string.name_is_busy_message));
                             break;
                         case SUCCEEDED:
                             Intent intent = new Intent(
@@ -90,6 +91,7 @@ public class SetNameForMAITemplateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_set_name);
         initialize();
+        Language.setLanguage(this);
 
         nextButton.setOnClickListener(new NextOnClickListener());
     }

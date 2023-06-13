@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.mai2.R;
 import com.example.mai2.main_programme.activities.create_new_mai_note.create_mai_activity.workers.QueryNameWorker;
 import com.example.mai2.main_programme.activities.create_new_mai_note.main_activity.MainActivity;
+import com.example.mai2.main_programme.change_language.Language;
 
 public class GetNameMAINoteActivity extends AppCompatActivity {
 
@@ -33,10 +34,10 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
 
     class NextOnClickListener implements View.OnClickListener{
 
-        private void showShortToastWithText(String text){
+        private void showShortToastWithText(int id){
             Toast.makeText(
                     getApplicationContext(),
-                    text,
+                    id,
                     Toast.LENGTH_SHORT
             ).show();
         }
@@ -45,7 +46,7 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
         public void onClick(View v) {
             String name = inputName.getText().toString();
             if (name.isEmpty()) {
-                showShortToastWithText("Название не введено!");
+                showShortToastWithText(R.string.missing_name_message);
                 return;
             }
 
@@ -73,7 +74,7 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
                             finish();
                             break;
                         case FAILED:
-                            showShortToastWithText("Запись с таким названием уже есть!");
+                            showShortToastWithText(R.string.name_is_busy_message);
                             break;
                     }
                 }
@@ -98,6 +99,7 @@ public class GetNameMAINoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_set_name);
         initialize();
+        Language.setLanguage(this);
 
         next.setOnClickListener(new NextOnClickListener());
     }
